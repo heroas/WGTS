@@ -17,6 +17,7 @@ from kivymd.date_picker import MDDatePicker
 from kivymd.dialog import MDDialog
 from kivymd.label import MDLabel
 from kivymd.list import ILeftBody, ILeftBodyTouch, IRightBodyTouch, BaseListItem
+from kivymd.list import OneLineListItem
 from kivymd.material_resources import DEVICE_TYPE
 from kivymd.navigationdrawer import MDNavigationDrawer, NavigationDrawerHeaderBase
 from kivymd.selectioncontrols import MDCheckbox
@@ -65,6 +66,10 @@ class WGTS(App):
          self.root.ids.rsLbl.text = str(data["data"]["Media"]["title"]["english"])
 
          Snackbar(text=text).show()
+
+    def add_genre(self, genre_type):
+        Snackbar(text='Added '+ genre_type).show()
+        self.root.ids.ml.add_widget(OneLineListItem(text=genre_type))
 
 if __name__ == '__main__':
     WGTS().run()

@@ -55,7 +55,8 @@ Screen:
             size_hint_x: None
             width: '60dp'
         MDCheckbox:
-            id: disable_the_buttons
+            id: actionChk
+            on_state: app.add_genre('Action')
 
     BoxLayout:
         size_hint: None, None
@@ -70,6 +71,7 @@ Screen:
             width: '60dp'
         MDCheckbox:
             id: disable_the_buttons
+            on_state: app.add_genre('Action')
 
 
     BoxLayout:
@@ -85,6 +87,85 @@ Screen:
             width: '60dp'
         MDCheckbox:
             id: disable_the_buttons
+            on_state: app.add_genre('Action')
+
+
+    BoxLayout:
+        size_hint: None, None
+        size: '100dp', '50dp'
+        pos_hint: {'x': 0.50, 'center_y': 0.85}
+        padding: '5dp'
+        MDLabel:
+            font_style: 'Body1'
+            theme_text_color: 'Primary'
+            text: "Action"
+            size_hint_x: None
+            width: '60dp'
+        MDCheckbox:
+            id: disable_the_buttons
+            on_state: app.add_genre('Action')
+
+
+    BoxLayout:
+        size_hint: None, None
+        size: '100dp', '50dp'
+        pos_hint: {'x': 0.05, 'center_y': 0.75}
+        padding: '5dp'
+        MDLabel:
+            font_style: 'Body1'
+            theme_text_color: 'Primary'
+            text: "Action"
+            size_hint_x: None
+            width: '60dp'
+        MDCheckbox:
+            id: disable_the_buttons
+            on_state: app.add_genre('Action')
+
+    BoxLayout:
+        size_hint: None, None
+        size: '100dp', '50dp'
+        padding: '5dp'
+        pos_hint: {'x': 0.2, 'center_y': 0.75}
+        MDLabel:
+            font_style: 'Body1'
+            theme_text_color: 'Primary'
+            text: "Adventure"
+            size_hint_x: None
+            width: '60dp'
+        MDCheckbox:
+            id: disable_the_buttons
+            on_state: app.add_genre('Action')
+
+
+    BoxLayout:
+        size_hint: None, None
+        size: '100dp', '50dp'
+        pos_hint: {'x': 0.35, 'center_y': 0.75}
+        padding: '5dp'
+        MDLabel:
+            font_style: 'Body1'
+            theme_text_color: 'Primary'
+            text: "Comedy"
+            size_hint_x: None
+            width: '60dp'
+        MDCheckbox:
+            id: disable_the_buttons
+            on_state: app.add_genre('Action')
+
+    BoxLayout:
+        size_hint: None, None
+        size: '100dp', '50dp'
+        pos_hint: {'x': 0.50, 'center_y': 0.75}
+        padding: '5dp'
+        MDLabel:
+            font_style: 'Body1'
+            theme_text_color: 'Primary'
+            text: "SliceOfLife"
+            size_hint_x: None
+            width: '62dp'
+        MDCheckbox:
+            id: solChk
+            on_state: app.add_genre('SliceOfLife')
 
     #MDRaisedButton:
         #text: "Create simple snackbar"
@@ -94,10 +175,10 @@ Screen:
         #opposite_colors: True
         #on_release: app.show_example_snackbar('simple')
 
-    #MDLabel:
-        #id: rsLbl
-        #text: "Hello"
-        #post_hint: {'center_x': 0.25, 'center_y': 0.25}
+    MDLabel:
+        id: rsLbl
+        text: "Hello"
+        post_hint: {'center_x': 0.25, 'center_y': 0.25}
 
     ScrollView:
         do_scroll_x: False
