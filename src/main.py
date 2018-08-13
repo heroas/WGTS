@@ -17,7 +17,7 @@ from kivymd.date_picker import MDDatePicker
 from kivymd.dialog import MDDialog
 from kivymd.label import MDLabel
 from kivymd.list import ILeftBody, ILeftBodyTouch, IRightBodyTouch, BaseListItem
-from kivymd.list import OneLineListItem
+from kivymd.list import OneLineListItem, TwoLineListItem
 from kivymd.material_resources import DEVICE_TYPE
 from kivymd.navigationdrawer import MDNavigationDrawer, NavigationDrawerHeaderBase
 from kivymd.selectioncontrols import MDCheckbox
@@ -69,7 +69,16 @@ class WGTS(App):
 
     def add_genre(self, genre_type):
         Snackbar(text='Added '+ genre_type).show()
-        self.root.ids.ml.add_widget(OneLineListItem(text=genre_type))
+        self.root.ids.ml.add_widget(TwoLineListItem(text=genre_type, secondary_text='Genre'))
+
+
+    def remove_genre(self, genre_type):
+        Snackbar(text='Removed '+ genre_type).show()
+        for c in self.root.ids.ml.children:
+            if(c.text == genre_type):
+                self.root.ids.ml.remove_widget(c)
+
+
 
 if __name__ == '__main__':
     WGTS().run()

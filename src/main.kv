@@ -165,7 +165,7 @@ Screen:
             width: '62dp'
         MDCheckbox:
             id: solChk
-            on_state: app.add_genre('SliceOfLife')
+            on_state: app.add_genre('SliceOfLife') if solChk.active else app.remove_genre('SliceOfLife')
 
     #MDRaisedButton:
         #text: "Create simple snackbar"
@@ -186,8 +186,3 @@ Screen:
         size_hint: (0.25, 1)
         MDList:
             id: ml
-            OneLineListItem:
-                text: "One-line item"
-            TwoLineListItem:
-                text: "Two-line item"
-                secondary_text: "Secondary text here"
