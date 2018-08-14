@@ -25,6 +25,13 @@ from kivymd.snackbar import Snackbar
 from kivymd.theming import ThemeManager
 from kivymd.time_picker import MDTimePicker
 import requests
+import os
+import sys
+
+def resource_path(relative):
+    if hasattr(sys, "_MEIPASS"):
+        return os.path.join(sys._MEIPASS, relative)
+    return os.path.join(relative)
 
 
 class WGTS(App):
@@ -36,16 +43,17 @@ class WGTS(App):
         return self.root
 
     def build(self):
-        main_widget = Builder.load_file('./main.kv')
+        filename = 'main.kv'
+        kv_file = resource_path(os.path.join('templates', filename))
+        main_widget = Builder.load_file(kv_file)
         return main_widget
 
     def show_example_snackbar(self, snack_type):
 
-
-         query = '''
+        query = '''
              query ($id: Int) { # Define which variables will be used in the query (id)
              Media (id: $id, type: ANIME) { # Insert our variables into the query arguments (id) (type: ANIME is hard-coded in the query)
-                 id
+                 i
                  title {
                  romaji
                  english
@@ -54,30 +62,31 @@ class WGTS(App):
                  }
              }
              '''
-         variables = {
-             'id': 15125
-         }
-         url = 'https://graphql.anilist.co'
-         response = requests.post(url, json={'query': query, 'variables': variables})
+        variables = {
+            'id': 15125
+        }
+        url = 'https://graphql.anilist.co'
+        response = requests.post(
+            url, json={'query': query, 'variables': variables})
 
-         text = str(response.content)
-         data = response.json()
+        text = str(response.content)
+        data = response.json()
 
-         self.root.ids.rsLbl.text = str(data["data"]["Media"]["title"]["english"])
+        self.root.ids.rsLbl.text = str(
+            data["data"]["Media"]["title"]["english"])
 
-         Snackbar(text=text).show()
+        Snackbar(text=text).show()
 
     def add_genre(self, genre_type):
-        Snackbar(text='Added '+ genre_type).show()
-        self.root.ids.ml.add_widget(TwoLineListItem(text=genre_type, secondary_text='Genre'))
-
+        Snackbar(text='Added ' + genre_type).show()
+        self.root.ids.ml.add_widget(TwoLineListItem(
+            text=genre_type, secondary_text='Genre'))
 
     def remove_genre(self, genre_type):
-        Snackbar(text='Removed '+ genre_type).show()
+        Snackbar(text='Removed ' + genre_type).show()
         for c in self.root.ids.ml.children:
             if(c.text == genre_type):
                 self.root.ids.ml.remove_widget(c)
-
 
 
 if __name__ == '__main__':
