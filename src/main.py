@@ -28,6 +28,7 @@ import requests
 import os
 import sys
 
+
 def resource_path(relative):
     if hasattr(sys, "_MEIPASS"):
         return os.path.join(sys._MEIPASS, relative)
@@ -43,27 +44,36 @@ class WGTS(App):
         return self.root
 
     def build(self):
-        filename = 'main.kv'
-        kv_file = resource_path(os.path.join('templates', filename))
+        kv_file = resource_path(os.path.join('templates', 'main.kv'))
         main_widget = Builder.load_file(kv_file)
         return main_widget
 
     def show_example_snackbar(self, snack_type):
 
         query = '''
-             query ($id: Int) { # Define which variables will be used in the query (id)
-             Media (id: $id, type: ANIME) { # Insert our variables into the query arguments (id) (type: ANIME is hard-coded in the query)
-                 i
-                 title {
-                 romaji
-                 english
-                 native
-                 }
-                 }
+             query ($season: MediaSeason, $seasonYear: Int, $page: Int, $perPage: Int) {
+                Page (page: $page, perPage: $perPage){
+                    pageInfo{
+                        total
+                        currentPage
+                        lastPage
+                        hasNextPage
+                        perPage
+                    }
+                    media (season: $season, seasonYear: $seasonYear type: ANIME) {
+                        genres
+                        title {
+                            english
+                        }
+                    }
+                }
              }
              '''
         variables = {
-            'id': 15125
+            'season': 'WINTER',
+            'seasonYear': 2016,
+            'page': 1,
+            'perPage': 10
         }
         url = 'https://graphql.anilist.co'
         response = requests.post(
@@ -72,8 +82,7 @@ class WGTS(App):
         text = str(response.content)
         data = response.json()
 
-        self.root.ids.rsLbl.text = str(
-            data["data"]["Media"]["title"]["english"])
+        self.root.ids.rsLbl.text = text
 
         Snackbar(text=text).show()
 
