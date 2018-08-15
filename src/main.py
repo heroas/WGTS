@@ -9,8 +9,8 @@ from kivy.metrics import dp
 from kivy.properties import ObjectProperty
 from kivy.uix.image import Image
 from kivy.config import Config
-Config.set('graphics', 'width', '1000')
-Config.set('graphics', 'height', '700')
+Config.set('graphics', 'width', '1280')
+Config.set('graphics', 'height', '720')
 from kivymd.bottomsheet import MDListBottomSheet, MDGridBottomSheet
 from kivymd.button import MDIconButton
 from kivymd.date_picker import MDDatePicker
@@ -51,7 +51,7 @@ class WGTS(App):
     def show_example_snackbar(self, snack_type):
 
         query = '''
-             query ($season: MediaSeason, $seasonYear: Int, $page: Int, $perPage: Int) {
+             query ($season: MediaSeason, $seasonYear: Int, $page: Int, $perPage: Int, $genre: [String]) {
                 Page (page: $page, perPage: $perPage){
                     pageInfo{
                         total
@@ -60,7 +60,7 @@ class WGTS(App):
                         hasNextPage
                         perPage
                     }
-                    media (season: $season, seasonYear: $seasonYear type: ANIME) {
+                    media (season: $season, seasonYear: $seasonYear type: ANIME, genre_in: $genre) {
                         genres
                         title {
                             english
@@ -73,7 +73,8 @@ class WGTS(App):
             'season': 'WINTER',
             'seasonYear': 2016,
             'page': 1,
-            'perPage': 10
+            'perPage': 10,
+            'genre': ['Action']
         }
         url = 'https://graphql.anilist.co'
         response = requests.post(
