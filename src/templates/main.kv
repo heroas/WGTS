@@ -322,6 +322,13 @@ Screen:
         #opposite_colors: True
         #on_release: app.show_example_snackbar('simple')
 
+    MDRaisedButton:
+        text: "Show me criterea Object"
+        size_hint: None, None
+        size: 4 * dp(48), dp(48)
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        opposite_colors: True
+        on_release: app.print_crit()
     MDLabel:
         id: rsLbl
         text: "Hello"

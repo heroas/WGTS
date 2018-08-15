@@ -29,6 +29,11 @@ import os
 import sys
 
 
+class Criterea():
+    Genres = []
+
+critereas = Criterea()
+
 def resource_path(relative):
     if hasattr(sys, "_MEIPASS"):
         return os.path.join(sys._MEIPASS, relative)
@@ -91,13 +96,19 @@ class WGTS(App):
         Snackbar(text='Added ' + genre_type).show()
         self.root.ids.ml.add_widget(TwoLineListItem(
             text=genre_type, secondary_text='Genre'))
+        critereas.Genres.append(genre_type)
 
     def remove_genre(self, genre_type):
         Snackbar(text='Removed ' + genre_type).show()
         for c in self.root.ids.ml.children:
             if(c.text == genre_type):
                 self.root.ids.ml.remove_widget(c)
+        critereas.Genres.remove(genre_type)
 
+
+    def print_crit(self):
+        for x in critereas.Genres:
+            self.root.ids.rsLbl.text += ' ' + x
 
 if __name__ == '__main__':
     WGTS().run()
