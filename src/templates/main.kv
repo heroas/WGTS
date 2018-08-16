@@ -36,317 +36,318 @@
 
 Screen:
 
-    MDCard:
-        size_hint: None, None
-        size: dp(820), dp(180)
-        pos_hint: {'x': 0.02, 'y': 0.7}
-
-        GridLayout:
-            cols: 6
-            rows: 3
-            row_default_height: dp(50)
-            row_force_default: True
-            padding: 4
-            spacing: dp(4)
-
-            BoxLayout:
-                size_hint: None, None
-                size: '100dp', '50dp'
-                pos_hint: {'x': 0.12, 'center_y': 0.9}
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Action"
-                    size_hint_x: None
-                    width: '40dp'
-                MDCheckbox:
-                    id: act_chk
-                    on_state: app.add_genre('Action') if act_chk.active else app.remove_genre('Action')
-
-            BoxLayout:
-                size_hint: None, None
-                size: '100dp', '50dp'
-                pos_hint: {'x': 0.12, 'center_y': 0.9}
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Adventure"
-                    size_hint_x: None
-                    width: '60dp'
-                MDCheckbox:
-                    id: adv_chk
-                    on_state: app.add_genre('Adventure') if adv_chk.active else app.remove_genre('Adventure')
-
-            BoxLayout:
-                size_hint: None, None
-                size: '100dp', '50dp'
-                pos_hint: {'x': 0.22, 'center_y': 0.9}
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Drama"
-                    size_hint_x: None
-                    width: '40dp'
-                MDCheckbox:
-                    id: drama_chk
-                    on_state: app.add_genre('Drama') if drama_chk.active else app.remove_genre('Drama')
-
-            BoxLayout:
-                size_hint: None, None
-                size: '100dp', '50dp'
-                pos_hint: {'x': 0.32, 'center_y': 0.9}
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Ecchi"
-                    size_hint_x: None
-                    width: '40dp'
-                MDCheckbox:
-                    id: ecchi_chk
-                    on_state: app.add_genre('Ecchi') if ecchi_chk.active else app.remove_genre('Ecchi')
-
-            BoxLayout:
-                size_hint: None, None
-                size: '100dp', '50dp'
-                pos_hint: {'x': 0.42, 'center_y': 0.9}
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Fantasy"
-                    size_hint_x: None
-                    width: '54dp'
-                MDCheckbox:
-                    id: fantasy_chk
-                    on_state: app.add_genre('Fantasy') if fantasy_chk.active else app.remove_genre('Fantasy')
-
-            BoxLayout:
-                size_hint: None, None
-                size: '100dp', '50dp'
-                pos_hint: {'x': 0.52, 'center_y': 0.9}
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Horror"
-                    size_hint_x: None
-                    width: '40dp'
-                MDCheckbox:
-                    id: horror_chk
-                    on_state: app.add_genre('Horror') if horror_chk.active else app.remove_genre('Horror')
-
-            BoxLayout:
-                size_hint: None, None
-                size: '100dp', '50dp'
-                pos_hint: {'x': 0.02, 'center_y': 0.83}
-                padding: '5dp'
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Comedy"
-                    size_hint_x: None
-                    width: '50dp'
-                MDCheckbox:
-                    id: comedy_chk
-                    on_state: app.add_genre('Comedy') if comedy_chk.active else app.remove_genre('Comedy')
-
-            BoxLayout:
-                size_hint: None, None
-                size: '100dp', '50dp'
-                padding: '5dp'
-                pos_hint: {'x': 0.12, 'center_y': 0.83}
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "SciFi"
-                    size_hint_x: None
-                    width: '40dp'
-                MDCheckbox:
-                    id: scifi_chk
-                    on_state: app.add_genre('SciFi') if scifi_chk.active else app.remove_genre('SciFi')
-
-            BoxLayout:
-                size_hint: None, None
-                size: '100dp', '50dp'
-                pos_hint: {'x': 0.22, 'center_y': 0.83}
-                padding: '5dp'
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Romance"
-                    size_hint_x: None
-                    width: '60dp'
-                MDCheckbox:
-                    id: roma_chk
-                    on_state: app.add_genre('Romance') if roma_chk.active else app.remove_genre('Romance')
-
-            BoxLayout:
-                size_hint: None, None
-                size: '120dp', '50dp'
-                pos_hint: {'x': 0.32, 'center_y': 0.83}
-                padding: '5dp'
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Psychological"
-                    size_hint_x: None
-                    width: '80dp'
-                MDCheckbox:
-                    id: psy_chk
-                    on_state: app.add_genre('Psychological') if psy_chk.active else app.remove_genre('Psychological')
-
-            BoxLayout:
-                size_hint: None, None
-                size: '100dp', '50dp'
-                pos_hint: {'x': 0.42, 'center_y': 0.83}
-                padding: '5dp'
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Mystery"
-                    size_hint_x: None
-                    width: '54dp'
-                MDCheckbox:
-                    id: mys_chk
-                    on_state: app.add_genre('Mystery') if mys_chk.active else app.remove_genre('Mystery')
-
-            BoxLayout:
-                size_hint: None, None
-                size: '100dp', '50dp'
-                padding: '5dp'
-                pos_hint: {'x': 0.52, 'center_y': 0.83}
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Music"
-                    size_hint_x: None
-                    width: '40dp'
-                MDCheckbox:
-                    id: mus_chk
-                    on_state: app.add_genre('Music') if mus_chk.active else app.remove_genre('Music')
-
-            BoxLayout:
-                size_hint: None, None
-                size: '100dp', '50dp'
-                pos_hint: {'x': 0.02, 'center_y': 0.76}
-                padding: '5dp'
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Mecha"
-                    size_hint_x: None
-                    width: '40dp'
-                MDCheckbox:
-                    id: mech_chk
-                    on_state: app.add_genre('Mecha') if mech_chk.active else app.remove_genre('Mecha')
-
-            BoxLayout:
-                size_hint: None, None
-                size: '100dp', '50dp'
-                padding: '5dp'
-                pos_hint: {'x': 0.12, 'center_y': 0.76}
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Mahou Shojo"
-                    size_hint_x: None
-                    width: '60dp'
-                MDCheckbox:
-                    id: mahou_chk
-                    on_state: app.add_genre('Mahou Shojo') if mahou_chk.active else app.remove_genre('Mahou Shojo')
-
-            BoxLayout:
-                size_hint: None, None
-                size: '100dp', '50dp'
-                pos_hint: {'x': 0.22, 'center_y': 0.76}
-                padding: '5dp'
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Slice of Life"
-                    size_hint_x: None
-                    width: '60dp'
-                MDCheckbox:
-                    id: sol_chk
-                    on_state: app.add_genre('Slice of Life') if sol_chk.active else app.remove_genre('Slice of Life')
-
-            BoxLayout:
-                size_hint: None, None
-                size: '100dp', '50dp'
-                pos_hint: {'x': 0.32, 'center_y': 0.76}
-                padding: '5dp'
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Sports"
-                    size_hint_x: None
-                    width: '40dp'
-                MDCheckbox:
-                    id: sports_chk
-                    on_state: app.add_genre('Sports') if sports_chk.active else app.remove_genre('Sports')
-
-            BoxLayout:
-                size_hint: None, None
-                size: '110dp', '50dp'
-                pos_hint: {'x': 0.42, 'center_y': 0.76}
-                padding: '5dp'
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Supernatural"
-                    size_hint_x: None
-                    width: '74dp'
-                MDCheckbox:
-                    id: supernat_chk
-                    on_state: app.add_genre('Supernatural') if supernat_chk.active else app.remove_genre('Supernatural')
-
-            BoxLayout:
-                size_hint: None, None
-                size: '100dp', '50dp'
-                padding: '5dp'
-                pos_hint: {'x': 0.52, 'center_y': 0.76}
-                MDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Thriller"
-                    size_hint_x: None
-                    width: '40dp'
-                MDCheckbox:
-                    id: thrill_chk
-                    on_state: app.add_genre('Thriller') if thrill_chk.active else app.remove_genre('Thriller')
-
-                        #MDCheckbox:
-            #pos_hint: {'x': 0.9, 'center_y': 0.9}
-            #id: action_chk
-            #on_state: app.add_genre('Action') if action_chk.active else app.remove_genre('Action')
+    BoxLayout:
+        size_hint: (0.75,1)
+        pos_hint: {'x': 0, 'center_y':0.375}
+        orientation: 'vertical'
 
 
+        MDCard:
+            size_hint: None, None
+            size: dp(720), dp(180)
+            pos_hint: {'x': 0.03, 'center_y': 0.9}
 
-    #MDRaisedButton:
-        #text: "Create simple snackbar"
-        #size_hint: None, None
-        #size: 4 * dp(48), dp(48)
-        #pos_hint: {'center_x': 0.25, 'center_y': 0.75}
-        #opposite_colors: True
-        #on_release: app.show_example_snackbar('simple')
+            GridLayout:
+                cols: 6
+                rows: 3
+                row_default_height: dp(50)
+                row_force_default: True
+                padding: 4
+                spacing: dp(4)
 
-    MDRaisedButton:
-        text: "Show me criterea Object"
-        size_hint: None, None
-        size: 4 * dp(48), dp(48)
-        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        opposite_colors: True
-        on_release: app.print_crit()
+                BoxLayout:
+                    size_hint: None, None
+                    size: '100dp', '50dp'
+                    pos_hint: {'x': 0.12, 'center_y': 0.9}
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "Action"
+                        size_hint_x: None
+                        width: '40dp'
+                    MDCheckbox:
+                        id: act_chk
+                        on_state: app.add_genre('Action') if act_chk.active else app.remove_genre('Action')
 
-    MDLabel:
-        id: genreLbl
-        text: 'Genress'
-        font_style: "Title"
-        size_hint: (0.1, 0.05)
-        post_hint: {'x': 0.02, 'y':0.9}
+                BoxLayout:
+                    size_hint: None, None
+                    size: '100dp', '50dp'
+                    pos_hint: {'x': 0.12, 'center_y': 0.9}
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "Adventure"
+                        size_hint_x: None
+                        width: '60dp'
+                    MDCheckbox:
+                        id: adv_chk
+                        on_state: app.add_genre('Adventure') if adv_chk.active else app.remove_genre('Adventure')
 
-    MDLabel:
-        id: rsLbl
-        text: "Hello"
-        post_hint: {'center_x': 0.25, 'center_y': 0.25}
+                BoxLayout:
+                    size_hint: None, None
+                    size: '100dp', '50dp'
+                    pos_hint: {'x': 0.22, 'center_y': 0.9}
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "Drama"
+                        size_hint_x: None
+                        width: '40dp'
+                    MDCheckbox:
+                        id: drama_chk
+                        on_state: app.add_genre('Drama') if drama_chk.active else app.remove_genre('Drama')
+
+                BoxLayout:
+                    size_hint: None, None
+                    size: '100dp', '50dp'
+                    pos_hint: {'x': 0.32, 'center_y': 0.9}
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "Ecchi"
+                        size_hint_x: None
+                        width: '40dp'
+                    MDCheckbox:
+                        id: ecchi_chk
+                        on_state: app.add_genre('Ecchi') if ecchi_chk.active else app.remove_genre('Ecchi')
+
+                BoxLayout:
+                    size_hint: None, None
+                    size: '100dp', '50dp'
+                    pos_hint: {'x': 0.42, 'center_y': 0.9}
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "Fantasy"
+                        size_hint_x: None
+                        width: '54dp'
+                    MDCheckbox:
+                        id: fantasy_chk
+                        on_state: app.add_genre('Fantasy') if fantasy_chk.active else app.remove_genre('Fantasy')
+
+                BoxLayout:
+                    size_hint: None, None
+                    size: '100dp', '50dp'
+                    pos_hint: {'x': 0.52, 'center_y': 0.9}
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "Horror"
+                        size_hint_x: None
+                        width: '40dp'
+                    MDCheckbox:
+                        id: horror_chk
+                        on_state: app.add_genre('Horror') if horror_chk.active else app.remove_genre('Horror')
+
+                BoxLayout:
+                    size_hint: None, None
+                    size: '100dp', '50dp'
+                    pos_hint: {'x': 0.02, 'center_y': 0.83}
+                    padding: '5dp'
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "Comedy"
+                        size_hint_x: None
+                        width: '50dp'
+                    MDCheckbox:
+                        id: comedy_chk
+                        on_state: app.add_genre('Comedy') if comedy_chk.active else app.remove_genre('Comedy')
+
+                BoxLayout:
+                    size_hint: None, None
+                    size: '100dp', '50dp'
+                    padding: '5dp'
+                    pos_hint: {'x': 0.12, 'center_y': 0.83}
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "SciFi"
+                        size_hint_x: None
+                        width: '40dp'
+                    MDCheckbox:
+                        id: scifi_chk
+                        on_state: app.add_genre('SciFi') if scifi_chk.active else app.remove_genre('SciFi')
+
+                BoxLayout:
+                    size_hint: None, None
+                    size: '100dp', '50dp'
+                    pos_hint: {'x': 0.22, 'center_y': 0.83}
+                    padding: '5dp'
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "Romance"
+                        size_hint_x: None
+                        width: '60dp'
+                    MDCheckbox:
+                        id: roma_chk
+                        on_state: app.add_genre('Romance') if roma_chk.active else app.remove_genre('Romance')
+
+                BoxLayout:
+                    size_hint: None, None
+                    size: '120dp', '50dp'
+                    pos_hint: {'x': 0.32, 'center_y': 0.83}
+                    padding: '5dp'
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "Psychological"
+                        size_hint_x: None
+                        width: '80dp'
+                    MDCheckbox:
+                        id: psy_chk
+                        on_state: app.add_genre('Psychological') if psy_chk.active else app.remove_genre('Psychological')
+
+                BoxLayout:
+                    size_hint: None, None
+                    size: '100dp', '50dp'
+                    pos_hint: {'x': 0.42, 'center_y': 0.83}
+                    padding: '5dp'
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "Mystery"
+                        size_hint_x: None
+                        width: '54dp'
+                    MDCheckbox:
+                        id: mys_chk
+                        on_state: app.add_genre('Mystery') if mys_chk.active else app.remove_genre('Mystery')
+
+                BoxLayout:
+                    size_hint: None, None
+                    size: '100dp', '50dp'
+                    padding: '5dp'
+                    pos_hint: {'x': 0.52, 'center_y': 0.83}
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "Music"
+                        size_hint_x: None
+                        width: '40dp'
+                    MDCheckbox:
+                        id: mus_chk
+                        on_state: app.add_genre('Music') if mus_chk.active else app.remove_genre('Music')
+
+                BoxLayout:
+                    size_hint: None, None
+                    size: '100dp', '50dp'
+                    pos_hint: {'x': 0.02, 'center_y': 0.76}
+                    padding: '5dp'
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "Mecha"
+                        size_hint_x: None
+                        width: '40dp'
+                    MDCheckbox:
+                        id: mech_chk
+                        on_state: app.add_genre('Mecha') if mech_chk.active else app.remove_genre('Mecha')
+
+                BoxLayout:
+                    size_hint: None, None
+                    size: '100dp', '50dp'
+                    padding: '5dp'
+                    pos_hint: {'x': 0.12, 'center_y': 0.76}
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "Mahou Shojo"
+                        size_hint_x: None
+                        width: '60dp'
+                    MDCheckbox:
+                        id: mahou_chk
+                        on_state: app.add_genre('Mahou Shojo') if mahou_chk.active else app.remove_genre('Mahou Shojo')
+
+                BoxLayout:
+                    size_hint: None, None
+                    size: '100dp', '50dp'
+                    pos_hint: {'x': 0.22, 'center_y': 0.76}
+                    padding: '5dp'
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "Slice of Life"
+                        size_hint_x: None
+                        width: '60dp'
+                    MDCheckbox:
+                        id: sol_chk
+                        on_state: app.add_genre('Slice of Life') if sol_chk.active else app.remove_genre('Slice of Life')
+
+                BoxLayout:
+                    size_hint: None, None
+                    size: '100dp', '50dp'
+                    pos_hint: {'x': 0.32, 'center_y': 0.76}
+                    padding: '5dp'
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "Sports"
+                        size_hint_x: None
+                        width: '40dp'
+                    MDCheckbox:
+                        id: sports_chk
+                        on_state: app.add_genre('Sports') if sports_chk.active else app.remove_genre('Sports')
+
+                BoxLayout:
+                    size_hint: None, None
+                    size: '110dp', '50dp'
+                    pos_hint: {'x': 0.42, 'center_y': 0.76}
+                    padding: '5dp'
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "Supernatural"
+                        size_hint_x: None
+                        width: '74dp'
+                    MDCheckbox:
+                        id: supernat_chk
+                        on_state: app.add_genre('Supernatural') if supernat_chk.active else app.remove_genre('Supernatural')
+
+                BoxLayout:
+                    size_hint: None, None
+                    size: '100dp', '50dp'
+                    padding: '5dp'
+                    pos_hint: {'x': 0.52, 'center_y': 0.76}
+                    MDLabel:
+                        font_style: 'Body1'
+                        theme_text_color: 'Primary'
+                        text: "Thriller"
+                        size_hint_x: None
+                        width: '40dp'
+                    MDCheckbox:
+                        id: thrill_chk
+                        on_state: app.add_genre('Thriller') if thrill_chk.active else app.remove_genre('Thriller')
+
+                            #MDCheckbox:
+                #pos_hint: {'x': 0.9, 'center_y': 0.9}
+                #id: action_chk
+                #on_state: app.add_genre('Action') if action_chk.active else app.remove_genre('Action')
+
+
+
+        #MDRaisedButton:
+            #text: "Create simple snackbar"
+            #size_hint: None, None
+            #size: 4 * dp(48), dp(48)
+            #pos_hint: {'center_x': 0.25, 'center_y': 0.75}
+            #opposite_colors: True
+            #on_release: app.show_example_snackbar('simple')
+
+        MDRaisedButton:
+            text: "Show me criterea Object"
+            size_hint: None, None
+            size: 4 * dp(48), dp(48)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            opposite_colors: True
+            on_release: app.print_crit()
+
+
+
+        MDLabel:
+            id: rsLbl
+            text: "Hello"
+            post_hint: {'center_x': 0.25, 'center_y': 0.25}
 
     ScrollView:
         do_scroll_x: False
