@@ -107,6 +107,7 @@ class WGTS(App):
 
 
     def print_crit(self):
+        self.root.ids.rsLbl.text = ''
         for x in critereas.Genres:
             self.root.ids.rsLbl.text += ' ' + x
 
