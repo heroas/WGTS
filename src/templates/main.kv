@@ -326,21 +326,21 @@ Screen:
 
 
 
-        #MDRaisedButton:
-            #text: "Create simple snackbar"
-            #size_hint: None, None
-            #size: 4 * dp(48), dp(48)
-            #pos_hint: {'center_x': 0.25, 'center_y': 0.75}
-            #opposite_colors: True
-            #on_release: app.show_example_snackbar('simple')
-
         MDRaisedButton:
-            text: "Show me criterea Object"
+            text: "Create simple snackbar"
             size_hint: None, None
             size: 4 * dp(48), dp(48)
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            pos_hint: {'center_x': 0.25, 'center_y': 0.75}
             opposite_colors: True
-            on_release: app.print_crit()
+            on_release: app.show_example_snackbar('simple')
+
+        #MDRaisedButton:
+            #text: "Show me criterea Object"
+            #size_hint: None, None
+            #size: 4 * dp(48), dp(48)
+            #pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            #opposite_colors: True
+            #on_release: app.print_crit()
 
 
 

@@ -78,8 +78,8 @@ class WGTS(App):
             'season': 'WINTER',
             'seasonYear': 2016,
             'page': 1,
-            'perPage': 10,
-            'genre': ['Action']
+            'perPage': 5,
+            'genre': critereas.Genres
         }
         url = 'https://graphql.anilist.co'
         response = requests.post(
