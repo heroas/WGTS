@@ -38,9 +38,13 @@ Screen:
 
     BoxLayout:
         size_hint: (0.75,1)
-        pos_hint: {'x': 0, 'center_y':0.375}
+        pos_hint: {'center_x': 0.375, 'y':0.7}
         orientation: 'vertical'
 
+        MDLabel:
+            size_hint: (1, 1)
+            test: "GENRES"
+            pos_hint: {'x': 0.03, 'center_y': 0.5}
 
         MDCard:
             size_hint: None, None
@@ -326,13 +330,13 @@ Screen:
 
 
 
-        MDRaisedButton:
-            text: "Create simple snackbar"
-            size_hint: None, None
-            size: 4 * dp(48), dp(48)
-            pos_hint: {'center_x': 0.25, 'center_y': 0.75}
-            opposite_colors: True
-            on_release: app.show_example_snackbar('simple')
+        #MDRaisedButton:
+            #text: "Create simple snackbar"
+            #size_hint: None, None
+            #size: 4 * dp(48), dp(48)
+            #pos_hint: {'center_x': 0.25, 'center_y': 0.75}
+            #opposite_colors: True
+            #on_release: app.show_example_snackbar('simple')
 
         #MDRaisedButton:
             #text: "Show me criterea Object"
@@ -344,10 +348,10 @@ Screen:
 
 
 
-        MDLabel:
-            id: rsLbl
-            text: "Hello"
-            post_hint: {'center_x': 0.25, 'center_y': 0.25}
+        #MDLabel:
+            #id: rsLbl
+            #text: "Hello"
+            #post_hint: {'center_x': 0.25, 'center_y': 0.25}
 
     ScrollView:
         do_scroll_x: False
