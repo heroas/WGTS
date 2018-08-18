@@ -41,16 +41,12 @@ Screen:
         BoxLayout:
             size_hint: (.75,1)
             orientation: 'vertical'
-
-            #MDLabel:
-                #size_hint: (1, 1)
-                #test: "GENRES"
-                #pos_hint: {'x': 0.03, 'center_y': 0.5}
+            spacing: 1
 
             BoxLayout:
                 orientation: 'vertical'
-                size_hint: (.75, .43)
                 padding: 10
+                spacing: 5
 
                 MDLabel:
                     size_hint_y: .2
@@ -338,34 +334,60 @@ Screen:
                         #on_state: app.add_genre('Action') if action_chk.active else app.remove_genre('Action')
 
 
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 10
+                spacing: 5
+                MDLabel:
+                    size_hint_y: .2
+                    text: "NAME"
+                    font_style: 'Headline'
+                    theme_text_color: 'Primary'
 
+                MDCard:
+                    size_hint: 1,1
 
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 10
+                spacing: 5
+                MDLabel:
+                    size_hint_y: .2
+                    text: "STUDIO"
+                    font_style: 'Headline'
+                    theme_text_color: 'Primary'
 
-            MDRaisedButton:
-                text: "Create simple snackbar"
-                opposite_colors: True
-                on_release: app.show_example_snackbar('simple')
+                MDCard:
+                    size_hint: 1,1
 
-            #MDRaisedButton:
-                #text: "Show me criterea Object"
-                #size_hint: None, None
-                #size: 4 * dp(48), dp(48)
-                #pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                #opposite_colors: True
-                #on_release: app.print_crit()
+                    MDLabel:
+                        id: rsLbl
+                        text: "Hello"
 
-
-
-            MDLabel:
-                id: rsLbl
-                text: "Hello"
-                #post_hint: {'center_x': 0.25, 'center_y': 0.25}
 
         BoxLayout:
             size_hint: (.25,1)
             orientation: 'vertical'
+            padding: 10
 
             ScrollView:
                 do_scroll_x: False
                 MDList:
                     id: ml
+
+            MDCard:
+                size_hint_y: .33
+
+                
+                MDRaisedButton:
+                    text: "Create simple snackbar"
+                    opposite_colors: True
+                    on_release: app.show_example_snackbar('simple')
+
+                #MDRaisedButton:
+                    #text: "Show me criterea Object"
+                    #size_hint: None, None
+                    #size: 4 * dp(48), dp(48)
+                    #pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    #opposite_colors: True
+                    #on_release: app.print_crit()

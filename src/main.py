@@ -9,7 +9,7 @@ from kivy.metrics import dp
 from kivy.properties import ObjectProperty
 from kivy.uix.image import Image
 from kivy.config import Config
-Config.set('graphics', 'width', '1280')
+Config.set('graphics', 'width', '1080')
 Config.set('graphics', 'height', '720')
 from kivymd.bottomsheet import MDListBottomSheet, MDGridBottomSheet
 from kivymd.button import MDIconButton
