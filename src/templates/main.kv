@@ -340,12 +340,23 @@ Screen:
                 spacing: 5
                 MDLabel:
                     size_hint_y: .2
-                    text: "NAME"
+                    text: "ID"
                     font_style: 'Headline'
                     theme_text_color: 'Primary'
 
                 MDCard:
                     size_hint: 1,1
+                    padding: 50
+                    spacing: 10
+                    MDTextField:
+                        id: malId
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                        hint_text: 'Insert MAL ID'
+                        helper_text: 'EX: 205 = Samurai Champloo / https://myanimelist.net/anime/205/Samurai_Champloo'
+                        helper_text_mode: 'on_focus'
+                    MDIconButton:
+                        icon: 'plus'
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
             BoxLayout:
                 orientation: 'vertical'
@@ -378,11 +389,17 @@ Screen:
             MDCard:
                 size_hint_y: .33
 
-                
+                MDRaisedButton:
+                    text: 'Select Quality'
+                    opposite_colors: True
+                    on_release: app.quality_dropDown.open(self)
+
+
                 MDRaisedButton:
                     text: "Create simple snackbar"
                     opposite_colors: True
                     on_release: app.show_example_snackbar('simple')
+
 
                 #MDRaisedButton:
                     #text: "Show me criterea Object"

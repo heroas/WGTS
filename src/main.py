@@ -21,6 +21,7 @@ from kivymd.list import OneLineListItem, TwoLineListItem
 from kivymd.material_resources import DEVICE_TYPE
 from kivymd.navigationdrawer import MDNavigationDrawer, NavigationDrawerHeaderBase
 from kivymd.selectioncontrols import MDCheckbox
+from kivymd.menu import MDDropdownMenu
 from kivymd.snackbar import Snackbar
 from kivymd.theming import ThemeManager
 from kivymd.time_picker import MDTimePicker
@@ -44,6 +45,13 @@ class WGTS(App):
     theme_cls = ThemeManager()
     previous_date = ObjectProperty()
     title = "What's Good This Season?"
+    quality_items = [{'viewclass': 'MDMenuItem','text': 'Example item'}]
+    quality_dropDown = MDDropdownMenu(items=[{'viewclass': 'MDMenuItem','text': 'Example item'}], width_mult = 4)
+
+    def on_touch(touch):
+        Snackbar(text=str(touch.pos)).show()
+
+    quality_dropDown.on_touch_down = on_touch
 
     def root():
         return self.root
@@ -107,9 +115,11 @@ class WGTS(App):
 
 
     def print_crit(self):
-        self.root.ids.rsLbl.text = ''
-        for x in critereas.Genres:
-            self.root.ids.rsLbl.text += ' ' + x
+        q = self.quality_items;
+        self.root.ids.ml.add_widget(MDDropdownMenu(items=q, width_mult=4).open(self))
+        #self.root.ids.rsLbl.text = ''
+        #for x in critereas.Genres:
+            #self.root.ids.rsLbl.text += ' ' + x
 
 if __name__ == '__main__':
     WGTS().run()
