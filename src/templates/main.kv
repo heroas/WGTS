@@ -349,7 +349,7 @@ Screen:
                     padding: 50
                     spacing: 10
                     MDTextField:
-                        id: malId
+                        id: mal_id
                         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                         hint_text: 'Insert MAL ID'
                         helper_text: 'EX: 205 = Samurai Champloo / https://myanimelist.net/anime/205/Samurai_Champloo'
@@ -357,6 +357,7 @@ Screen:
                     MDIconButton:
                         icon: 'plus'
                         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                        on_release: app.add_malid(mal_id.text)
 
             BoxLayout:
                 orientation: 'vertical'

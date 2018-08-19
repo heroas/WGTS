@@ -32,6 +32,7 @@ import sys
 
 class Criterea():
     Genres = []
+    Names = []
 
 critereas = Criterea()
 
@@ -115,11 +116,47 @@ class WGTS(App):
 
 
     def print_crit(self):
-        q = self.quality_items;
-        self.root.ids.ml.add_widget(MDDropdownMenu(items=q, width_mult=4).open(self))
-        #self.root.ids.rsLbl.text = ''
-        #for x in critereas.Genres:
-            #self.root.ids.rsLbl.text += ' ' + x
+        self.root.ids.rsLbl.text = ''
+        for x in critereas.Genres:
+            self.root.ids.rsLbl.text += ' ' + x
+
+    def add_malid(self, mal_id):
+        if mal_id.isdigit():
+            query = '''
+                 query ($malId: Int) {
+                        Media (idMal: $malId,type: ANIME) {
+                            id
+                            idMal
+                            title {
+                                english
+                                romaji
+                            }
+                        }
+                 }
+                 '''
+            variables = {
+                'malId':mal_id
+            }
+            url = 'https://graphql.anilist.co'
+            response = requests.post(
+                url, json={'query': query, 'variables': variables})
+
+            data = response.json()
+            title_obj = data["data"]["Media"]["title"]
+            english_title = str(title_obj["english"])
+            romaji_title = str(title_obj["romaji"])
+
+            if title_obj["english"] is None:
+                title = romaji_title
+            else:
+                title = english_title
+
+            self.root.ids.rsLbl.text = title
+            critereas.Names.append(title);
+            self.root.ids.ml.add_widget(TwoLineListItem(text=title, secondary_text='From M.A.L Id'))
+            self.root.ids.mal_id.text = ""
+
+
 
 if __name__ == '__main__':
     WGTS().run()
