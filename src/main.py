@@ -9,6 +9,7 @@ from kivy.metrics import dp
 from kivy.properties import ObjectProperty
 from kivy.uix.image import Image
 from kivy.config import Config
+from kivy.uix.screenmanager import ScreenManager, Screen
 Config.set('graphics', 'width', '1080')
 Config.set('graphics', 'height', '720')
 from kivymd.bottomsheet import MDListBottomSheet, MDGridBottomSheet
@@ -41,6 +42,8 @@ def resource_path(relative):
         return os.path.join(sys._MEIPASS, relative)
     return os.path.join(relative)
 
+class Criterea(Screen):
+    pass
 
 class WGTS(App):
     theme_cls = ThemeManager()
@@ -58,7 +61,7 @@ class WGTS(App):
         return self.root
 
     def build(self):
-        kv_file = resource_path(os.path.join('templates', 'main.kv'))
+        kv_file = resource_path(os.path.join('templates', 'start.kv'))
         main_widget = Builder.load_file(kv_file)
         return main_widget
 
@@ -102,9 +105,9 @@ class WGTS(App):
         Snackbar(text=text).show()
 
     def add_genre(self, genre_type):
-        Snackbar(text='Added ' + genre_type).show()
-        self.root.ids.ml.add_widget(TwoLineListItem(
-            text=genre_type, secondary_text='Genre'))
+        Snackbar(text='Added ' + genre_typ).show()
+        #self.root.ids.ml.add_widget(TwoLineListItem(
+            #text=genre_type, secondary_text='Genre'))
         critereas.Genres.append(genre_type)
 
     def remove_genre(self, genre_type):
