@@ -34,6 +34,7 @@ import sys
 class Criterea():
     Genres = []
     Names = []
+    Quality = '720'
 
 critereas = Criterea()
 
@@ -120,11 +121,19 @@ class WGTS(App):
                 self.root.ids.crits.ids.ml.remove_widget(c)
         critereas.Genres.remove(genre_type)
 
+    def set_quality(self, quality):
+        critereas.Quality = quality
+
 
     def print_crit(self):
         self.root.ids.crits.ids.rsLbl.text = ''
         for x in critereas.Genres:
-            self.root.ids.crits.ids.rsLbl.text += ' ' + x
+            self.root.ids.crits.ids.rsLbl.text += ', ' + x
+
+        self.root.ids.crits.ids.rsLbl.text += ', ' + critereas.Quality
+
+        for x in critereas.Names:
+            self.root.ids.crits.ids.rsLbl.text += ', ' + x
 
     def add_malid(self, mal_id):
         if mal_id.isdigit():

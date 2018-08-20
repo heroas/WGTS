@@ -381,6 +381,7 @@
             size_hint: (.25,1)
             orientation: 'vertical'
             padding: 10
+            spacing: 10
 
             ScrollView:
                 do_scroll_x: False
@@ -390,21 +391,56 @@
             MDCard:
                 size_hint_y: .33
 
-                MDRaisedButton:
-                    text: 'Select Quality'
-                    opposite_colors: True
+                BoxLayout:
+                    size_hint: (1,1)
+                    orientation: 'vertical'
+
+                    BoxLayout:
+                        size_hint: (1, .5)
+                        pos_hint:    {'center_x': 0.5, 'center_y': 0.5}
+
+                        MDLabel:
+                            id: sd
+                            text: '480p'
+                            halign: 'center'
+                        MDLabel:
+                            id: hd
+                            text: '720p'
+                            halign: 'center'
+                        MDLabel:
+                            id: hhd
+                            text: '1080p'
+                            halign: 'center'
 
 
-                MDRaisedButton:
-                    text: "Create simple snackbar"
-                    opposite_colors: True
-                    on_release: app.show_example_snackbar('simple')
+                    BoxLayout:
+                        size_hint: (1, .5)
+                        pos_hint:    {'center_x': 0.5, 'center_y': 0.5}
+
+                        MDCheckbox:
+                            id: grp_chkbox_1
+                            group: 'test'
+                            on_state: app.set_quality('480')
+                        MDCheckbox:
+                            id: grp_chkbox_2
+                            group: 'test'
+                            on_state: app.set_quality('720')
+                        MDCheckbox:
+                            id: grp_chkbox_3
+                            group: 'test'
+                            on_state: app.set_quality('1080')
 
 
-                #MDRaisedButton:
-                    #text: "Show me criterea Object"
-                    #size_hint: None, None
-                    #size: 4 * dp(48), dp(48)
-                    #pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                    #opposite_colors: True
-                    #on_release: app.print_crit()
+                    MDRaisedButton:
+                        text: "Create simple snackbar"
+                        opposite_colors: True
+                        on_release: app.print_crit()
+
+
+                    #MDRaisedButton:
+                        #text: "Show me criterea Object"
+                        #size_hint: None, None
+                        #size: 4 * dp(48), dp(48)
+                        #pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                        #opposite_colors: True
+                        #on_release: app.print_crit()
