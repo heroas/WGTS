@@ -42,7 +42,10 @@ def resource_path(relative):
         return os.path.join(sys._MEIPASS, relative)
     return os.path.join(relative)
 
-class Criterea(Screen):
+class Criterea_Selection(Screen):
+    pass
+
+class Home(Screen):
     pass
 
 class WGTS(App):
@@ -61,7 +64,7 @@ class WGTS(App):
         return self.root
 
     def build(self):
-        kv_file = resource_path(os.path.join('templates', 'start.kv'))
+        kv_file = resource_path(os.path.join('templates', 'nav.kv'))
         main_widget = Builder.load_file(kv_file)
         return main_widget
 
@@ -100,28 +103,28 @@ class WGTS(App):
         text = str(response.content)
         data = response.json()
 
-        self.root.ids.rsLbl.text = text
+        self.root.idscrits.ids.rsLbl.text = text
 
         Snackbar(text=text).show()
 
     def add_genre(self, genre_type):
-        Snackbar(text='Added ' + genre_typ).show()
-        #self.root.ids.ml.add_widget(TwoLineListItem(
-            #text=genre_type, secondary_text='Genre'))
+        Snackbar(text='Added ' + genre_type).show()
+        self.root.ids.crits.ids.ml.add_widget(TwoLineListItem(
+            text=genre_type, secondary_text='Genre'))
         critereas.Genres.append(genre_type)
 
     def remove_genre(self, genre_type):
         Snackbar(text='Removed ' + genre_type).show()
-        for c in self.root.ids.ml.children:
+        for c in self.root.ids.crits.ids.ml.children:
             if(c.text == genre_type):
-                self.root.ids.ml.remove_widget(c)
+                self.root.ids.crits.ids.ml.remove_widget(c)
         critereas.Genres.remove(genre_type)
 
 
     def print_crit(self):
-        self.root.ids.rsLbl.text = ''
+        self.root.ids.crits.ids.rsLbl.text = ''
         for x in critereas.Genres:
-            self.root.ids.rsLbl.text += ' ' + x
+            self.root.ids.crits.ids.rsLbl.text += ' ' + x
 
     def add_malid(self, mal_id):
         if mal_id.isdigit():
@@ -154,10 +157,10 @@ class WGTS(App):
             else:
                 title = english_title
 
-            self.root.ids.rsLbl.text = title
+            self.root.ids.crits.ids.rsLbl.text = title
             critereas.Names.append(title);
-            self.root.ids.ml.add_widget(TwoLineListItem(text=title, secondary_text='From M.A.L Id'))
-            self.root.ids.mal_id.text = ""
+            self.root.ids.crits.ids.ml.add_widget(TwoLineListItem(text=title, secondary_text='From M.A.L Id'))
+            self.root.ids.crits.ids.mal_id.text = ""
 
 
 

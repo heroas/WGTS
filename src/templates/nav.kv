@@ -41,20 +41,28 @@ NavigationLayout:
     MDNavigationDrawer:
         id: nav_drawer
         NavigationDrawerIconButton:
-            icon: 'checkbox-blank-circle'
-            text: "Cards"
-            on_release: app.root.ids.scr_mngr.current = 'card'
+            icon: 'home'
+            text: "Home"
+            on_release: app.root.ids.scr_mngr.current = 'home'
+        NavigationDrawerIconButton:
+            icon: 'settings'
+            text: "Criterea Selection"
+            on_release: app.root.ids.scr_mngr.current = 'criterea_selection'
     BoxLayout:
         orientation: 'vertical'
         Toolbar:
             id: toolbar
-            title: 'KivyMD Kitchen Sink'
+            title: 'Whats Good this Season?'
             md_bg_color: app.theme_cls.primary_color
             background_palette: 'Primary'
             background_hue: '500'
             left_action_items: [['menu', lambda x: app.root.toggle_nav_drawer()]]
-            right_action_items: [['dots-vertical', lambda x: app.root.toggle_nav_drawer()]]
 
         ScreenManager:
             id: scr_mngr
-            Criterea:
+            Home:
+                name: 'home'
+                id: home
+            Criterea_Selection:
+                name: 'criterea_selection'
+                id: crits
