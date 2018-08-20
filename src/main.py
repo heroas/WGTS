@@ -29,7 +29,7 @@ from kivymd.time_picker import MDTimePicker
 import requests
 import os
 import sys
-
+import NyaaPy
 
 class Criterea():
     Genres = []
@@ -126,6 +126,12 @@ class WGTS(App):
 
 
     def print_crit(self):
+        url = "https://nyaa.pantsu.cat/api/search/?samuraichamploo"
+        response = requests.get(url)
+        data = response.json()
+
+
+        Snackbar(text=str(response.content)).show()
         self.root.ids.crits.ids.rsLbl.text = ''
         for x in critereas.Genres:
             self.root.ids.crits.ids.rsLbl.text += ', ' + x
@@ -134,6 +140,9 @@ class WGTS(App):
 
         for x in critereas.Names:
             self.root.ids.crits.ids.rsLbl.text += ', ' + x
+
+        #self.root.ids.crits.ids.rsLbl.text = str(response.content)
+
 
     def add_malid(self, mal_id):
         if mal_id.isdigit():

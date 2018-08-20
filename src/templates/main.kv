@@ -393,6 +393,7 @@
 
                 BoxLayout:
                     size_hint: (1,1)
+                    padding: 10
                     orientation: 'vertical'
 
                     BoxLayout:
@@ -431,10 +432,16 @@
                             on_state: app.set_quality('1080')
 
 
+                    MDTextField:
+                        id: season 
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                        hint_text: 'Season'
+
                     MDRaisedButton:
                         text: "Create simple snackbar"
                         opposite_colors: True
                         on_release: app.print_crit()
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
 
                     #MDRaisedButton:
