@@ -29,8 +29,23 @@ from kivymd.time_picker import MDTimePicker
 import requests
 import os
 import sys
-import NyaaPy
+import subprocess , os , sys
 
+def open_magnet(magnet):
+        """Open magnet according to os."""
+        if sys.platform.startswith('linux'):
+            subprocess.Popen(['xdg-open', magnet],
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        elif sys.platform.startswith('win32'):
+            os.startfile(magnet)
+        elif sys.platform.startswith('cygwin'):
+            os.startfile(magnet)
+        elif sys.platform.startswith('darwin'):
+            subprocess.Popen(['open', magnet],
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        else:
+            subprocess.Popen(['xdg-open', magnet],
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 class Criterea():
     Genres = []
     Names = []
@@ -126,12 +141,16 @@ class WGTS(App):
 
 
     def print_crit(self):
-        url = "https://nyaa.pantsu.cat/api/search/?samuraichamploo"
+        url = "https://nyaa.pantsu.cat/api/search?c=3_5&sort=5&q=" + critereas.Names[0] + "&page=" + str(1)
         response = requests.get(url)
         data = response.json()
 
+        torrents = data["torrents"]
 
-        Snackbar(text=str(response.content)).show()
+
+
+
+        Snackbar(text=str(torrents)).show()
         self.root.ids.crits.ids.rsLbl.text = ''
         for x in critereas.Genres:
             self.root.ids.crits.ids.rsLbl.text += ', ' + x
@@ -141,7 +160,13 @@ class WGTS(App):
         for x in critereas.Names:
             self.root.ids.crits.ids.rsLbl.text += ', ' + x
 
-        #self.root.ids.crits.ids.rsLbl.text = str(response.content)
+
+        for torrent in torrents:
+            name = str(torrent["name"])
+            if critereas.Names[0] in name and critereas.Quality in name and torrent["seeders"] > 0:
+                self.root.ids.crits.ids.rsLbl.text = name
+                open_magnet(torrent["magnet"])
+                break
 
 
     def add_malid(self, mal_id):
