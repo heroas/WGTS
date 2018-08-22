@@ -29,7 +29,12 @@ from kivymd.time_picker import MDTimePicker
 import requests
 import os
 import sys
-import subprocess , os , sys
+import subprocess
+import sqlite3
+
+conn = sqlite3.connect('test.db')
+
+print "Opened database successfully";
 
 def open_magnet(magnet):
         """Open magnet according to os."""
@@ -82,6 +87,7 @@ class WGTS(App):
     def build(self):
         kv_file = resource_path(os.path.join('templates', 'nav.kv'))
         main_widget = Builder.load_file(kv_file)
+
         return main_widget
 
     def show_example_snackbar(self, snack_type):
@@ -119,7 +125,7 @@ class WGTS(App):
         text = str(response.content)
         data = response.json()
 
-        self.root.idscrits.ids.rsLbl.text = text
+        self.root.ids.crits.ids.rsLbl.text = text
 
         Snackbar(text=text).show()
 
@@ -168,6 +174,9 @@ class WGTS(App):
                 open_magnet(torrent["magnet"])
                 break
 
+
+    def hellobub(self):
+        Snackbar(text="hello").show()
 
     def add_malid(self, mal_id):
         if mal_id.isdigit():
