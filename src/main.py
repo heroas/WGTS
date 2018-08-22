@@ -26,6 +26,8 @@ from kivymd.menu import MDDropdownMenu
 from kivymd.snackbar import Snackbar
 from kivymd.theming import ThemeManager
 from kivymd.time_picker import MDTimePicker
+import Global
+import criterea_selection
 import requests
 import os
 import sys
@@ -35,12 +37,17 @@ import sqlite3
 conn = sqlite3.connect('test.db')
 
 print "Opened database successfully";
+try:
+    conn.execute('''SELECT * FROM {} WHERE type='table' ''')
+    print "Table created successfully";
+except:
+    print "Table Already There"
+
 
 def open_magnet(magnet):
         """Open magnet according to os."""
         if sys.platform.startswith('linux'):
-            subprocess.Popen(['xdg-open', magnet],
-                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            subprocess.Popen(['xdg-open', magnet])
         elif sys.platform.startswith('win32'):
             os.startfile(magnet)
         elif sys.platform.startswith('cygwin'):
@@ -63,8 +70,6 @@ def resource_path(relative):
         return os.path.join(sys._MEIPASS, relative)
     return os.path.join(relative)
 
-class Criterea_Selection(Screen):
-    pass
 
 class Home(Screen):
     pass
@@ -87,7 +92,7 @@ class WGTS(App):
     def build(self):
         kv_file = resource_path(os.path.join('templates', 'nav.kv'))
         main_widget = Builder.load_file(kv_file)
-
+        main_widget.ids.scr_mngr.add_widget(criterea_selection.Criterea_Selection(name='crits'))
         return main_widget
 
     def show_example_snackbar(self, snack_type):
@@ -129,18 +134,6 @@ class WGTS(App):
 
         Snackbar(text=text).show()
 
-    def add_genre(self, genre_type):
-        Snackbar(text='Added ' + genre_type).show()
-        self.root.ids.crits.ids.ml.add_widget(TwoLineListItem(
-            text=genre_type, secondary_text='Genre'))
-        critereas.Genres.append(genre_type)
-
-    def remove_genre(self, genre_type):
-        Snackbar(text='Removed ' + genre_type).show()
-        for c in self.root.ids.crits.ids.ml.children:
-            if(c.text == genre_type):
-                self.root.ids.crits.ids.ml.remove_widget(c)
-        critereas.Genres.remove(genre_type)
 
     def set_quality(self, quality):
         critereas.Quality = quality
