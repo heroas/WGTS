@@ -76,7 +76,7 @@
                                 width: '40dp'
                             MDCheckbox:
                                 id: act_chk
-                                on_state: app.add_genre('Action') if act_chk.active else app.remove_genre('Action')
+                                on_state: root.add_genre('Action') if act_chk.active else app.remove_genre('Action')
 
                         BoxLayout:
                             size_hint: None, None
