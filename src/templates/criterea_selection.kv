@@ -76,7 +76,7 @@
                                 width: '40dp'
                             MDCheckbox:
                                 id: act_chk
-                                on_state: root.add_genre('Action') if act_chk.active else app.remove_genre('Action')
+                                on_state: root.add_genre('Action') if act_chk.active else root.remove_genre('Action')
 
                         BoxLayout:
                             size_hint: None, None
@@ -90,7 +90,7 @@
                                 width: '60dp'
                             MDCheckbox:
                                 id: adv_chk
-                                on_state: app.add_genre('Adventure') if adv_chk.active else app.remove_genre('Adventure')
+                                on_state: root.add_genre('Adventure') if adv_chk.active else root.remove_genre('Adventure')
 
                         BoxLayout:
                             size_hint: None, None
@@ -104,7 +104,7 @@
                                 width: '40dp'
                             MDCheckbox:
                                 id: drama_chk
-                                on_state: app.add_genre('Drama') if drama_chk.active else app.remove_genre('Drama')
+                                on_state: root.add_genre('Drama') if drama_chk.active else root.remove_genre('Drama')
 
                         BoxLayout:
                             size_hint: None, None
@@ -118,7 +118,7 @@
                                 width: '40dp'
                             MDCheckbox:
                                 id: ecchi_chk
-                                on_state: app.add_genre('Ecchi') if ecchi_chk.active else app.remove_genre('Ecchi')
+                                on_state: root.add_genre('Ecchi') if ecchi_chk.active else root.remove_genre('Ecchi')
 
                         BoxLayout:
                             size_hint: None, None
@@ -132,7 +132,7 @@
                                 width: '54dp'
                             MDCheckbox:
                                 id: fantasy_chk
-                                on_state: app.add_genre('Fantasy') if fantasy_chk.active else app.remove_genre('Fantasy')
+                                on_state: root.add_genre('Fantasy') if fantasy_chk.active else root.remove_genre('Fantasy')
 
                         BoxLayout:
                             size_hint: None, None
@@ -146,7 +146,7 @@
                                 width: '40dp'
                             MDCheckbox:
                                 id: horror_chk
-                                on_state: app.add_genre('Horror') if horror_chk.active else app.remove_genre('Horror')
+                                on_state: root.add_genre('Horror') if horror_chk.active else root.remove_genre('Horror')
 
                         BoxLayout:
                             size_hint: None, None
@@ -161,7 +161,7 @@
                                 width: '50dp'
                             MDCheckbox:
                                 id: comedy_chk
-                                on_state: app.add_genre('Comedy') if comedy_chk.active else app.remove_genre('Comedy')
+                                on_state: root.add_genre('Comedy') if comedy_chk.active else root.remove_genre('Comedy')
 
                         BoxLayout:
                             size_hint: None, None
@@ -176,7 +176,7 @@
                                 width: '40dp'
                             MDCheckbox:
                                 id: scifi_chk
-                                on_state: app.add_genre('SciFi') if scifi_chk.active else app.remove_genre('SciFi')
+                                on_state: root.add_genre('SciFi') if scifi_chk.active else root.remove_genre('SciFi')
 
                         BoxLayout:
                             size_hint: None, None
@@ -191,7 +191,7 @@
                                 width: '60dp'
                             MDCheckbox:
                                 id: roma_chk
-                                on_state: app.add_genre('Romance') if roma_chk.active else app.remove_genre('Romance')
+                                on_state: root.add_genre('Romance') if roma_chk.active else root.remove_genre('Romance')
 
                         BoxLayout:
                             size_hint: None, None
@@ -206,7 +206,7 @@
                                 width: '80dp'
                             MDCheckbox:
                                 id: psy_chk
-                                on_state: app.add_genre('Psychological') if psy_chk.active else app.remove_genre('Psychological')
+                                on_state: root.add_genre('Psychological') if psy_chk.active else root.remove_genre('Psychological')
 
                         BoxLayout:
                             size_hint: None, None
@@ -221,7 +221,7 @@
                                 width: '54dp'
                             MDCheckbox:
                                 id: mys_chk
-                                on_state: app.add_genre('Mystery') if mys_chk.active else app.remove_genre('Mystery')
+                                on_state: root.add_genre('Mystery') if mys_chk.active else root.remove_genre('Mystery')
 
                         BoxLayout:
                             size_hint: None, None
@@ -236,7 +236,7 @@
                                 width: '40dp'
                             MDCheckbox:
                                 id: mus_chk
-                                on_state: app.add_genre('Music') if mus_chk.active else app.remove_genre('Music')
+                                on_state: root.add_genre('Music') if mus_chk.active else root.remove_genre('Music')
 
                         BoxLayout:
                             size_hint: None, None
@@ -251,7 +251,7 @@
                                 width: '40dp'
                             MDCheckbox:
                                 id: mech_chk
-                                on_state: app.add_genre('Mecha') if mech_chk.active else app.remove_genre('Mecha')
+                                on_state: root.add_genre('Mecha') if mech_chk.active else root.remove_genre('Mecha')
 
                         BoxLayout:
                             size_hint: None, None
@@ -266,7 +266,7 @@
                                 width: '60dp'
                             MDCheckbox:
                                 id: mahou_chk
-                                on_state: app.add_genre('Mahou Shojo') if mahou_chk.active else app.remove_genre('Mahou Shojo')
+                                on_state: root.add_genre('Mahou Shojo') if mahou_chk.active else root.remove_genre('Mahou Shojo')
 
                         BoxLayout:
                             size_hint: None, None
@@ -281,7 +281,7 @@
                                 width: '60dp'
                             MDCheckbox:
                                 id: sol_chk
-                                on_state: app.add_genre('Slice of Life') if sol_chk.active else app.remove_genre('Slice of Life')
+                                on_state: root.add_genre('Slice of Life') if sol_chk.active else root.remove_genre('Slice of Life')
 
                         BoxLayout:
                             size_hint: None, None
@@ -296,7 +296,7 @@
                                 width: '40dp'
                             MDCheckbox:
                                 id: sports_chk
-                                on_state: app.add_genre('Sports') if sports_chk.active else app.remove_genre('Sports')
+                                on_state: root.add_genre('Sports') if sports_chk.active else root.remove_genre('Sports')
 
                         BoxLayout:
                             size_hint: None, None
@@ -311,7 +311,7 @@
                                 width: '74dp'
                             MDCheckbox:
                                 id: supernat_chk
-                                on_state: app.add_genre('Supernatural') if supernat_chk.active else app.remove_genre('Supernatural')
+                                on_state: root.add_genre('Supernatural') if supernat_chk.active else root.remove_genre('Supernatural')
 
                         BoxLayout:
                             size_hint: None, None
@@ -326,7 +326,7 @@
                                 width: '40dp'
                             MDCheckbox:
                                 id: thrill_chk
-                                on_state: app.add_genre('Thriller') if thrill_chk.active else app.remove_genre('Thriller')
+                                on_state: root.add_genre('Thriller') if thrill_chk.active else root.remove_genre('Thriller')
 
                                     #MDCheckbox:
                         #pos_hint: {'x': 0.9, 'center_y': 0.9}
