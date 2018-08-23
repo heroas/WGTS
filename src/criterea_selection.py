@@ -31,17 +31,20 @@ class Criterea_Selection(Screen):
         self.ids.mal_id.text = ""
         
     def print_crit(self):
-        url = "https://nyaa.pantsu.cat/api/search?c=3_5&sort=5&q=" + Global.ANIME_LIST[0] + "&page=" + str(1)
-        response = requests.get(url)
-        data = response.json()
 
-        torrents = data["torrents"]
+        for anime in Global.ANIME_LIST:
 
-        Snackbar(text=str(torrents)).show()
+            print('looking for ' + anime)
+            url = "https://nyaa.pantsu.cat/api/search?c=3_5&sort=5&q=" + anime + "&page=" + str(1)
+            response = requests.get(url)
+            data = response.json()
 
-        for torrent in torrents:
-            name = str(torrent["name"])
-            if Global.ANIME_LIST[0] in name and Global.QUALITY in name and torrent["seeders"] > 0:
-                self.ids.rsLbl.text = name
-                main.open_magnet(torrent["magnet"])
-                break
+            torrents = data["torrents"]
+
+            for torrent in torrents:
+                name = str(torrent["name"])
+                if anime in name and Global.QUALITY in name and torrent["seeders"] > 0:
+                    self.ids.rsLbl.text += name + ', '
+                    main.open_magnet(torrent["magnet"])
+                    break
+            continue
