@@ -3,7 +3,9 @@ from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivymd.snackbar import Snackbar
 from kivymd.list import OneLineListItem, TwoLineListItem
-from services import anilist
+from services import anilist_api
+import requests
+import main
 
 class Criterea_Selection(Screen):
 
@@ -21,8 +23,25 @@ class Criterea_Selection(Screen):
         Global.GENRES.remove(genre_type)
 
     def add_malid(self, mal_id):
-        title = anilist.get_anime_from_mal_id(mal_id)
+        title = anilist_api.get_anime_from_mal_id(mal_id)
 
+        Global.ANIME_LIST.append(title)
         self.ids.rsLbl.text = title
         self.ids.ml.add_widget(TwoLineListItem(text=title, secondary_text='From M.A.L Id'))
         self.ids.mal_id.text = ""
+        
+    def print_crit(self):
+        url = "https://nyaa.pantsu.cat/api/search?c=3_5&sort=5&q=" + Global.ANIME_LIST[0] + "&page=" + str(1)
+        response = requests.get(url)
+        data = response.json()
+
+        torrents = data["torrents"]
+
+        Snackbar(text=str(torrents)).show()
+
+        for torrent in torrents:
+            name = str(torrent["name"])
+            if Global.ANIME_LIST[0] in name and Global.QUALITY in name and torrent["seeders"] > 0:
+                self.ids.rsLbl.text = name
+                main.open_magnet(torrent["magnet"])
+                break

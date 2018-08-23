@@ -36,12 +36,12 @@ import sqlite3
 
 conn = sqlite3.connect('test.db')
 
-print "Opened database successfully";
+print ("Opened database successfully");
 try:
     conn.execute('''SELECT * FROM {} WHERE type='table' ''')
-    print "Table created successfully";
+    print ("Table created successfully");
 except:
-    print "Table Already There"
+    print ("Table Already There")
 
 
 def open_magnet(magnet):

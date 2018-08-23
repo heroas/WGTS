@@ -1,4 +1,4 @@
-import requests
+from services import requestor
 
 ANI_LIST_URL = 'https://graphql.anilist.co'
 
@@ -20,10 +20,10 @@ def get_anime_from_mal_id(mal_id):
             'malId':mal_id
         }
 
-        response = requests.post(ANI_LIST_URL, json={'query': query, 'variables': variables})
+        data = requestor.get_json_for_graphql(query,variables)
+        result = requestor.get_json_from_post(ANI_LIST_URL, data)
 
-        data = response.json()
-        title_obj = data["data"]["Media"]["title"]
+        title_obj = result["data"]["Media"]["title"]
         english_title = str(title_obj["english"])
         romaji_title = str(title_obj["romaji"])
 
