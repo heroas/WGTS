@@ -6,7 +6,7 @@ def get_json_from_get(url):
 
 
 def get_json_from_post(url, data):
-    response = requests.post(url,json = data)
+    response = requests.post(url, json = data)
     return response.json()
 
 def get_json_for_graphql(query, variables):

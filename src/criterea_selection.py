@@ -33,12 +33,22 @@ class Criterea_Selection(Screen):
     def set_quality(self, quality):
         Global.QUALITY = quality
 
-    def get_anime_from_genres(self):
-        if Global.SEASON is None:
+    def parse_season(self, season):
+        print season
+        seasonArr = season.split('-')
+        if(len(seasonArr) == 2 and seasonArr[1].isdigit() and seasonArr[0].upper() in Global.SEASON_LIST):
+            Global.SEASON = seasonArr[0].upper()
+            Global.SEASON_YEAR = seasonArr[1]
+
+    def get_animes_from_genres(self):
+        self.parse_season(self.ids.season.text)
+
+        if Global.SEASON is None or Global.SEASON == '':
             Snackbar(text="Please insert a season!").show()
             return
-            
-        for genre in Global.GENRE:
+
+        for genre in Global.GENRES:
+            print anilist_api.get_anime_from_genre(genre)
 
 
     def print_crit(self):

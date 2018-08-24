@@ -2,6 +2,17 @@ from services import requestor
 
 ANI_LIST_URL = 'https://graphql.anilist.co'
 
+def get_title(obj):
+    title_obj = obj["data"]["Media"]["title"]
+    english_title = str(title_obj["english"])
+    romaji_title = str(title_obj["romaji"])
+
+    if title_obj["english"] is None:
+        return romaji_title
+    else:
+        return english_title
+
+
 def get_anime_from_mal_id(mal_id):
     if mal_id.isdigit():
         query = '''
@@ -23,13 +34,27 @@ def get_anime_from_mal_id(mal_id):
         data = requestor.get_json_for_graphql(query,variables)
         result = requestor.get_json_from_post(ANI_LIST_URL, data)
 
-        title_obj = result["data"]["Media"]["title"]
-        english_title = str(title_obj["english"])
-        romaji_title = str(title_obj["romaji"])
+        return get_title(result)
 
-        if title_obj["english"] is None:
-            title = romaji_title
-        else:
-            title = english_title
 
-        return title;
+def get_anime_from_genre(genre):
+    print genre
+    query = '''
+        query ($genre: String){
+            Media (genre: $genre, type: ANIME){
+                title {
+                    english
+                    romaji
+                }
+            }
+        }
+        '''
+    variables = {
+        'genre': genre
+    }
+
+
+    data = requestor.get_json_for_graphql(query,variables)
+    result = requestor.get_json_from_post(ANI_LIST_URL, data)
+    print result
+    return get_title(result)
