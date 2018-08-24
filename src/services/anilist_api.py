@@ -1,4 +1,5 @@
 from services import requestor
+import Global
 
 ANI_LIST_URL = 'https://graphql.anilist.co'
 
@@ -18,8 +19,6 @@ def get_anime_from_mal_id(mal_id):
         query = '''
              query ($malId: Int) {
                     Media (idMal: $malId,type: ANIME) {
-                        id
-                        idMal
                         title {
                             english
                             romaji
@@ -39,9 +38,12 @@ def get_anime_from_mal_id(mal_id):
 
 def get_anime_from_genre(genre):
     print genre
+    print Global.SEASON
+    print Global.SEASON_YEAR
+
     query = '''
-        query ($genre: String){
-            Media (genre: $genre, type: ANIME){
+        query ($genre: String, $season: MediaSeason, $seasonYear: Int){
+            Media (genre: $genre, season: $season, seasonYear: $seasonYear, type: ANIME){
                 title {
                     english
                     romaji
@@ -50,7 +52,9 @@ def get_anime_from_genre(genre):
         }
         '''
     variables = {
-        'genre': genre
+        'genre': genre,
+        'season': Global.SEASON,
+        'seasonYear': Global.SEASON_YEAR
     }
 
 
