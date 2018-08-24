@@ -29,7 +29,18 @@ class Criterea_Selection(Screen):
         self.ids.rsLbl.text = title
         self.ids.ml.add_widget(TwoLineListItem(text=title, secondary_text='From M.A.L Id'))
         self.ids.mal_id.text = ""
-        
+
+    def set_quality(self, quality):
+        Global.QUALITY = quality
+
+    def get_anime_from_genres(self):
+        if Global.SEASON is None:
+            Snackbar(text="Please insert a season!").show()
+            return
+            
+        for genre in Global.GENRE:
+
+
     def print_crit(self):
 
         for anime in Global.ANIME_LIST:
