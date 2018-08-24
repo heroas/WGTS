@@ -48,7 +48,9 @@ class Criterea_Selection(Screen):
             return
 
         for genre in Global.GENRES:
-            print anilist_api.get_anime_from_genre(genre)
+            anilist_api.get_anime_from_genre(genre)
+
+        print(Global.ANIME_LIST)
 
 
     def print_crit(self):
