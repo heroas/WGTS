@@ -37,10 +37,6 @@ def get_anime_from_mal_id(mal_id):
 
 
 def get_anime_from_genre(genre):
-    print genre
-    print Global.SEASON
-    print Global.SEASON_YEAR
-
     query = '''
         query ($genre: String, $season: MediaSeason, $seasonYear: Int, $page: Int, $perPage: Int){
             Page (page: $page, perPage: $perPage) {
@@ -73,5 +69,6 @@ def get_anime_from_genre(genre):
     result = requestor.get_json_from_post(ANI_LIST_URL, data)
 
     for anime in result["data"]["Page"]["media"]:
-        print get_title(anime)
-        Global.ANIME_LIST.append(get_title(anime))
+        print (get_title(anime))
+        if get_title(anime) not in Global.ANIME_LIST:
+            Global.ANIME_LIST.append(get_title(anime))

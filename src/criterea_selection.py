@@ -34,16 +34,16 @@ class Criterea_Selection(Screen):
         Global.QUALITY = quality
 
     def parse_season(self, season):
-        print season
         seasonArr = season.split('-')
         if(len(seasonArr) == 2 and seasonArr[1].isdigit() and seasonArr[0].upper() in Global.SEASON_LIST):
             Global.SEASON = seasonArr[0].upper()
             Global.SEASON_YEAR = seasonArr[1]
+            return 0
+        return 1
 
     def get_animes_from_genres(self):
-        self.parse_season(self.ids.season.text)
 
-        if Global.SEASON is None or Global.SEASON == '':
+        if self.parse_season(self.ids.season.text):
             Snackbar(text="Please insert a season!").show()
             return
 
