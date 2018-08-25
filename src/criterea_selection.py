@@ -6,6 +6,7 @@ from kivymd.list import OneLineListItem, TwoLineListItem
 from services import anilist_api
 import requests
 import main
+import NyaaPy
 
 class Criterea_Selection(Screen):
 
@@ -43,6 +44,7 @@ class Criterea_Selection(Screen):
 
     def get_animes_from_genres(self):
 
+        self.ids.season.text = 'summer-2018'
         if self.parse_season(self.ids.season.text):
             Snackbar(text="Please insert a season!").show()
             return
@@ -52,6 +54,9 @@ class Criterea_Selection(Screen):
 
         print(Global.ANIME_LIST)
 
+
+    def testin_nyaapy(self):
+        NyaaPy.Nyaa.search(keyword="Shoukoku no Altair", category=1)
 
     def print_crit(self):
 
