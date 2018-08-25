@@ -56,7 +56,7 @@ class Criterea_Selection(Screen):
 
 
     def testin_nyaapy(self):
-        NyaaPy.Nyaa.search(keyword="Shoukoku no Altair", category=1)
+        print (Nyaa.search(keyword="Shoukoku no Altair", category=1, subcategory=2))
 
     def print_crit(self):
 

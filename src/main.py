@@ -45,7 +45,6 @@ except:
     print ("Table Already There")
 
 
-print (Nyaa.search(keyword="Shoukoku no Altair", category=1))
 
 def open_magnet(magnet):
         """Open magnet according to os."""
