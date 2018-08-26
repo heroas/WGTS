@@ -28,6 +28,7 @@ from kivymd.theming import ThemeManager
 from kivymd.time_picker import MDTimePicker
 import Global
 import criterea_selection
+import home
 import requests
 import os
 import sys
@@ -60,21 +61,12 @@ def open_magnet(magnet):
         else:
             subprocess.Popen(['xdg-open', magnet],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-class Criterea():
-    Genres = []
-    Names = []
-    Quality = '720'
-
-critereas = Criterea()
 
 def resource_path(relative):
     if hasattr(sys, "_MEIPASS"):
         return os.path.join(sys._MEIPASS, relative)
     return os.path.join(relative)
 
-
-class Home(Screen):
-    pass
 
 class WGTS(App):
     theme_cls = ThemeManager()
@@ -95,6 +87,8 @@ class WGTS(App):
         kv_file = resource_path(os.path.join('templates', 'nav.kv'))
         main_widget = Builder.load_file(kv_file)
         main_widget.ids.scr_mngr.add_widget(criterea_selection.Criterea_Selection(name='crits'))
+        main_widget.ids.scr_mngr.add_widget(home.Home(name='home'))
+
         return main_widget
 
 if __name__ == '__main__':

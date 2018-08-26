@@ -51,14 +51,39 @@ NavigationLayout:
             on_release: app.root.ids.scr_mngr.current = 'criterea_selection'
     BoxLayout:
         orientation: 'vertical'
+        #Toolbar:
+            #id: toolbar
+            #title: 'Whats Good this Season?'
+            #background_palette: 'Primary'
+            #md_bg_color: get_color_from_hex(colors['LightBlue']['300'])
+            #background_palette: 'LightBlue'
+            #background_hue: '300'
+            #left_action_items: [['menu', lambda x: app.root.toggle_nav_drawer()]]
+        #Toolbar:
+            #id: toolbar
+            #title: 'Whats Good this Season?'
+            #background_palette: 'Primary'
+            #md_bg_color: get_color_from_hex(colors['Green']['300'])
+            #background_palette: 'Green'
+            #background_hue: '300'
+            #left_action_items: [['menu', lambda x: app.root.toggle_nav_drawer()]]
         Toolbar:
             id: toolbar
             title: 'Whats Good this Season?'
-            md_bg_color: app.theme_cls.primary_color
             background_palette: 'Primary'
-            background_hue: '500'
+            md_bg_color: get_color_from_hex(colors['Yellow']['200'])
+            background_palette: 'Yellow'
+            background_hue: '300'
             left_action_items: [['menu', lambda x: app.root.toggle_nav_drawer()]]
-
+        #Toolbar:
+            #id: toolbar
+            #title: 'Whats Good this Season?'
+            #md_bg_color: app.theme_cls.primary_color
+            #background_palette: 'Primary'
+            #md_bg_color: get_color_from_hex(colors['Orange']['500'])
+            #background_palette: 'Orange'
+            #background_hue: '500'
+            #left_action_items: [['menu', lambda x: app.root.toggle_nav_drawer()]]
         ScreenManager:
             id: scr_mngr
             Home:
