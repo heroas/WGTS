@@ -16,6 +16,8 @@ from kivymd.bottomsheet import MDListBottomSheet, MDGridBottomSheet
 from kivymd.button import MDIconButton
 from kivymd.date_picker import MDDatePicker
 from kivymd.dialog import MDDialog
+from kivy.utils import get_color_from_hex
+from kivymd.color_definitions import colors
 from kivymd.label import MDLabel
 from kivymd.list import ILeftBody, ILeftBodyTouch, IRightBodyTouch, BaseListItem
 from kivymd.list import OneLineListItem, TwoLineListItem
@@ -33,19 +35,36 @@ import requests
 import os
 import sys
 import subprocess
-import sqlite3
 from NyaaPy import Nyaa
-
-conn = sqlite3.connect('test.db')
-
-print ("Opened database successfully");
-try:
-    conn.execute('''SELECT * FROM {} WHERE type='table' ''')
-    print ("Table created successfully");
-except:
-    print ("Table Already There")
+import datetime
 
 
+date = datetime.datetime.now()
+
+
+def get_season(month):
+    if(month == '01' or month == '02' or month == '03'):
+        Global.SEASON_NAME = "Winter"
+    if(month == '04' or month == '05' or month == '06'):
+        Global.SEASON_NAME = "Spring"
+    if(month == '07' or month == '08' or month == '09'):
+        Global.SEASON_NAME = "Summer"
+    if(month == '10' or month == '11' or month == '12'):
+        Global.SEASON_NAME = "Fall"
+
+    season_color_switcher = {
+        "Winter": get_color_from_hex(colors['LightBlue']['300']),
+        "Spring": get_color_from_hex(colors['Green']['300']),
+        "Summer": get_color_from_hex(colors['Yellow']['200']),
+        "Fall": get_color_from_hex(colors['Orange']['500'])
+        }
+
+    Global.SEASON_COLOR = season_color_switcher.get(Global.SEASON_NAME)
+
+    print(Global.SEASON_NAME)
+    print(Global.SEASON_COLOR)
+
+get_season(date.strftime("%m"))
 
 def open_magnet(magnet):
         """Open magnet according to os."""

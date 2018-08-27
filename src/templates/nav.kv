@@ -35,6 +35,7 @@
 #:import MDBottomNavigationItem kivymd.tabs.MDBottomNavigationItem
 #:include templates/criterea_selection.kv
 #:include templates/home.kv
+#:import gl Global
 
 
 NavigationLayout:
@@ -70,8 +71,7 @@ NavigationLayout:
         Toolbar:
             id: toolbar
             title: 'Whats Good this Season?'
-            background_palette: 'Primary'
-            md_bg_color: get_color_from_hex(colors['Yellow']['200'])
+            md_bg_color: gl.SEASON_COLOR
             background_palette: 'Yellow'
             background_hue: '300'
             left_action_items: [['menu', lambda x: app.root.toggle_nav_drawer()]]
