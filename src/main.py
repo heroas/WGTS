@@ -41,7 +41,12 @@ from tinydb import TinyDB, Query
 
 
 
-def set_season(month):
+def set_season():
+
+    date = datetime.datetime.now()
+    month = date.strftime("%m")
+    year = date.strftime("%Y")
+
     if month in ('01','02','03'):
         Global.SEASON_NAME = "Winter"
     elif month in ('04','05','06'):
@@ -59,9 +64,16 @@ def set_season(month):
         }
 
     Global.SEASON_COLOR = season_color_switcher.get(Global.SEASON_NAME)
+    Global.SEASON_YEAR = year
 
     print(Global.SEASON_NAME)
     print(Global.SEASON_COLOR)
+
+def load_create_tinydb():
+    seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
+    db = TinyDB(seasonYear + '.json')
+    db.insert({'anime': 'Saumrai Champloo', 'season': seasonYear, 'episodes_retrieved': 24, 'magnet_link': 'asdhjfasudtvhb' })
+
 
 def open_magnet(magnet):
         """Open magnet according to os."""
@@ -107,8 +119,8 @@ class WGTS(App):
 
         return main_widget
 
-date = datetime.datetime.now()
-set_season(date.strftime("%m"))
 
 if __name__ == '__main__':
+    set_season()
+    load_create_tinydb()
     WGTS().run()
