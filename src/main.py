@@ -37,19 +37,18 @@ import sys
 import subprocess
 from NyaaPy import Nyaa
 import datetime
+from tinydb import TinyDB, Query
 
 
-date = datetime.datetime.now()
 
-
-def get_season(month):
-    if(month == '01' or month == '02' or month == '03'):
+def set_season(month):
+    if month in ('01','02','03'):
         Global.SEASON_NAME = "Winter"
-    if(month == '04' or month == '05' or month == '06'):
+    elif month in ('04','05','06'):
         Global.SEASON_NAME = "Spring"
-    if(month == '07' or month == '08' or month == '09'):
+    elif month in ('07','08','09'):
         Global.SEASON_NAME = "Summer"
-    if(month == '10' or month == '11' or month == '12'):
+    else:
         Global.SEASON_NAME = "Fall"
 
     season_color_switcher = {
@@ -63,8 +62,6 @@ def get_season(month):
 
     print(Global.SEASON_NAME)
     print(Global.SEASON_COLOR)
-
-get_season(date.strftime("%m"))
 
 def open_magnet(magnet):
         """Open magnet according to os."""
@@ -109,6 +106,9 @@ class WGTS(App):
         main_widget.ids.scr_mngr.add_widget(home.Home(name='home'))
 
         return main_widget
+
+date = datetime.datetime.now()
+set_season(date.strftime("%m"))
 
 if __name__ == '__main__':
     WGTS().run()
