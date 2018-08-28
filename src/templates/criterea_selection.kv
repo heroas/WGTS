@@ -335,6 +335,15 @@
 
 
             BoxLayout:
+                size_hint_y: .1
+                MDLabel:
+                    text: "and"
+                    halign: 'center'
+                MDLabel:
+                    text: "or"
+                    halign: 'center'
+
+            BoxLayout:
                 orientation: 'vertical'
                 padding: 10
                 spacing: 5
@@ -372,7 +381,15 @@
                         #on_release: root.add_malid(mal_id.text)
 
             BoxLayout:
-                orientation: 'vertical'
+                size_hint_y: .1
+                MDLabel:
+                    text: "and"
+                    halign: 'center'
+                MDLabel:
+                    text: "or"
+                    halign: 'center'
+
+            BoxLayout:
                 padding: 10
                 spacing: 5
                 MDLabel:
@@ -380,13 +397,14 @@
                     text: "POPULARITY"
                     font_style: 'Headline'
                     theme_text_color: 'Primary'
+                    valign: 'center'
+                MDRaisedButton:
+                    text: "Most Popular"
+                MDRaisedButton:
+                    text: "Top 3"
+                MDRaisedButton:
+                    text: "Top 5"
 
-                MDCard:
-                    size_hint: 1,1
-
-                    MDLabel:
-                        id: rsLbl
-                        text: "Hello"
 
 
         BoxLayout:

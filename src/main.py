@@ -122,5 +122,5 @@ class WGTS(App):
 
 if __name__ == '__main__':
     set_season()
-    load_create_tinydb()
+    #load_create_tinydb()
     WGTS().run()
