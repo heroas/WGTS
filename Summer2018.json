@@ -1,16 +1,1 @@
-{
-  "_default": {
-    "1": {
-      "episodes_retrieved": 24,
-      "season": "Summer2018",
-      "anime": "Saumrai Champloo",
-      "magnet_link": "asdhjfasudtvhb"
-    },
-    "2": {
-      "episodes_retrieved": 24,
-      "season": "Summer2018",
-      "anime": "Saumrai Champloo",
-      "magnet_link": "asdhjfasudtvhb"
-    }
-  }
-}
+{"_default": {"1": {"anime": "Saumrai Champloo", "episodes_retrieved": 24, "magnet_link": "asdhjfasudtvhb", "season": "Summer2018"}, "2": {"anime": "Saumrai Champloo", "episodes_retrieved": 24, "magnet_link": "asdhjfasudtvhb", "season": "Summer2018"}, "3": {"anime": "Saumrai Champloo", "episodes_retrieved": 24, "magnet_link": "asdhjfasudtvhb", "season": "Summer2018"}, "4": {"anime": "Saumrai Champloo", "episodes_retrieved": 24, "magnet_link": "asdhjfasudtvhb", "season": "Summer2018"}, "5": {"anime": "Saumrai Champloo", "episodes_retrieved": 24, "magnet_link": "asdhjfasudtvhb", "season": "Summer2018"}, "6": {"anime": "Saumrai Champloo", "episodes_retrieved": 24, "magnet_link": "asdhjfasudtvhb", "season": "Summer2018"}, "7": {"anime": "Saumrai Champloo", "episodes_retrieved": 24, "magnet_link": "asdhjfasudtvhb", "season": "Summer2018"}, "8": {"anime": "Saumrai Champloo", "episodes_retrieved": 24, "magnet_link": "asdhjfasudtvhb", "season": "Summer2018"}, "9": {"anime": "Saumrai Champloo", "episodes_retrieved": 24, "magnet_link": "asdhjfasudtvhb", "season": "Summer2018"}, "10": {"anime": "Saumrai Champloo", "episodes_retrieved": 24, "magnet_link": "asdhjfasudtvhb", "season": "Summer2018"}, "11": {"anime": "Saumrai Champloo", "episodes_retrieved": 24, "season": "Summer2018", "magnet_link": "asdhjfasudtvhb"}}}

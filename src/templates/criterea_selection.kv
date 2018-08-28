@@ -50,7 +50,7 @@
 
                 MDLabel:
                     size_hint_y: .2
-                    text: "GENRE"
+                    text: "GENRES"
                     font_style: 'Headline'
                     theme_text_color: 'Primary'
 
@@ -340,24 +340,36 @@
                 spacing: 5
                 MDLabel:
                     size_hint_y: .2
-                    text: "ID"
+                    text: "RATING"
                     font_style: 'Headline'
                     theme_text_color: 'Primary'
 
                 MDCard:
                     size_hint: 1,1
-                    padding: 50
+                    padding: 20
                     spacing: 10
-                    MDTextField:
-                        id: mal_id
-                        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                        hint_text: 'Insert MAL ID'
-                        helper_text: 'EX: 205 = Samurai Champloo / https://myanimelist.net/anime/205/Samurai_Champloo'
-                        helper_text_mode: 'on_focus'
-                    MDIconButton:
-                        icon: 'plus'
-                        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                        on_release: root.add_malid(mal_id.text)
+                    orientation: 'vertical'
+
+                    MDLabel:
+                        text: str(int(round(rating_slider.value))) + '%'
+                        font_style: 'Headline'
+                        theme_text_color: 'Primary'
+                        halign: 'center'
+                    MDSlider:
+                        id: rating_slider
+                        min:0
+                        max:100
+                        value: 10
+                    #MDTextField:
+                        #id: mal_id
+                        #pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                        #hint_text: 'Insert MAL ID'
+                        #helper_text: 'EX: 205 = Samurai Champloo / https://myanimelist.net/anime/205/Samurai_Champloo'
+                        #helper_text_mode: 'on_focus'
+                    #MDIconButton:
+                        #icon: 'plus'
+                        #pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                        #on_release: root.add_malid(mal_id.text)
 
             BoxLayout:
                 orientation: 'vertical'
@@ -365,7 +377,7 @@
                 spacing: 5
                 MDLabel:
                     size_hint_y: .2
-                    text: "STUDIO"
+                    text: "POPULARITY"
                     font_style: 'Headline'
                     theme_text_color: 'Primary'
 
