@@ -58,6 +58,33 @@ class Criterea_Selection(Screen):
     def testin_nyaapy(self):
         print (Nyaa.search(keyword="Shoukoku no Altair", category=1, subcategory=2))
 
+    def first_switch_toggle(self,switch):
+        if switch == 'AND':
+            self.ids.first_and.font_style = 'Display1'
+            self.ids.first_and.text_color = Global.SEASON_COLOR_DARK
+            self.ids.first_or.font_style = 'Body1'
+            self.ids.first_or.text_color =[0, 0, 0, 1]
+
+        else:
+            self.ids.first_or.font_style = 'Display1'
+            self.ids.first_or.text_color = Global.SEASON_COLOR_DARK
+            self.ids.first_and.font_style = 'Body1'
+            self.ids.first_and.text_color =[0, 0, 0, 1]
+            
+    def second_switch_toggle(self,switch):
+        if switch == 'AND':
+            self.ids.second_and.font_style = 'Display1'
+            self.ids.second_and.text_color = Global.SEASON_COLOR_DARK
+            self.ids.second_or.font_style = 'Body1'
+            self.ids.second_or.text_color =[0, 0, 0, 1]
+
+        else:
+            self.ids.second_or.font_style = 'Display1'
+            self.ids.second_or.text_color = Global.SEASON_COLOR_DARK
+            self.ids.second_and.font_style = 'Body1'
+            self.ids.second_and.text_color =[0, 0, 0, 1]
+
+
     def print_crit(self):
 
         for anime in Global.ANIME_LIST:

@@ -62,8 +62,15 @@ def set_season():
         "Summer": get_color_from_hex(colors['Yellow']['200']),
         "Fall": get_color_from_hex(colors['Orange']['500'])
         }
+    season_color_dark_switcher = {
+        "Winter": get_color_from_hex(colors['LightBlue']['600']),
+        "Spring": get_color_from_hex(colors['Green']['600']),
+        "Summer": get_color_from_hex(colors['Red']['600']),
+        "Fall": get_color_from_hex(colors['Orange']['600'])
+        }
 
     Global.SEASON_COLOR = season_color_switcher.get(Global.SEASON_NAME)
+    Global.SEASON_COLOR_DARK = season_color_dark_switcher.get(Global.SEASON_NAME)
     Global.SEASON_YEAR = year
 
     print(Global.SEASON_NAME)
