@@ -7,6 +7,7 @@ from services import anilist_api
 import requests
 import main
 import NyaaPy
+from tinydb import TinyDB, Query
 
 class Criterea_Selection(Screen):
     genre_verbatim = 'Anything '
@@ -46,19 +47,6 @@ class Criterea_Selection(Screen):
             return 0
         return 1
 
-    def get_animes_from_genres(self):
-
-        self.ids.season.text = 'summer-2018'
-        if self.parse_season(self.ids.season.text):
-            Snackbar(text="Please insert a season!").show()
-            return
-
-        for genre in Global.GENRES:
-            anilist_api.get_anime_from_genre(genre)
-
-        print(Global.ANIME_LIST)
-
-
     def testin_nyaapy(self):
         print (Nyaa.search(keyword="Shoukoku no Altair", category=1, subcategory=2))
 
@@ -96,31 +84,12 @@ class Criterea_Selection(Screen):
 
 
 
-    def testin_verbatim(self):
+    def set_anime_from_criterea(self):
         Global.RATING = int(round(self.ids.rating_slider.value))
 
-        print(Global.GENRES)
-        print (Global.POPULARITY)
-        print (Global.RATING)
-        print (Global.RATING_IN_GENRE)
-        print (Global.QUALITY)
         anilist_api.get_releasing_anime()
 
-    def print_crit(self):
-
+        seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
         for anime in Global.ANIME_LIST:
-
-            print('looking for ' + anime)
-            url = "https://nyaa.pantsu.cat/api/search?c=3_5&sort=5&q=" + anime + "&page=" + str(1)
-            response = requests.get(url)
-            data = response.json()
-
-            torrents = data["torrents"]
-
-            for torrent in torrents:
-                name = str(torrent["name"])
-                if anime in name and Global.QUALITY in name and torrent["seeders"] > 0:
-                    self.ids.rsLbl.text += name + ', '
-                    main.open_magnet(torrent["magnet"])
-                    break
-            continue
+            db = TinyDB(seasonYear + '.json')
+            db.insert({'anime': str(anime), 'season': seasonYear, 'episodes_retrieved': 3, 'magnet_links': ['asdhjfasudtvhb','asdasfsdgfdbdf','ashdgvsuv'] })
