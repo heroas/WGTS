@@ -104,6 +104,7 @@ class Criterea_Selection(Screen):
         print (Global.RATING)
         print (Global.RATING_IN_GENRE)
         print (Global.QUALITY)
+        anilist_api.get_releasing_anime()
 
     def print_crit(self):
 
