@@ -9,19 +9,23 @@ import main
 import NyaaPy
 
 class Criterea_Selection(Screen):
+    genre_verbatim = 'Anything '
+    first_switch_verbatim = 'as well as anything with a rating of '
 
     def add_genre(self, genre_type):
-        Snackbar(text='Added ' + genre_type).show()
-        self.ids.ml.add_widget(TwoLineListItem(
-            text=genre_type, secondary_text='Genre'))
         Global.GENRES.append(genre_type)
+        self.ids.genre_verbatim.text = ''
+        for genre in Global.GENRES:
+            self.ids.genre_verbatim.text += genre + '  '
 
     def remove_genre(self, genre_type):
-        Snackbar(text='Removed ' + genre_type).show()
-        for c in self.ids.ml.children:
-            if(c.text == genre_type):
-                self.ids.ml.remove_widget(c)
         Global.GENRES.remove(genre_type)
+        if len(Global.GENRES) == 0:
+            self.ids.genre_verbatim.text = 'Anything '
+        else:
+            self.ids.genre_verbatim.text = ''
+            for genre in Global.GENRES:
+                self.ids.genre_verbatim.text += genre + '  '
 
     def add_malid(self, mal_id):
         title = anilist_api.get_anime_from_mal_id(mal_id)
@@ -64,26 +68,42 @@ class Criterea_Selection(Screen):
             self.ids.first_and.text_color = Global.SEASON_COLOR_DARK
             self.ids.first_or.font_style = 'Body1'
             self.ids.first_or.text_color =[0, 0, 0, 1]
+            self.ids.first_verbatim.text = 'as long as the rating is '
+            Global.RATING_IN_GENRE = 1
 
         else:
             self.ids.first_or.font_style = 'Display1'
             self.ids.first_or.text_color = Global.SEASON_COLOR_DARK
             self.ids.first_and.font_style = 'Body1'
             self.ids.first_and.text_color =[0, 0, 0, 1]
-            
-    def second_switch_toggle(self,switch):
-        if switch == 'AND':
-            self.ids.second_and.font_style = 'Display1'
-            self.ids.second_and.text_color = Global.SEASON_COLOR_DARK
-            self.ids.second_or.font_style = 'Body1'
-            self.ids.second_or.text_color =[0, 0, 0, 1]
+            self.ids.first_verbatim.text  = 'as well as anything with a rating of '
+            Global.RATING_IN_GENRE = 0
 
+    def set_popularity(self, popularity):
+
+        if popularity == 'Most':
+            Global.POPULARITY = 1
+            self.ids.pop_verbatim.text = 'also give me the most popular anime this season.'
+        elif popularity == '3':
+            Global.POPULARITY = 3
+            self.ids.pop_verbatim.text = 'also give me the 3 most popular anime this season.'
+        elif popularity == '5':
+            Global.POPULARITY = 5
+            self.ids.pop_verbatim.text = 'also give me the 5 most popular anime this season.'
         else:
-            self.ids.second_or.font_style = 'Display1'
-            self.ids.second_or.text_color = Global.SEASON_COLOR_DARK
-            self.ids.second_and.font_style = 'Body1'
-            self.ids.second_and.text_color =[0, 0, 0, 1]
+            Global.POPULARITY = None
+            self.ids.pop_verbatim.text = 'also I dont care about whats popular.'
 
+
+
+    def testin_verbatim(self):
+        Global.RATING = int(round(self.ids.rating_slider.value))
+
+        print(Global.GENRES)
+        print (Global.POPULARITY)
+        print (Global.RATING)
+        print (Global.RATING_IN_GENRE)
+        print (Global.QUALITY)
 
     def print_crit(self):
 

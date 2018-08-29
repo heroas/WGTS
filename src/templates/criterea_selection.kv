@@ -39,9 +39,9 @@
     BoxLayout:
 
         BoxLayout:
-            size_hint: (.75,1)
+            size_hint: (.73,1)
             orientation: 'vertical'
-            spacing: 1
+            spacing: 5
 
             BoxLayout:
                 orientation: 'vertical'
@@ -337,7 +337,7 @@
 
 
             BoxLayout:
-                size_hint_y: .1
+                size_hint_y: .15
                 BoxLayout:
                     size_hint_x: .2
                     pos_hint: {'center_x': 0.5, 'center_y': 0.9}
@@ -376,6 +376,7 @@
                     orientation: 'vertical'
 
                     MDLabel:
+                        id: rating_slider_percentage
                         text: str(int(round(rating_slider.value))) + '%'
                         font_style: 'Headline'
                         theme_text_color: 'Primary'
@@ -384,7 +385,7 @@
                         id: rating_slider
                         min:0
                         max:100
-                        value: 10
+                        value: 70
                     #MDTextField:
                         #id: mal_id
                         #pos_hint: {'center_x': 0.5, 'center_y': 0.5}
@@ -396,28 +397,6 @@
                         #pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                         #on_release: root.add_malid(mal_id.text)
 
-            BoxLayout:
-                size_hint_y: .1
-                BoxLayout:
-                    size_hint_x: .2
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.9}
-                    MDLabel:
-                        id: second_or
-                        text: "OR"
-                        theme_text_color: 'Custom'
-                        halign: 'center'
-
-                    MDSwitch:
-                        id: second_switch
-                        size_hint:    None, None
-                        size:        dp(36), dp(48)
-                        pos_hint:    {'center_x': 0.75, 'center_y': 0.5}
-                        _active:  root.second_switch_toggle('AND') if second_switch.active else root.second_switch_toggle('OR')
-                    MDLabel:
-                        id: second_and
-                        text: "AND"
-                        theme_text_color: 'Custom'
-                        halign: 'center'
 
             BoxLayout:
                 orientation: 'vertical'
@@ -433,28 +412,64 @@
                     MDRaisedButton:
                         pos_hint: {'x': 0.3, 'center_y': 0.9}
                         text: "Most Popular"
+                        on_release: root.set_popularity('Most')
                         halign: 'center'
                     MDRaisedButton:
                         pos_hint: {'x': 0.6, 'center_y': 0.9}
                         text: "Top 3"
                         halign: 'center'
+                        on_release: root.set_popularity('3')
                     MDRaisedButton:
                         pos_hint: {'x': 0.9, 'center_y': 0.9}
                         text: "Top 5"
                         halign: 'center'
+                        on_release: root.set_popularity('5')
+                    MDRaisedButton:
+                        pos_hint: {'x': 0.9, 'center_y': 0.9}
+                        text: "I dont care"
+                        halign: 'center'
+                        on_release: root.set_popularity('')
 
+        MDSeparator:
+            orientation: 'vertical'
+            height: dp(1)
 
 
         BoxLayout:
-            size_hint: (.25,1)
+            size_hint: (.27,1)
             orientation: 'vertical'
             padding: 10
             spacing: 10
 
-            ScrollView:
-                do_scroll_x: False
-                MDList:
-                    id: ml
+            MDCard:
+                orientation: 'vertical'
+                MDLabel:
+                    size_hint_y: .15
+                    text: 'What are you looking for?'
+                    font_style: 'Subhead'
+                    halign: 'center'
+                MDSeparator:
+                    height: dp(1)
+                MDLabel:
+                    size_hint_y: .15
+                    id: genre_verbatim
+                    halign: 'center'
+                    text: root.genre_verbatim
+                MDLabel:
+                    size_hint_y: .15
+                    id: first_verbatim
+                    halign: 'center'
+                    text: root.first_switch_verbatim
+                MDLabel:
+                    size_hint_y: .15
+                    id: rating_verbatim
+                    halign: 'center'
+                    text: rating_slider_percentage.text +' or higher'
+                MDLabel:
+                    size_hint_y: .15
+                    id: pop_verbatim
+                    halign: 'center'
+                    text: 'also I dont care about the popularity'
 
             MDCard:
                 size_hint_y: .24
@@ -504,7 +519,7 @@
                     MDRaisedButton:
                         text: "Find Anime"
                         opposite_colors: True
-                        on_release: root.testin_nyaapy()
+                        on_release: root.testin_verbatim()
                         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
 
