@@ -47,9 +47,6 @@ class Criterea_Selection(Screen):
             return 0
         return 1
 
-    def testin_nyaapy(self):
-        print (Nyaa.search(keyword="Shoukoku no Altair", category=1, subcategory=2))
-
     def first_switch_toggle(self,switch):
         if switch == 'AND':
             self.ids.first_and.font_style = 'Display1'
