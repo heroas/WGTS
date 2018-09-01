@@ -8,9 +8,36 @@ from kivymd.accordion import MDAccordion, MDAccordionItem, MDAccordionSubItem
 from kivymd.list import OneLineListItem, TwoLineListItem
 from tinydb import TinyDB, Query
 from NyaaPy import Nyaa
+import home
+import requests
+import os
+import sys
+import subprocess
 
+def open_magnet(magnet):
+        """Open magnet according to os."""
+        if sys.platform.startswith('linux'):
+            subprocess.Popen(['xdg-open', magnet])
+        elif sys.platform.startswith('win32'):
+            os.startfile(magnet)
+        elif sys.platform.startswith('cygwin'):
+            os.startfile(magnet)
+        elif sys.platform.startswith('darwin'):
+            subprocess.Popen(['open', magnet],
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        else:
+            subprocess.Popen(['xdg-open', magnet],
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+def test_meth(hi):
+    print(hi)
 
 class Home(Screen):
+
+    def testin_nyaapy(self):
+        animeList = Nyaa.search(keyword="Shoukoku no Altair", category=1, subcategory=2)
+        Global.Test = animeList[0]["magnet"]
+
     def load_db(self):
         db = TinyDB(Global.DB_FILE)
         anime_db = db.all()
@@ -22,10 +49,8 @@ class Home(Screen):
             self.ids.ani_list.add_widget(anime_item)
             for episode in range(0, anime["episodes_retrieved"]):
                 anime_sub_item = MDAccordionSubItem(parent_item = anime_item, text = 'Episode ' + str(episode + 1))
+                anime_sub_item.on_release = test_meth('hello')
                 anime_item.add_widget(anime_sub_item)
 
-    def testin_nyaapy(self):
-        animeList = Nyaa.search(keyword="Shoukoku no Altair", category=1, subcategory=2)
-        Global.Test = animeList[0]["magnet"]
 
     pass
