@@ -13,6 +13,7 @@ import requests
 import os
 import sys
 import subprocess
+import functools
 
 def open_magnet(magnet):
         """Open magnet according to os."""
@@ -29,8 +30,8 @@ def open_magnet(magnet):
             subprocess.Popen(['xdg-open', magnet],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-def test_meth(hi):
-    print(hi)
+def test_meth(magnet):
+    print(magnet)
 
 class Home(Screen):
 
@@ -49,7 +50,7 @@ class Home(Screen):
             self.ids.ani_list.add_widget(anime_item)
             for episode in range(0, anime["episodes_retrieved"]):
                 anime_sub_item = MDAccordionSubItem(parent_item = anime_item, text = 'Episode ' + str(episode + 1))
-                anime_sub_item.on_release = test_meth('hello')
+                anime_sub_item.on_release = functools.partial(open_magnet, Global.Test)
                 anime_item.add_widget(anime_sub_item)
 
 
