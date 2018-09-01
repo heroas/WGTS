@@ -30,28 +30,13 @@ def open_magnet(magnet):
             subprocess.Popen(['xdg-open', magnet],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-def test_meth(magnet):
-    print(magnet)
+def test_meth():
+    print()
+
 
 class Home(Screen):
 
     def testin_nyaapy(self):
         animeList = Nyaa.search(keyword="Shoukoku no Altair", category=1, subcategory=2)
         Global.Test = animeList[0]["magnet"]
-
-    def load_db(self):
-        db = TinyDB(Global.DB_FILE)
-        anime_db = db.all()
-
-        for anime in anime_db:
-            anime_item = MDAccordionItem();
-            anime_item.icon = 'movie'
-            anime_item.title = anime["anime"]
-            self.ids.ani_list.add_widget(anime_item)
-            for episode in range(0, anime["episodes_retrieved"]):
-                anime_sub_item = MDAccordionSubItem(parent_item = anime_item, text = 'Episode ' + str(episode + 1))
-                anime_sub_item.on_release = functools.partial(open_magnet, Global.Test)
-                anime_item.add_widget(anime_sub_item)
-
-
     pass

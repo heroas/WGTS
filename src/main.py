@@ -28,6 +28,8 @@ from kivymd.menu import MDDropdownMenu
 from kivymd.snackbar import Snackbar
 from kivymd.theming import ThemeManager
 from kivymd.time_picker import MDTimePicker
+from kivymd.accordion import MDAccordion, MDAccordionItem, MDAccordionSubItem
+import functools
 import Global
 import criterea_selection
 import home
@@ -108,24 +110,33 @@ class WGTS(App):
     theme_cls = ThemeManager()
     previous_date = ObjectProperty()
     title = "What's Good This Season?"
-    quality_items = [{'viewclass': 'MDMenuItem','text': 'Example item'}]
-    quality_dropDown = MDDropdownMenu(items=[{'viewclass': 'MDMenuItem','text': 'Example item'}], width_mult = 4)
-
-    def on_touch(touch):
-        Snackbar(text=str(touch.pos)).show()
-
-    quality_dropDown.on_touch_down = on_touch
 
     def root():
         return self.root
+
+    def load_home(self,main_widget):
+        db = TinyDB(Global.DB_FILE)
+        anime_db = db.all()
+
+        for anime in anime_db:
+            anime_item = MDAccordionItem();
+            anime_item.icon = 'movie'
+            anime_item.title = anime["anime"]
+            main_widget.ids.home.ids.ani_list.add_widget(anime_item)
+            for episode in range(0, anime["episodes_retrieved"]):
+                anime_sub_item = MDAccordionSubItem(parent_item = anime_item, text = 'Episode ' + str(episode + 1))
+                anime_sub_item.on_release = functools.partial(open_magnet, Global.Test)
+                anime_item.add_widget(anime_sub_item)
 
     def build(self):
         kv_file = resource_path(os.path.join('templates', 'nav.kv'))
         main_widget = Builder.load_file(kv_file)
         main_widget.ids.scr_mngr.add_widget(criterea_selection.Criterea_Selection(name='crits'))
         main_widget.ids.scr_mngr.add_widget(home.Home(name='home'))
-
+        self.load_home(main_widget)
         return main_widget
+
+
 
 
 if __name__ == '__main__':
