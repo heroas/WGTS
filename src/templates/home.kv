@@ -40,62 +40,14 @@
     BoxLayout:
         spacing: 10
         BoxLayout:
-            Button:
+            MDRaisedButton:
+                text: 'Load Anime'
+                on_release: root.load_db()
 
         BoxLayout:
             MDAccordion:
+                id: ani_list
                 orientation: 'vertical'
                 do_scroll_x: 'true'
-                md_bg_color: gl.SEASON_COLOR 
+                md_bg_color: gl.SEASON_COLOR
                 specific_text_color: get_color_from_hex('#000000')
-                MDAccordionItem:
-                    icon: 'movie'
-                    title: 'Summer 2018'
-                    MDAccordionSubItem:
-                        text: 'Anime Name'
-                    MDAccordionSubItem:
-                        text: 'Anime Name'
-                    MDAccordionSubItem:
-                        text: 'Anime Name'
-                    MDAccordionSubItem:
-                        text: 'Anime Name'
-                    MDAccordionSubItem:
-                        text: 'Anime Name'
-                    MDAccordionSubItem:
-                        text: 'Anime Name'
-                    MDAccordionSubItem:
-                        text: 'Anime Name'
-                    MDAccordionSubItem:
-                        text: 'Anime Name'
-                MDAccordionItem:
-                    title: 'Spring 2018'
-                    MDAccordionSubItem:
-                        text: 'Anime Name'
-                MDAccordionItem:
-                    title: 'Summer 2018'
-                    MDAccordionSubItem:
-                        text: 'Anime Name'
-                MDAccordionItem:
-                    title: 'Spring 2018'
-                    MDAccordionSubItem:
-                        text: 'Anime Name'
-                MDAccordionItem:
-                    title: 'Summer 2018'
-                    MDAccordionSubItem:
-                        text: 'Anime Name'
-                MDAccordionItem:
-                    title: 'Spring 2018'
-                    MDAccordionSubItem:
-                        text: 'Anime Name'
-                MDAccordionItem:
-                    title: 'Summer 2018'
-                    MDAccordionSubItem:
-                        text: 'Anime Name'
-                MDAccordionItem:
-                    title: 'Spring 2018'
-                    MDAccordionSubItem:
-                        text: 'Anime Name'
-                MDAccordionItem:
-                    title: 'Spring 2018'
-                    MDAccordionSubItem:
-                        text: 'Anime Name'

@@ -78,8 +78,9 @@ def set_season():
 
 def load_create_tinydb():
     seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
-    db = TinyDB(seasonYear + '.json')
-    db.insert({'anime': 'Saumrai Champloo', 'season': seasonYear, 'episodes_retrieved': 24, 'magnet_link': 'asdhjfasudtvhb' })
+    Global.DB_FILE = seasonYear + '.json'
+    db = TinyDB(Global.DB_FILE)
+    #db.insert({'anime': 'Saumrai Champloo', 'season': seasonYear, 'episodes_retrieved': 24, 'magnet_link': 'asdhjfasudtvhb' })
 
 
 def open_magnet(magnet):
@@ -129,5 +130,5 @@ class WGTS(App):
 
 if __name__ == '__main__':
     set_season()
-    #load_create_tinydb()
+    load_create_tinydb()
     WGTS().run()

@@ -1,3 +1,4 @@
+DB_FILE = None
 GENRES = []
 RATING = 90
 RATING_IN_GENRE = 0
