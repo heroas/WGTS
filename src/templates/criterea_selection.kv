@@ -33,10 +33,18 @@
 #:import MDThemePicker kivymd.theme_picker.MDThemePicker
 #:import MDBottomNavigation kivymd.tabs.MDBottomNavigation
 #:import MDBottomNavigationItem kivymd.tabs.MDBottomNavigationItem
-
+#:import gl Global
 <Criterea_Selection>:
     name: 'criterea'
     BoxLayout:
+        padding: 5
+
+        MDSpinner:
+            id: spinner
+            size_hint: None, None
+            size: dp(26), dp(26)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            active: False
 
         BoxLayout:
             size_hint: (.73,1)

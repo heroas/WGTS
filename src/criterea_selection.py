@@ -122,10 +122,12 @@ class Criterea_Selection(Screen):
 
 
     def set_anime_from_criterea(self):
+        self.ids.spinner.active = 'True'
         Global.RATING = int(round(self.ids.rating_slider.value))
 
         Global.ANIME_LIST = anilist_api.get_releasing_anime()
 
+        self.ids.spinner.active = 'False'
         seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
         self.anime_confirmation(Global.ANIME_LIST)
         #for anime in Global.ANIME_LIST:
