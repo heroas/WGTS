@@ -2,6 +2,7 @@ from services import requestor
 import Global
 
 ANI_LIST_URL = 'https://graphql.anilist.co'
+ANIME_LIST = []
 
 def get_title(obj):
     title_obj = obj["title"]
@@ -13,8 +14,8 @@ def get_title(obj):
     else:
         return english_title
 def add_anime_to_list(anime):
-    if get_title(anime) not in Global.ANIME_LIST:
-        Global.ANIME_LIST.append(get_title(anime))
+    if get_title(anime) not in ANIME_LIST:
+        ANIME_LIST.append(get_title(anime))
 
 
 def filter_anime(obj, page):
@@ -94,3 +95,7 @@ def get_releasing_anime():
 
     print (Global.ANIME_LIST)
     print (len(Global.ANIME_LIST))
+    print (ANIME_LIST)
+    print (len(ANIME_LIST))
+
+    return ANIME_LIST
