@@ -1,11 +1,8 @@
 from services import requestor
 import Global
-from async_gui.toolkits.kivy import KivyEngine
 
-engine = KivyEngine()
 ANI_LIST_URL = 'https://graphql.anilist.co'
 ANIME_LIST = []
-engine = KivyEngine()
 
 def get_title(obj):
     title_obj = obj["title"]
@@ -51,8 +48,8 @@ def filter_anime(obj, page):
             add_anime_to_list(anime)
             continue
 
-@engine.async
-def get_releasing_anime():
+
+def get_releasing_anime(self):
     query = '''
         query ($page: Int, $perPage: Int){
             Page (page: $page, perPage: $perPage) {
@@ -82,3 +79,26 @@ def get_releasing_anime():
 
     data = requestor.get_json_for_graphql(query,variables)
     result = requestor.get_json_from_post(ANI_LIST_URL, data)
+    page = 1
+    lastPage = result["data"]["Page"]["pageInfo"]["lastPage"]
+    Global.ANIME_PROCESSING_NUMBER = 0
+    filter_anime(result, page)
+
+    self.ids.progress.value = 30
+
+    while page < lastPage:
+        page += 1
+        variables = { 'page': page, 'perPage': 50,}
+
+        data = requestor.get_json_for_graphql(query,variables)
+        result = requestor.get_json_from_post(ANI_LIST_URL, data)
+        filter_anime(result, page);
+
+    self.ids.progress.value = 90
+
+    print (Global.ANIME_LIST)
+    print (len(Global.ANIME_LIST))
+    print (ANIME_LIST)
+    print (len(ANIME_LIST))
+
+    return ANIME_LIST
