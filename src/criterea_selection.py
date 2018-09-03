@@ -19,6 +19,10 @@ import requests
 import main
 import NyaaPy
 from tinydb import TinyDB, Query
+from async_gui.engine import Task, MultiProcessTask
+from async_gui.toolkits.kivy import KivyEngine
+
+engine = KivyEngine()
 
 class MessageButton(IRightBodyTouch, MDIconButton):
     phone_number = StringProperty()
@@ -120,7 +124,7 @@ class Criterea_Selection(Screen):
                                       action=lambda *x: self.dialog.dismiss())
         self.dialog.open()
 
-
+    @engine.async
     def set_anime_from_criterea(self):
         self.ids.spinner.active = 'True'
         Global.RATING = int(round(self.ids.rating_slider.value))
@@ -129,7 +133,7 @@ class Criterea_Selection(Screen):
 
         self.ids.spinner.active = 'False'
         seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
-        self.anime_confirmation(Global.ANIME_LIST)
+        #self.anime_confirmation(Global.ANIME_LIST)
         #for anime in Global.ANIME_LIST:
             #db = TinyDB(Global.DB_FILE)
             #db.insert({'anime': str(anime), 'season': seasonYear, 'episodes_retrieved': 3, 'magnet_links': ['asdhjfasudtvhb','asdasfsdgfdbdf','ashdgvsuv'] })
