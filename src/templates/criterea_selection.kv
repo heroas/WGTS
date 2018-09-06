@@ -39,15 +39,6 @@
     BoxLayout:
         padding: 5
 
-        MDProgressBar:
-            id: progress
-            size_hint: None, None
-            size: dp(26), dp(300)
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-            orientation:"vertical"
-            reversed: True
-            value: 0
-
         MDSpinner:
             id: spinner
             size_hint: None, None
@@ -527,7 +518,6 @@
                         opposite_colors: True
                         on_release: root.set_anime_from_criterea()
                         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-
 
                     #MDRaisedButton:
                         #text: "Show me criterea Object"

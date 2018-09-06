@@ -49,7 +49,7 @@ def filter_anime(obj, page):
             continue
 
 
-def get_releasing_anime(self):
+def get_releasing_anime():
     query = '''
         query ($page: Int, $perPage: Int){
             Page (page: $page, perPage: $perPage) {
@@ -84,8 +84,6 @@ def get_releasing_anime(self):
     Global.ANIME_PROCESSING_NUMBER = 0
     filter_anime(result, page)
 
-    self.ids.progress.value = 30
-
     while page < lastPage:
         page += 1
         variables = { 'page': page, 'perPage': 50,}
@@ -93,8 +91,6 @@ def get_releasing_anime(self):
         data = requestor.get_json_for_graphql(query,variables)
         result = requestor.get_json_from_post(ANI_LIST_URL, data)
         filter_anime(result, page);
-
-    self.ids.progress.value = 90
 
     print (Global.ANIME_LIST)
     print (len(Global.ANIME_LIST))

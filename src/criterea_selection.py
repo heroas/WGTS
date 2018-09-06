@@ -23,6 +23,8 @@ from async_gui.engine import Task, MultiProcessTask
 from async_gui.toolkits.kivy import KivyEngine
 
 
+engine = KivyEngine()
+print('HELLOSER')
 class MessageButton(IRightBodyTouch, MDIconButton):
     phone_number = StringProperty()
 
@@ -49,14 +51,6 @@ class Criterea_Selection(Screen):
             self.ids.genre_verbatim.text = ''
             for genre in Global.GENRES:
                 self.ids.genre_verbatim.text += genre + '  '
-
-    def add_malid(self, mal_id):
-        title = anilist_api.get_anime_from_mal_id(mal_id)
-
-        Global.ANIME_LIST.append(title)
-        self.ids.rsLbl.text = title
-        self.ids.ml.add_widget(TwoLineListItem(text=title, secondary_text='From M.A.L Id'))
-        self.ids.mal_id.text = ""
 
     def set_quality(self, quality):
         Global.QUALITY = quality
@@ -123,16 +117,23 @@ class Criterea_Selection(Screen):
                                       action=lambda *x: self.dialog.dismiss())
         self.dialog.open()
 
-    def set_anime_from_criterea(self):
+        self.ids.spinner.active = 'False'
+
+    @engine.async
+    def set_anime_from_criterea(self, *_):
         self.ids.spinner.active = 'True'
-        self.ids.progress.value = 0
+
         Global.RATING = int(round(self.ids.rating_slider.value))
 
-        Global.ANIME_LIST = anilist_api.get_releasing_anime(self)
+        prime_flags = yield Task(anilist_api.get_releasing_anime)
+        print(prime_flags)
+        Global.ANIME_LIST = prime_flags
+        #Global.ANIME_LIST = anilist_api.get_releasing_anime(self)
 
         self.ids.spinner.active = 'False'
         seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
         self.anime_confirmation(Global.ANIME_LIST)
+
         #for anime in Global.ANIME_LIST:
             #db = TinyDB(Global.DB_FILE)
             #db.insert({'anime': str(anime), 'season': seasonYear, 'episodes_retrieved': 3, 'magnet_links': ['asdhjfasudtvhb','asdasfsdgfdbdf','ashdgvsuv'] })
