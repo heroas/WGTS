@@ -24,13 +24,12 @@ from async_gui.toolkits.kivy import KivyEngine
 
 
 engine = KivyEngine()
-print('HELLOSER')
-class MessageButton(IRightBodyTouch, MDIconButton):
-    phone_number = StringProperty()
+class RemoveButton(IRightBodyTouch, MDIconButton):
+    name = StringProperty()
 
     def on_release(self):
         # sample code:
-        print(phone_number)
+        print(self.name)
         pass
 
 class Criterea_Selection(Screen):
@@ -100,11 +99,12 @@ class Criterea_Selection(Screen):
         ml = MDList()
 
         for anime in anime_list:
-            print(anime)
             item = OneLineRightIconListItem(
                 text = str(anime)
             )
-            item.add_widget(MessageButton(phone_number='3334444'))
+            remove_button = RemoveButton(name=str(anime), icon='server-remove')
+            item.add_widget(remove_button)
+            print(remove_button.name)
             ml.add_widget(item)
 
         self.dialog = MDDialog(title="This is a long test dialog",
