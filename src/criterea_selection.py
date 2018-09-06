@@ -117,11 +117,13 @@ class Criterea_Selection(Screen):
                                       action=lambda *x: self.dialog.dismiss())
         self.dialog.open()
 
-        self.ids.spinner.active = 'False'
+
+    def test(self):
+        self.ids.spinner.active = 'True'
 
     @engine.async
     def set_anime_from_criterea(self, *_):
-        self.ids.spinner.active = 'True'
+        self.ids.spinner.active = True
 
         Global.RATING = int(round(self.ids.rating_slider.value))
 
@@ -130,7 +132,7 @@ class Criterea_Selection(Screen):
         Global.ANIME_LIST = prime_flags
         #Global.ANIME_LIST = anilist_api.get_releasing_anime(self)
 
-        self.ids.spinner.active = 'False'
+        self.ids.spinner.active = False
         seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
         self.anime_confirmation(Global.ANIME_LIST)
 
