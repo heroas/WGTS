@@ -29,8 +29,10 @@ class RemoveButton(IRightBodyTouch, MDIconButton):
 
     def on_release(self):
         # sample code:
-        print(self.name)
+        print(self.parent.parent.text)
+        self.parent.parent.parent.remove_widget(self.parent.parent)
         Global.ANIME_LIST.remove(self.name)
+
         pass
 
 class Criterea_Selection(Screen):
@@ -95,8 +97,10 @@ class Criterea_Selection(Screen):
             Global.POPULARITY = None
             self.ids.pop_verbatim.text = 'also I dont care about whats popular.'
 
+    def sayhi():
+        print('hi')
+
     def anime_confirmation(self, anime_list):
-        print('hello')
         ml = MDList()
 
         for anime in anime_list:
@@ -115,6 +119,9 @@ class Criterea_Selection(Screen):
 
         self.dialog.add_action_button("Dismiss",
                                       action=lambda *x: self.dialog.dismiss())
+
+        self.dialog.add_action_button("Confirm",
+                                      action=lambda *x: )
         self.dialog.open()
 
 
@@ -136,6 +143,6 @@ class Criterea_Selection(Screen):
         seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
         self.anime_confirmation(Global.ANIME_LIST)
 
-        for anime in Global.ANIME_LIST:
-            db = TinyDB(Global.DB_FILE)
-            db.insert({'anime': str(anime), 'season': seasonYear, 'episodes_retrieved': 0, 'magnet_links': [] })
+        #for anime in Global.ANIME_LIST:
+            #db = TinyDB(Global.DB_FILE)
+            #db.insert({'anime': str(anime), 'season': seasonYear, 'episodes_retrieved': 0, 'magnet_links': [] })
