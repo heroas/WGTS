@@ -7,7 +7,8 @@ ANIME_LIST = []
 def get_title(obj):
     title_obj = obj["title"]
     english_title = str(title_obj["english"])
-    romaji_title = title_obj["romaji"].encode('utf-8')
+    #romaji_title = str(title_obj["romaji"].encode('utf-8'))
+    romaji_title = str(title_obj["romaji"])
 
     if title_obj["english"] is None:
         return romaji_title

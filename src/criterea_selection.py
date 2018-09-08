@@ -30,6 +30,7 @@ class RemoveButton(IRightBodyTouch, MDIconButton):
     def on_release(self):
         # sample code:
         print(self.name)
+        Global.ANIME_LIST.remove(self.name)
         pass
 
 class Criterea_Selection(Screen):
@@ -104,7 +105,6 @@ class Criterea_Selection(Screen):
             )
             remove_button = RemoveButton(name=str(anime), icon='server-remove')
             item.add_widget(remove_button)
-            print(remove_button.name)
             ml.add_widget(item)
 
         self.dialog = MDDialog(title="This is a long test dialog",
@@ -136,6 +136,6 @@ class Criterea_Selection(Screen):
         seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
         self.anime_confirmation(Global.ANIME_LIST)
 
-        #for anime in Global.ANIME_LIST:
-            #db = TinyDB(Global.DB_FILE)
-            #db.insert({'anime': str(anime), 'season': seasonYear, 'episodes_retrieved': 3, 'magnet_links': ['asdhjfasudtvhb','asdasfsdgfdbdf','ashdgvsuv'] })
+        for anime in Global.ANIME_LIST:
+            db = TinyDB(Global.DB_FILE)
+            db.insert({'anime': str(anime), 'season': seasonYear, 'episodes_retrieved': 0, 'magnet_links': [] })
