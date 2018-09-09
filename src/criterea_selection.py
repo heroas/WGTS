@@ -118,13 +118,12 @@ class Criterea_Selection(Screen):
             ml.add_widget(item)
 
         self.dialog = MDDialog(title="This is a long test dialog",
-                                id= 'd1',
                                content=ml,
                                size_hint=(.8, None),
                                height=dp(500),
                                auto_dismiss=False)
 
-        self.dialog.add_action_button("Dismiss",
+        self.dialog.add_action_button("Cancel",
                                       action=lambda *x: self.dialog.dismiss())
 
         self.dialog.add_action_button("Confirm",

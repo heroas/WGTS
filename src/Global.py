@@ -1,4 +1,4 @@
-DB_FILE = None
+DB_FILE = 'Summer2018.json'
 GENRES = []
 RATING = 90
 RATING_IN_GENRE = 0
@@ -12,4 +12,5 @@ SEASON_YEAR = 0
 SEASON_COLOR = None
 SEASON_COLOR_DARK = None
 SEASON_NAME = None
+MAIN_WIDGET = None
 Test = None

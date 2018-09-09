@@ -82,7 +82,6 @@ def load_create_tinydb():
     seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
     Global.DB_FILE = seasonYear + '.json'
     db = TinyDB(Global.DB_FILE)
-    #db.insert({'anime': 'Saumrai Champloo', 'season': seasonYear, 'episodes_retrieved': 24, 'magnet_link': 'asdhjfasudtvhb' })
 
 
 def open_magnet(magnet):
@@ -131,9 +130,11 @@ class WGTS(App):
     def build(self):
         kv_file = resource_path(os.path.join('templates', 'nav.kv'))
         main_widget = Builder.load_file(kv_file)
+        Global.MAIN_WIDGET = main_widget
         main_widget.ids.scr_mngr.add_widget(criterea_selection.Criterea_Selection(name='crits'))
         main_widget.ids.scr_mngr.add_widget(home.Home(name='home'))
         self.load_home(main_widget)
+        Global.MAIN_WIDGET = main_widget
         return main_widget
 
 
