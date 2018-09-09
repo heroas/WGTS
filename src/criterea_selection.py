@@ -97,8 +97,14 @@ class Criterea_Selection(Screen):
             Global.POPULARITY = None
             self.ids.pop_verbatim.text = 'also I dont care about whats popular.'
 
-    def sayhi():
-        print('hi')
+    def add_anime_to_db(x, self):
+        seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
+        for anime in Global.ANIME_LIST:
+            db = TinyDB(Global.DB_FILE)
+            db.insert({'anime': str(anime), 'season': seasonYear, 'episodes_retrieved': 0, 'magnet_links': [] })
+
+        self.dismiss()
+
 
     def anime_confirmation(self, anime_list):
         ml = MDList()
@@ -112,6 +118,7 @@ class Criterea_Selection(Screen):
             ml.add_widget(item)
 
         self.dialog = MDDialog(title="This is a long test dialog",
+                                id= 'd1',
                                content=ml,
                                size_hint=(.8, None),
                                height=dp(500),
@@ -121,7 +128,7 @@ class Criterea_Selection(Screen):
                                       action=lambda *x: self.dialog.dismiss())
 
         self.dialog.add_action_button("Confirm",
-                                      action=lambda *x: )
+                                      action=lambda *x : self.add_anime_to_db(self.dialog))
         self.dialog.open()
 
 
@@ -140,9 +147,4 @@ class Criterea_Selection(Screen):
         #Global.ANIME_LIST = anilist_api.get_releasing_anime(self)
 
         self.ids.spinner.active = False
-        seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
         self.anime_confirmation(Global.ANIME_LIST)
-
-        #for anime in Global.ANIME_LIST:
-            #db = TinyDB(Global.DB_FILE)
-            #db.insert({'anime': str(anime), 'season': seasonYear, 'episodes_retrieved': 0, 'magnet_links': [] })
