@@ -114,27 +114,37 @@ class WGTS(App):
         return self.root
 
     def load_home(self,main_widget):
+        home_anime_list = main_widget.ids.home.ids.ani_list
         db = TinyDB(Global.DB_FILE)
         anime_db = db.all()
+
+        for child in home_anime_list.children:
+            print(child)
+            home_anime_list.remove_widget(child)
+
 
         for anime in anime_db:
             anime_item = MDAccordionItem();
             anime_item.icon = 'movie'
             anime_item.title = anime["anime"]
-            main_widget.ids.home.ids.ani_list.add_widget(anime_item)
+            home_anime_list.add_widget(anime_item)
             for episode in range(0, anime["episodes_retrieved"]):
                 anime_sub_item = MDAccordionSubItem(parent_item = anime_item, text = 'Episode ' + str(episode + 1))
                 anime_sub_item.on_release = functools.partial(open_magnet, Global.Test)
                 anime_item.add_widget(anime_sub_item)
 
+    def navigate(self, route):
+        if route is 'home':
+            print(self.root.ids.home)
+            self.load_home(self.root);
+        self.root.ids.scr_mngr.current = route
+
     def build(self):
-        kv_file = resource_path(os.path.join('templates', 'nav.kv'))
+        kv_file = resource_path(os.path.join('templates', 'navigation.kv'))
         main_widget = Builder.load_file(kv_file)
-        Global.MAIN_WIDGET = main_widget
         main_widget.ids.scr_mngr.add_widget(criterea_selection.Criterea_Selection(name='crits'))
         main_widget.ids.scr_mngr.add_widget(home.Home(name='home'))
         self.load_home(main_widget)
-        Global.MAIN_WIDGET = main_widget
         return main_widget
 
 

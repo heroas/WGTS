@@ -45,7 +45,9 @@ def load():
             anime_item.add_widget(anime_sub_item)
 
 class Home(Screen):
-    load()
+    def __init__(self, **kwargs):
+        print(self)
+        super(Screen,self).__init__(**kwargs)
 
     def testin_nyaapy(self):
         animeList = Nyaa.search(keyword="Shoukoku no Altair", category=1, subcategory=2)
