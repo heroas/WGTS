@@ -31,7 +31,7 @@ class RemoveButton(IRightBodyTouch, MDIconButton):
         # sample code:
         print(self.parent.parent.text)
         self.parent.parent.parent.remove_widget(self.parent.parent)
-        Global.ANIME_LIST.remove(self.name)
+        #Global.ANIME_LIST.remove(self.name)
 
         pass
 
@@ -99,13 +99,14 @@ class Criterea_Selection(Screen):
 
     def add_anime_to_db(x, self):
         seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
-        for anime in Global.ANIME_LIST:
+        list = self.content.children
+        for anime in list:
             db = TinyDB(Global.DB_FILE)
             Anime = Query()
-            db_anime = db.search(Anime.anime == anime)
+            db_anime = db.search(Anime.anime == anime.text)
             print(db_anime)
             if(len(db_anime) == 0):
-                db.insert({'anime': str(anime), 'season': seasonYear, 'episodes_retrieved': 0, 'magnet_links': [] })
+                db.insert({'anime': anime.text, 'season': seasonYear, 'episodes_retrieved': 0, 'magnet_links': [] })
 
         self.dismiss()
 
@@ -146,8 +147,7 @@ class Criterea_Selection(Screen):
 
         prime_flags = yield Task(anilist_api.get_releasing_anime)
         print(prime_flags)
-        Global.ANIME_LIST = prime_flags
         #Global.ANIME_LIST = anilist_api.get_releasing_anime(self)
 
         self.ids.spinner.active = False
-        self.anime_confirmation(Global.ANIME_LIST)
+        self.anime_confirmation(prime_flags)

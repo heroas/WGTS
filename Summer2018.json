@@ -1,1 +1,52 @@
-{"_default": {"1": {"episodes_retrieved": 0, "season": "Summer2018", "magnet_links": [], "anime": "My Hero Academia Season 3"}, "2": {"episodes_retrieved": 0, "season": "Summer2018", "magnet_links": [], "anime": "Attack on Titan Season 3"}, "3": {"episodes_retrieved": 0, "season": "Summer2018", "magnet_links": [], "anime": "Overlord III"}, "4": {"episodes_retrieved": 0, "season": "Summer2018", "magnet_links": [], "anime": "Gintama. Gin no Tamashii-hen 2nd Season"}}}
+{
+  "_default": {
+    "1": {
+      "anime": "Hugtto! Precure",
+      "episodes_retrieved": 0,
+      "season": "Summer2018",
+      "magnet_links": []
+    },
+    "2": {
+      "anime": "Gintama. Gin no Tamashii-hen 2nd Season",
+      "episodes_retrieved": 0,
+      "season": "Summer2018",
+      "magnet_links": []
+    },
+    "3": {
+      "anime": "Overlord III",
+      "episodes_retrieved": 0,
+      "season": "Summer2018",
+      "magnet_links": []
+    },
+    "4": {
+      "anime": "Attack on Titan Season 3",
+      "episodes_retrieved": 0,
+      "season": "Summer2018",
+      "magnet_links": []
+    },
+    "5": {
+      "anime": "My Hero Academia Season 3",
+      "episodes_retrieved": 0,
+      "season": "Summer2018",
+      "magnet_links": []
+    },
+    "6": {
+      "anime": "Lupin III: Part V",
+      "episodes_retrieved": 0,
+      "season": "Summer2018",
+      "magnet_links": []
+    },
+    "7": {
+      "anime": "BANANA FISH",
+      "episodes_retrieved": 0,
+      "season": "Summer2018",
+      "magnet_links": []
+    },
+    "8": {
+      "anime": "One Piece",
+      "episodes_retrieved": 0,
+      "season": "Summer2018",
+      "magnet_links": []
+    }
+  }
+}

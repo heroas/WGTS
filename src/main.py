@@ -114,6 +114,7 @@ class WGTS(App):
         return self.root
 
     def load_home(self,main_widget):
+        print(Global.ANIME_LIST)
         home_anime_list = main_widget.ids.home.ids.ani_list
         db = TinyDB(Global.DB_FILE)
         anime_db = db.all()
@@ -122,6 +123,7 @@ class WGTS(App):
             print('processing ' + anime["anime"])
             if anime["anime"] in Global.ANIME_LIST:
                 continue
+            print('Gonna start then')
             anime_item = MDAccordionItem();
             anime_item.icon = 'movie'
             anime_item.title = anime["anime"]
