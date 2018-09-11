@@ -104,7 +104,6 @@ class Criterea_Selection(Screen):
             db = TinyDB(Global.DB_FILE)
             Anime = Query()
             db_anime = db.search(Anime.anime == anime.text)
-            print(db_anime)
             if(len(db_anime) == 0):
                 db.insert({'anime': anime.text, 'season': seasonYear, 'episodes_retrieved': 0, 'magnet_links': [] })
 
@@ -122,7 +121,7 @@ class Criterea_Selection(Screen):
             item.add_widget(remove_button)
             ml.add_widget(item)
 
-        self.dialog = MDDialog(title="This is a long test dialog",
+        self.dialog = MDDialog(title="This is what we found for you.",
                                content=ml,
                                size_hint=(.8, None),
                                height=dp(500),
@@ -135,10 +134,6 @@ class Criterea_Selection(Screen):
                                       action=lambda *x : self.add_anime_to_db(self.dialog))
         self.dialog.open()
 
-
-    def test(self):
-        self.ids.spinner.active = 'True'
-
     @engine.async
     def set_anime_from_criterea(self, *_):
         self.ids.spinner.active = True
@@ -146,8 +141,6 @@ class Criterea_Selection(Screen):
         Global.RATING = int(round(self.ids.rating_slider.value))
 
         prime_flags = yield Task(anilist_api.get_releasing_anime)
-        print(prime_flags)
-        #Global.ANIME_LIST = anilist_api.get_releasing_anime(self)
 
         self.ids.spinner.active = False
         self.anime_confirmation(prime_flags)

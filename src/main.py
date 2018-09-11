@@ -44,7 +44,6 @@ from tinydb import TinyDB, Query
 
 
 def set_season():
-
     date = datetime.datetime.now()
     month = date.strftime("%m")
     year = date.strftime("%Y")
@@ -75,29 +74,11 @@ def set_season():
     Global.SEASON_COLOR_DARK = season_color_dark_switcher.get(Global.SEASON_NAME)
     Global.SEASON_YEAR = year
 
-    print(Global.SEASON_NAME)
-    print(Global.SEASON_COLOR)
-
 def load_create_tinydb():
     seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
     Global.DB_FILE = seasonYear + '.json'
     db = TinyDB(Global.DB_FILE)
 
-
-def open_magnet(magnet):
-        """Open magnet according to os."""
-        if sys.platform.startswith('linux'):
-            subprocess.Popen(['xdg-open', magnet])
-        elif sys.platform.startswith('win32'):
-            os.startfile(magnet)
-        elif sys.platform.startswith('cygwin'):
-            os.startfile(magnet)
-        elif sys.platform.startswith('darwin'):
-            subprocess.Popen(['open', magnet],
-                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        else:
-            subprocess.Popen(['xdg-open', magnet],
-                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 def resource_path(relative):
     if hasattr(sys, "_MEIPASS"):
