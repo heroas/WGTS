@@ -120,10 +120,11 @@ class WGTS(App):
 
         for child in home_anime_list.children:
             print(child)
-            home_anime_list.remove_widget(child)
 
 
         for anime in anime_db:
+            if anime["anime"] in Global.ANIME_LIST:
+                continue
             anime_item = MDAccordionItem();
             anime_item.icon = 'movie'
             anime_item.title = anime["anime"]
@@ -132,10 +133,10 @@ class WGTS(App):
                 anime_sub_item = MDAccordionSubItem(parent_item = anime_item, text = 'Episode ' + str(episode + 1))
                 anime_sub_item.on_release = functools.partial(open_magnet, Global.Test)
                 anime_item.add_widget(anime_sub_item)
+            Global.ANIME_LIST.append(anime["anime"])
 
     def navigate(self, route):
         if route is 'home':
-            print(self.root.ids.home)
             self.load_home(self.root);
         self.root.ids.scr_mngr.current = route
 
