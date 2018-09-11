@@ -76,7 +76,6 @@ def get_releasing_anime():
         'page': 1,
         'perPage': 50,
     }
-    Global.ANIME_LIST = []
 
     data = requestor.get_json_for_graphql(query,variables)
     result = requestor.get_json_from_post(ANI_LIST_URL, data)
@@ -92,10 +91,5 @@ def get_releasing_anime():
         data = requestor.get_json_for_graphql(query,variables)
         result = requestor.get_json_from_post(ANI_LIST_URL, data)
         filter_anime(result, page);
-
-    print (Global.ANIME_LIST)
-    print (len(Global.ANIME_LIST))
-    print (ANIME_LIST)
-    print (len(ANIME_LIST))
 
     return ANIME_LIST
