@@ -118,11 +118,8 @@ class WGTS(App):
         db = TinyDB(Global.DB_FILE)
         anime_db = db.all()
 
-        for child in home_anime_list.children:
-            print(child)
-
-
         for anime in anime_db:
+            print('processing ' + anime["anime"])
             if anime["anime"] in Global.ANIME_LIST:
                 continue
             anime_item = MDAccordionItem();

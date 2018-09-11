@@ -101,7 +101,11 @@ class Criterea_Selection(Screen):
         seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
         for anime in Global.ANIME_LIST:
             db = TinyDB(Global.DB_FILE)
-            db.insert({'anime': str(anime), 'season': seasonYear, 'episodes_retrieved': 0, 'magnet_links': [] })
+            Anime = Query()
+            db_anime = db.search(Anime.anime == anime)
+            print(db_anime)
+            if(len(db_anime) == 0):
+                db.insert({'anime': str(anime), 'season': seasonYear, 'episodes_retrieved': 0, 'magnet_links': [] })
 
         self.dismiss()
 
