@@ -28,10 +28,8 @@ class RemoveButton(IRightBodyTouch, MDIconButton):
     name = StringProperty()
 
     def on_release(self):
-        # sample code:
         print(self.parent.parent.text)
         self.parent.parent.parent.remove_widget(self.parent.parent)
-        #Global.ANIME_LIST.remove(self.name)
 
         pass
 
