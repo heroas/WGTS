@@ -100,6 +100,8 @@ class WGTS(App):
         db = TinyDB(Global.DB_FILE)
         anime_db = db.all()
 
+        
+
         for anime in anime_db:
             print('processing ' + anime["anime"])
             if anime["anime"] in Global.ANIME_LIST:
