@@ -100,7 +100,10 @@ class WGTS(App):
         db = TinyDB(Global.DB_FILE)
         anime_db = db.all()
 
-        
+        if len(home_anime_list.children) > 0:
+            for anime in home_anime_list.children:
+                print(anime.parent)
+                home_anime_list.remove_widget(anime)
 
         for anime in anime_db:
             print('processing ' + anime["anime"])
