@@ -13,6 +13,7 @@ import requests
 import os
 import sys
 import subprocess
+from services import anilist_api
 import functools
 
 def open_magnet(magnet):
@@ -31,7 +32,12 @@ def open_magnet(magnet):
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 class Home(Screen):
-    
+    def load(self):
+        anilist_api.get_airing_schedule(100166)
+
+
+
+
     def testin_nyaapy(self):
         animeList = Nyaa.search(keyword="Shoukoku no Altair", category=1, subcategory=2)
         Global.Test = animeList[0]["magnet"]

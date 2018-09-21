@@ -21,6 +21,7 @@ def add_anime_to_list(anime):
 
 def filter_anime(obj, page):
     for anime in obj["data"]["Page"]["media"]:
+        print(anime["description"])
         Global.ANIME_PROCESSING_NUMBER += 1
         if anime["averageScore"] is None:
             rating = 0
@@ -68,6 +69,7 @@ def get_releasing_anime():
                     }
                     genres
                     averageScore
+                    description
                 }
             }
         }
@@ -93,3 +95,23 @@ def get_releasing_anime():
         filter_anime(result, page);
 
     return ANIME_LIST
+
+def get_airing_schedule(id):
+    query = '''
+        query ($id: Int) { # Define which variables will be used in the query (id)
+            AiringSchedule (mediaId: $id) { # Insert our variables into the query arguments (id) (type: ANIME is hard-coded in the query)
+                id
+                mediaId
+                episode
+                airingAt
+            }
+        }
+    '''
+
+    variables = {
+        'id': id
+    }
+
+    data = requestor.get_json_for_graphql(query,variables)
+    result = requestor.get_json_from_post(ANI_LIST_URL, data)
+    print(result)
