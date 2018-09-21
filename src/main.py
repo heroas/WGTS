@@ -42,6 +42,9 @@ import datetime
 from tinydb import TinyDB, Query
 
 
+import kivy.core.window as window
+from kivy.cache import Cache
+from kivy.base import EventLoop
 
 def set_season():
     date = datetime.datetime.now()
@@ -85,7 +88,6 @@ def resource_path(relative):
         return os.path.join(sys._MEIPASS, relative)
     return os.path.join(relative)
 
-
 class WGTS(App):
     theme_cls = ThemeManager()
     previous_date = ObjectProperty()
@@ -103,7 +105,7 @@ class WGTS(App):
         if len(home_anime_list.children) > 0:
             for anime in home_anime_list.children:
                 print(anime.parent)
-                home_anime_list.remove_widget(anime)
+
 
         for anime in anime_db:
             print('processing ' + anime["anime"])
