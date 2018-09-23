@@ -107,6 +107,8 @@ class WGTS(App):
                 print(anime.parent)
 
 
+
+
         for anime in anime_db:
             print('processing ' + anime["anime"])
             if anime["anime"] in Global.ANIME_LIST:

@@ -36,6 +36,18 @@ class Home(Screen):
         anilist_api.get_airing_schedule(100166)
 
 
+    def remove_accord_test(self):
+        print(self.ids.accord_box)
+        self.ids.accord_box.remove_widget(self.ids.ani_list)
+
+    def add_accord_test(self):
+        accord = MDAccordion()
+        accord.orientation = 'vertical'
+        accord.id = 'ani_list'
+        accord.md_bg_color = Global.SEASON_COLOR
+        accord.specific_text_color = get_color_from_hex('#000000')
+
+        self.ids.accord_box.add_widget(accord)
 
 
     def testin_nyaapy(self):

@@ -46,8 +46,14 @@
             MDRaisedButton:
                 text: 'Load nyaapy'
                 on_release: root.testin_nyaapy()
-
+            MDRaisedButton:
+                text: 'remove'
+                on_release: root.remove_accord_test()
+            MDRaisedButton:
+                text: 'add'
+                on_release: root.add_accord_test()
         BoxLayout:
+            id: accord_box
             MDAccordion:
                 id: ani_list
                 orientation: 'vertical'

@@ -21,7 +21,10 @@ def add_anime_to_list(anime):
 
 def filter_anime(obj, page):
     for anime in obj["data"]["Page"]["media"]:
-        print(anime["description"])
+        print(anime["nextAiringEpisode"])
+        if anime["nextAiringEpisode"] is None:
+            continue
+            
         Global.ANIME_PROCESSING_NUMBER += 1
         if anime["averageScore"] is None:
             rating = 0
@@ -70,6 +73,9 @@ def get_releasing_anime():
                     genres
                     averageScore
                     description
+                    nextAiringEpisode {
+                        episode
+                    }
                 }
             }
         }
