@@ -22,6 +22,7 @@ import functools
 from tinydb import TinyDB, Query
 from async_gui.engine import Task, MultiProcessTask
 from async_gui.toolkits.kivy import KivyEngine
+from models.anime import Anime
 
 
 engine = KivyEngine()
@@ -93,7 +94,7 @@ class Criterea_Selection(Screen):
             Global.POPULARITY = 5
             self.ids.pop_verbatim.text = 'also give me the 5 most popular anime this season.'
         else:
-            Global.POPULARITY = None
+            Global.POPULARITY = 0
             self.ids.pop_verbatim.text = 'also I dont care about whats popular.'
 
     def add_anime_to_db(x, self):
@@ -119,7 +120,7 @@ class Criterea_Selection(Screen):
                           size_hint_y=None,
                           valign='top')
         content.bind(texture_size=content.setter('size'))
-        self.dialog = MDDialog(title="This is a test dialog",
+        self.dialog = MDDialog(title="Made by",
                                content=content,
                                size_hint=(.8, None),
                                height=dp(200),
@@ -154,13 +155,36 @@ class Criterea_Selection(Screen):
                                       action=lambda *x : self.add_anime_to_db(self.dialog))
         self.dialog.open()
 
+    def filter_anime(self, anime_models):
+
+        for amount in range(0, Global.POPULARITY):
+            print(anime_models[amount].name)
+
+        del anime_models[:Global.POPULARITY]
+
+        for anime in anime_models:
+            intersect = list(set(Global.GENRES) & set(anime.genres))
+            if len(intersect) > 0:
+                print(anime.name)
+
+
+
+
+
+
     @engine.async
     def set_anime_from_criterea(self, *_):
         self.ids.spinner.active = True
 
         Global.RATING = int(round(self.ids.rating_slider.value))
 
-        prime_flags = yield Task(anilist_api.get_releasing_anime)
+        current_releasing_anime = yield Task(anilist_api.get_releasing_anime)
+        anime_models = []
+        for anime in current_releasing_anime:
+            anime_m = Anime(anime)
+            anime_models.append(anime_m)
+
+        self.filter_anime(anime_models)
 
         self.ids.spinner.active = False
-        self.anime_confirmation(prime_flags)
+        #self.anime_confirmation(prime_flags)

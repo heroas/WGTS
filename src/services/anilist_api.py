@@ -1,5 +1,6 @@
 from services import requestor
 import Global
+from models.anime import Anime
 
 ANI_LIST_URL = 'https://graphql.anilist.co'
 ANIME_LIST = []
@@ -14,9 +15,13 @@ def get_title(obj):
         return romaji_title
     else:
         return english_title
-def add_anime_to_list(anime):
-    if get_title(anime) not in ANIME_LIST:
-        ANIME_LIST.append(get_title(anime))
+
+def add_anime_to_list(anime_list_obj):
+    # if get_title(anime) not in ANIME_LIST:
+    #     ANIME_LIST.append(anime)
+    for anime in anime_list_obj["data"]["Page"]["media"]:
+        if anime["nextAiringEpisode"] is not None and anime["averageScore"] is not None and len(anime["genres"]) > 0:
+            ANIME_LIST.append(anime)
 
 
 def filter_anime(obj, page):
@@ -24,7 +29,7 @@ def filter_anime(obj, page):
         print(anime["nextAiringEpisode"])
         if anime["nextAiringEpisode"] is None:
             continue
-            
+
         Global.ANIME_PROCESSING_NUMBER += 1
         if anime["averageScore"] is None:
             rating = 0
@@ -72,7 +77,8 @@ def get_releasing_anime():
                     }
                     genres
                     averageScore
-                    description
+                    description(asHtml:false)
+
                     nextAiringEpisode {
                         episode
                     }
@@ -89,8 +95,7 @@ def get_releasing_anime():
     result = requestor.get_json_from_post(ANI_LIST_URL, data)
     page = 1
     lastPage = result["data"]["Page"]["pageInfo"]["lastPage"]
-    Global.ANIME_PROCESSING_NUMBER = 0
-    filter_anime(result, page)
+    add_anime_to_list(result)
 
     while page < lastPage:
         page += 1
@@ -98,26 +103,6 @@ def get_releasing_anime():
 
         data = requestor.get_json_for_graphql(query,variables)
         result = requestor.get_json_from_post(ANI_LIST_URL, data)
-        filter_anime(result, page);
+        add_anime_to_list(result)
 
     return ANIME_LIST
-
-def get_airing_schedule(id):
-    query = '''
-        query ($id: Int) { # Define which variables will be used in the query (id)
-            AiringSchedule (mediaId: $id) { # Insert our variables into the query arguments (id) (type: ANIME is hard-coded in the query)
-                id
-                mediaId
-                episode
-                airingAt
-            }
-        }
-    '''
-
-    variables = {
-        'id': id
-    }
-
-    data = requestor.get_json_for_graphql(query,variables)
-    result = requestor.get_json_from_post(ANI_LIST_URL, data)
-    print(result)
