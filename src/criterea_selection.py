@@ -18,6 +18,7 @@ from services import anilist_api
 import requests
 import main
 import NyaaPy
+import functools
 from tinydb import TinyDB, Query
 from async_gui.engine import Task, MultiProcessTask
 from async_gui.toolkits.kivy import KivyEngine
@@ -108,6 +109,25 @@ class Criterea_Selection(Screen):
 
         self.dismiss()
 
+    def show_desc(self,stri):
+        print(stri)
+        print(self)
+        content = MDLabel(font_style='Body1',
+                          theme_text_color='Secondary',
+                          text="This is a dialog with a title and some text. "
+                               "That's pretty awesome right!",
+                          size_hint_y=None,
+                          valign='top')
+        content.bind(texture_size=content.setter('size'))
+        self.dialog = MDDialog(title="This is a test dialog",
+                               content=content,
+                               size_hint=(.8, None),
+                               height=dp(200),
+                               auto_dismiss=False)
+
+        self.dialog.add_action_button("Dismiss",
+                                      action=lambda *x: self.dialog.dismiss())
+        self.dialog.open()
 
     def anime_confirmation(self, anime_list):
         ml = MDList()
@@ -116,6 +136,7 @@ class Criterea_Selection(Screen):
             item = OneLineRightIconListItem(
                 text = str(anime)
             )
+            item.on_release = functools.partial(self.show_desc, 'hello')
             remove_button = RemoveButton(name=str(anime), icon='server-remove')
             item.add_widget(remove_button)
             ml.add_widget(item)
