@@ -440,6 +440,7 @@
             spacing: 10
 
             MDCard:
+                padding: 5
                 orientation: 'vertical'
                 MDLabel:
                     size_hint_y: .15
@@ -468,57 +469,62 @@
                     id: pop_verbatim
                     halign: 'center'
                     text: 'also I dont care about the popularity'
+                MDRaisedButton:
+                    text: "Find Anime"
+                    opposite_colors: True
+                    on_release: root.set_anime_from_criterea()
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
-            MDCard:
-                size_hint_y: .24
-
-                BoxLayout:
-                    size_hint: (1,1)
-                    padding: 10
-                    orientation: 'vertical'
-
-                    BoxLayout:
-                        size_hint: (1, .5)
-                        pos_hint:    {'center_x': 0.5, 'center_y': 0.5}
-
-                        MDLabel:
-                            id: sd
-                            text: '480p'
-                            halign: 'center'
-                        MDLabel:
-                            id: hd
-                            text: '720p'
-                            halign: 'center'
-                        MDLabel:
-                            id: hhd
-                            text: '1080p'
-                            halign: 'center'
-
-
-                    BoxLayout:
-                        size_hint: (1, .5)
-                        pos_hint:    {'center_x': 0.5, 'center_y': 0.5}
-
-                        MDCheckbox:
-                            id: grp_chkbox_1
-                            group: 'quality'
-                            on_state: root.set_quality('480')
-                        MDCheckbox:
-                            id: grp_chkbox_2
-                            active: 'true'
-                            group: 'quality'
-                            on_state: root.set_quality('720')
-                        MDCheckbox:
-                            id: grp_chkbox_3
-                            group: 'quality'
-                            on_state: root.set_quality('1080')
-
-
-                    MDRaisedButton:
-                        text: "Find Anime"
-                        opposite_colors: True
-                        on_release: root.set_anime_from_criterea()
-                        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            # MDCard:
+            #     size_hint_y: .24
+            #
+            #     BoxLayout:
+            #         size_hint: (1,1)
+            #         padding: 10
+            #         orientation: 'vertical'
+            #
+            #         # BoxLayout:
+            #         #     size_hint: (1, .5)
+            #         #     pos_hint:    {'center_x': 0.5, 'center_y': 0.5}
+            #         #
+            #         #     MDLabel:
+            #         #         id: sd
+            #         #         text: '480p'
+            #         #         halign: 'center'
+            #         #     MDLabel:
+            #         #         id: hd
+            #         #         text: '720p'
+            #         #         halign: 'center'
+            #         #     MDLabel:
+            #         #         id: hhd
+            #         #         text: '1080p'
+            #         #         halign: 'center'
+            #         #
+            #         #
+            #         # BoxLayout:
+            #         #     size_hint: (1, .5)
+            #         #     pos_hint:    {'center_x': 0.5, 'center_y': 0.5}
+            #         #
+            #         #     MDCheckbox:
+            #         #         id: grp_chkbox_1
+            #         #         group: 'quality'
+            #         #         on_state: root.set_quality('480')
+            #         #     MDCheckbox:
+            #         #         id: grp_chkbox_2
+            #         #         active: 'true'
+            #         #         group: 'quality'
+            #         #         on_state: root.set_quality('720')
+            #         #     MDCheckbox:
+            #         #         id: grp_chkbox_3
+            #         #         group: 'quality'
+            #         #         on_state: root.set_quality('1080')
+            #         #
+            #         #
+            #         MDRaisedButton:
+            #             text: "Find Anime"
+            #             opposite_colors: True
+            #             on_release: root.set_anime_from_criterea()
+            #             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
                     #MDRaisedButton:
                         #text: "Show me criterea Object"

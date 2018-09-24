@@ -112,40 +112,38 @@ class Criterea_Selection(Screen):
 
     def show_desc(self,stri):
         print(stri)
-        print(self)
         content = MDLabel(font_style='Body1',
                           theme_text_color='Secondary',
-                          text="This is a dialog with a title and some text. "
-                               "That's pretty awesome right!",
+                          text=stri.description,
                           size_hint_y=None,
                           valign='top')
         content.bind(texture_size=content.setter('size'))
-        self.dialog = MDDialog(title="Made by",
+        self.dialog2 = MDDialog(title=stri.name,
                                content=content,
                                size_hint=(.8, None),
-                               height=dp(200),
+                               height=dp(400),
                                auto_dismiss=False)
 
-        self.dialog.add_action_button("Dismiss",
-                                      action=lambda *x: self.dialog.dismiss())
-        self.dialog.open()
+        self.dialog2.add_action_button("Dismiss",
+                                      action=lambda *x: self.dialog2.dismiss())
+        self.dialog2.open()
 
     def anime_confirmation(self, anime_list):
         ml = MDList()
 
         for anime in anime_list:
             item = OneLineRightIconListItem(
-                text = str(anime)
+                text = anime.name
             )
-            item.on_release = functools.partial(self.show_desc, 'hello')
-            remove_button = RemoveButton(name=str(anime), icon='server-remove')
+            item.on_release = functools.partial(self.show_desc, anime)
+            remove_button = RemoveButton(name= anime.name, icon='server-remove')
             item.add_widget(remove_button)
             ml.add_widget(item)
 
         self.dialog = MDDialog(title="This is what we found for you.",
                                content=ml,
                                size_hint=(.8, None),
-                               height=dp(500),
+                               height=dp(650),
                                auto_dismiss=False)
 
         self.dialog.add_action_button("Cancel",
@@ -157,15 +155,29 @@ class Criterea_Selection(Screen):
 
     def filter_anime(self, anime_models):
 
+        filtered_anime_models = []
+
         for amount in range(0, Global.POPULARITY):
-            print(anime_models[amount].name)
+            filtered_anime_models.append(anime_models[amount])
 
         del anime_models[:Global.POPULARITY]
 
         for anime in anime_models:
             intersect = list(set(Global.GENRES) & set(anime.genres))
             if len(intersect) > 0:
+                if Global.RATING_IN_GENRE:
+                    if anime.rating >= Global.RATING:
+                        filtered_anime_models.append(anime)
+                        print(anime.name)
+                else:
+                    filtered_anime_models.append(anime)
+                    print(anime.name)
+
+            if not Global.RATING_IN_GENRE and anime.rating >= Global.RATING:
+                filtered_anime_models.append(anime)
                 print(anime.name)
+
+        return filtered_anime_models
 
 
 
@@ -184,7 +196,8 @@ class Criterea_Selection(Screen):
             anime_m = Anime(anime)
             anime_models.append(anime_m)
 
-        self.filter_anime(anime_models)
+        filtered_anime_models = self.filter_anime(anime_models)
+        self.anime_confirmation(filtered_anime_models)
 
         self.ids.spinner.active = False
         #self.anime_confirmation(prime_flags)

@@ -12,8 +12,9 @@ class Anime():
 
     def __init__(self, anime_obj):
         self.name = self.get_title(anime_obj)
-        self.episodes_out = anime_obj["nextAiringEpisode"]
+        self.episodes_out = anime_obj["nextAiringEpisode"]["episode"]
         self.description = anime_obj["description"]
         self.studio = 'Jigger :D'
         self.rating = anime_obj["averageScore"]
         self.genres = anime_obj["genres"]
+        self.image = anime_obj["coverImage"]["medium"]
