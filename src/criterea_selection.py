@@ -97,16 +97,15 @@ class Criterea_Selection(Screen):
             Global.POPULARITY = 0
             self.ids.pop_verbatim.text = 'also I dont care about whats popular.'
 
-    def add_anime_to_db(x, self):
-        list = self.content.children
+    def add_anime_to_db(x, self, anime_list ):
         db = TinyDB(Global.DB_FILE)
 
         Anime = Query()
         seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
-        for anime in list:
-            db_anime = db.search(Anime.anime == anime.text)
+        for anime in anime_list:
+            db_anime = db.search(Anime.anime == anime.name)
             if(len(db_anime) == 0):
-                db.insert({'anime': anime.text, 'season': seasonYear, 'episodes_retrieved': 0, 'magnet_links': [] })
+                db.insert({'anime': anime.name, 'season': seasonYear, 'episodes_retrieved': anime.episodes_out, 'magnet_links': [] })
 
         self.dismiss()
 
@@ -150,7 +149,7 @@ class Criterea_Selection(Screen):
                                       action=lambda *x: self.dialog.dismiss())
 
         self.dialog.add_action_button("Confirm and + to watchlist",
-                                      action=lambda *x : self.add_anime_to_db(self.dialog))
+                                      action=lambda *x : self.add_anime_to_db(self.dialog, anime_list))
         self.dialog.open()
 
     def filter_anime(self, anime_models):

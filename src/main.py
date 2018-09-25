@@ -88,6 +88,9 @@ def resource_path(relative):
         return os.path.join(sys._MEIPASS, relative)
     return os.path.join(relative)
 
+def open_magnet(stri):
+    print(stri)
+
 class WGTS(App):
     theme_cls = ThemeManager()
     previous_date = ObjectProperty()
