@@ -1,31 +1,25 @@
-import Global
-from kivy.app import App
-from kivy.uix.screenmanager import ScreenManager, Screen
-from kivymd.snackbar import Snackbar
-from kivymd.bottomsheet import MDListBottomSheet, MDGridBottomSheet
-from kivy.properties import ObjectProperty, StringProperty
+from kivy.uix.screenmanager import Screen
+from kivy.properties import StringProperty
 from kivymd.button import MDIconButton
-from kivymd.date_picker import MDDatePicker
 from kivymd.dialog import MDDialog
 from kivymd.label import MDLabel
-from kivymd.list import OneLineListItem, TwoLineListItem, MDList, OneLineRightIconListItem
-from kivymd.list import ILeftBody, ILeftBodyTouch, IRightBodyTouch, BaseListItem
-from kivy.uix.scrollview import ScrollView
+from kivymd.list import MDList, OneLineRightIconListItem
+from kivymd.list import IRightBodyTouch 
 from kivy.metrics import dp
-from kivy.properties import ObjectProperty
 from kivy.uix.image import Image
 from services import anilist_api
-import requests
-import main
-import NyaaPy
+
 import functools
 from tinydb import TinyDB, Query
-from async_gui.engine import Task, MultiProcessTask
+from async_gui.engine import Task
 from async_gui.toolkits.kivy import KivyEngine
 from models.anime import Anime
 
+import Global
+
 
 engine = KivyEngine()
+
 class RemoveButton(IRightBodyTouch, MDIconButton):
     name = StringProperty()
 
@@ -97,7 +91,7 @@ class Criterea_Selection(Screen):
             Global.POPULARITY = 0
             self.ids.pop_verbatim.text = 'also I dont care about whats popular.'
 
-    def add_anime_to_db(x, self, anime_list ):
+    def add_anime_to_db(x, self, anime_list):
         db = TinyDB(Global.DB_FILE)
 
         Anime = Query()
@@ -109,15 +103,14 @@ class Criterea_Selection(Screen):
 
         self.dismiss()
 
-    def show_desc(self,stri):
-        print(stri)
+    def show_desc(self, anime_model):
         content = MDLabel(font_style='Body1',
                           theme_text_color='Secondary',
-                          text=stri.description,
+                          text=anime_model.description,
                           size_hint_y=None,
                           valign='top')
         content.bind(texture_size=content.setter('size'))
-        self.dialog2 = MDDialog(title=stri.name,
+        self.dialog2 = MDDialog(title=anime_model.name,
                                content=content,
                                size_hint=(.8, None),
                                height=dp(400),
@@ -180,9 +173,6 @@ class Criterea_Selection(Screen):
 
 
 
-
-
-
     @engine.async
     def set_anime_from_criterea(self, *_):
         self.ids.spinner.active = True
@@ -199,4 +189,3 @@ class Criterea_Selection(Screen):
         self.anime_confirmation(filtered_anime_models)
 
         self.ids.spinner.active = False
-        #self.anime_confirmation(prime_flags)
