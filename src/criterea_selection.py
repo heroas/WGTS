@@ -105,7 +105,7 @@ class Criterea_Selection(Screen):
         for anime in anime_list:
             db_anime = db.search(Anime.anime == anime.name)
             if(len(db_anime) == 0):
-                db.insert({'anime': anime.name, 'season': seasonYear, 'episodes_retrieved': anime.episodes_out, 'magnet_links': [] })
+                db.insert({'anime_name': anime.name, 'season': seasonYear, 'episodes_out': anime.episodes_out })
 
         self.dismiss()
 
