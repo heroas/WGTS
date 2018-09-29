@@ -15,3 +15,4 @@ SEASON_NAME = None
 Test = 'hi'
 EP_PAGE_EPISODE = None
 EP_PAGE_ANIME = None
+aclass= None

@@ -104,16 +104,17 @@ class WGTS(App):
     def open_episode_page(self, episode, anime_name, main_widget):
         print(episode)
         print(anime_name)
-        episode_page_list = main_widget.ids.ep_page.ids.ml_ep
-        episode_page_button = main_widget.ids.ep_page.ids.btn_t
-        episode_page_button.text = 'heyboui'
-        episode_page_button.canvas.ask_update()
-        test = OneLineListItem(text="heyboiu")
-
-        episode_page_list.add_widget(OneLineListItem(text='hello'))
-        print(main_widget.canvas.ask_update())
-        Global.EP_PAGE_EPISODE = episode
-        Global.EP_PAGE_ANIME = anime_name
+        Global.EPISODE_PAGE_CLASS.sayhey()
+        # episode_page_list = main_widget.ids.ep_page.ids.ml_ep
+        # episode_page_button = main_widget.ids.ep_page.ids.btn_t
+        # episode_page_button.text = 'heyboui'
+        # episode_page_button.canvas.ask_update()
+        # test = OneLineListItem(text="heyboiu")
+        #
+        # episode_page_list.add_widget(OneLineListItem(text='hello'))
+        # Global.EP_PAGE_EPISODE = episode
+        # Global.EP_PAGE_ANIME = anime_name
+        # self.root.ids.ep_page.ids.btn_t.on_release()
         self.navigate('ep_page')
 
     def load_home(self,main_widget):
@@ -152,9 +153,11 @@ class WGTS(App):
     def build(self):
         kv_file = resource_path(os.path.join('templates', 'navigation.kv'))
         main_widget = Builder.load_file(kv_file)
+        episode_page_class = episode_page.Episode_Page(name='ep_page')
         main_widget.ids.scr_mngr.add_widget(criterea_selection.Criterea_Selection(name='crits'))
         main_widget.ids.scr_mngr.add_widget(home.Home(name='home'))
-        main_widget.ids.scr_mngr.add_widget(episode_page.Episode_Page(name='ep_page'))
+        main_widget.ids.scr_mngr.add_widget(episode_page_class)
+        Global.EPISODE_PAGE_CLASS = episode_page_class
         self.load_home(main_widget)
         return main_widget
 

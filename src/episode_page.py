@@ -19,4 +19,7 @@ import functools
 
 
 class Episode_Page(Screen):
+    def sayhey(self):
+        print('Hey boi')
+        self.ids.ml_ep.add_widget(OneLineListItem(text = "HeyMan"))
     pass
