@@ -117,6 +117,7 @@ class Criterea_Selection(Screen):
             if anime.name not in Global.ANIME_CONFIRM_LIST: continue
             db_anime = db.search(Anime.anime == anime.name)
             if(len(db_anime) == 0):
+                print('adding ' + anime.name+ ' to database')
                 db.insert({'anime_name': anime.name, 'season': seasonYear, 'episodes_out': anime.episodes_out })
 
 

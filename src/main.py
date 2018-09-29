@@ -112,13 +112,17 @@ class WGTS(App):
 
         for anime in anime_db:
             print('processing ' + anime["anime_name"])
+            start_fetching_episodes_from =  0
             if anime["anime_name"] not in Global.ANIME_LIST:
                 print('Gonna start then')
                 anime_item = MDAccordionItem();
                 anime_item.icon = 'movie'
                 anime_item.title = anime["anime_name"]
                 home_anime_list.add_widget(anime_item)
-                for episode in range(0, anime["episodes_out"]):
+                if anime["episodes_out"] > 50:
+                    start_fetching_episodes_from = anime["episodes_out"] - 50
+
+                for episode in range(start_fetching_episodes_from, anime["episodes_out"]):
                     anime_sub_item = MDAccordionSubItem(parent_item = anime_item, text = 'Episode ' + str(episode + 1))
                     anime_sub_item.on_release = functools.partial(open_magnet, Global.Test)
                     anime_item.add_widget(anime_sub_item)
