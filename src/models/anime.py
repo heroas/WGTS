@@ -5,10 +5,11 @@ class Anime():
         english_title = str(title_obj["english"])
         romaji_title = str(title_obj["romaji"])
 
-        if title_obj["english"] is None:
-            return romaji_title
-        else:
-            return english_title
+        return romaji_title
+        # if title_obj["english"] is None:
+        #     return romaji_title
+        # else:
+        #     return english_title
 
     def __init__(self, anime_obj):
         self.name = self.get_title(anime_obj)
