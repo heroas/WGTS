@@ -25,8 +25,8 @@ class RemoveButton(IRightBodyTouch, MDIconButton):
 
     def remove_anime_from_list(x, self, anime_to_remove):
         x.parent.parent.parent.remove_widget(x.parent.parent)
-        if anime_to_remove in Global.ANIME_LIST:
-            Global.ANIME_LIST.remove(anime_to_remove)
+        if anime_to_remove in Global.ANIME_CONFIRM_LIST:
+            Global.ANIME_CONFIRM_LIST.remove(anime_to_remove)
 
         self.dismiss()
 
@@ -108,16 +108,17 @@ class Criterea_Selection(Screen):
             self.ids.pop_verbatim.text = 'also I dont care about whats popular.'
 
     def add_anime_to_db(x, self, anime_list):
+        db = TinyDB(Global.DB_FILE)
+
+        Anime = Query()
+        seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
+
         for anime in anime_list:
-            print(x.ids)
-        # db = TinyDB(Global.DB_FILE)
-        #
-        # Anime = Query()
-        # seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
-        # for anime in anime_list:
-        #     db_anime = db.search(Anime.anime == anime.name)
-        #     if(len(db_anime) == 0):
-        #         db.insert({'anime_name': anime.name, 'season': seasonYear, 'episodes_out': anime.episodes_out })
+            if anime.name not in Global.ANIME_CONFIRM_LIST: continue
+            db_anime = db.search(Anime.anime == anime.name)
+            if(len(db_anime) == 0):
+                db.insert({'anime_name': anime.name, 'season': seasonYear, 'episodes_out': anime.episodes_out })
+
 
         self.dismiss()
 
@@ -140,7 +141,7 @@ class Criterea_Selection(Screen):
 
     def anime_confirmation(self, anime_list):
         for anime in anime_list:
-            Global.ANIME_LIST.append(anime.name)
+            Global.ANIME_CONFIRM_LIST.append(anime.name)
 
 
         ml = MDList()
