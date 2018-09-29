@@ -33,6 +33,7 @@ import functools
 import Global
 import criterea_selection
 import home
+import episode_page
 import requests
 import os
 import sys
@@ -99,6 +100,10 @@ class WGTS(App):
     def root():
         return self.root
 
+    def open_episode_page(self, episode, anime_name):
+        print(episode)
+        print(anime_name)
+
     def load_home(self,main_widget):
         print(Global.ANIME_LIST)
         home_anime_list = main_widget.ids.home.ids.ani_list
@@ -124,7 +129,7 @@ class WGTS(App):
 
                 for episode in range(start_fetching_episodes_from, anime["episodes_out"]):
                     anime_sub_item = MDAccordionSubItem(parent_item = anime_item, text = 'Episode ' + str(episode + 1))
-                    anime_sub_item.on_release = functools.partial(open_magnet, Global.Test)
+                    anime_sub_item.on_release = functools.partial(self.open_episode_page, episode + 1, anime["anime_name"])
                     anime_item.add_widget(anime_sub_item)
                 Global.ANIME_LIST.append(anime["anime_name"])
 
@@ -138,6 +143,7 @@ class WGTS(App):
         main_widget = Builder.load_file(kv_file)
         main_widget.ids.scr_mngr.add_widget(criterea_selection.Criterea_Selection(name='crits'))
         main_widget.ids.scr_mngr.add_widget(home.Home(name='home'))
+        main_widget.ids.scr_mngr.add_widget(episode_page.Episode_Page(name='ep_page'))
         self.load_home(main_widget)
         return main_widget
 
