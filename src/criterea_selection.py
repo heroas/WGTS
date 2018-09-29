@@ -4,7 +4,7 @@ from kivymd.button import MDIconButton
 from kivymd.dialog import MDDialog
 from kivymd.label import MDLabel
 from kivymd.list import MDList, OneLineRightIconListItem
-from kivymd.list import IRightBodyTouch 
+from kivymd.list import IRightBodyTouch
 from kivy.metrics import dp
 from kivy.uix.image import Image
 from services import anilist_api
@@ -23,9 +23,25 @@ engine = KivyEngine()
 class RemoveButton(IRightBodyTouch, MDIconButton):
     name = StringProperty()
 
+    def remove_anime_from_list(x, self, anime_to_remove):
+        x.parent.parent.parent.remove_widget(x.parent.parent)
+        if anime_to_remove in Global.ANIME_LIST:
+            Global.ANIME_LIST.remove(anime_to_remove)
+
+        self.dismiss()
+
     def on_release(self):
-        print(self.parent.parent.text)
-        self.parent.parent.parent.remove_widget(self.parent.parent)
+        anime_to_remove = self.parent.parent.text
+        self.dialog3 = MDDialog(title='Are you sure you want to remove '+ anime_to_remove +' anime from your watchlist?',
+                               size_hint=(.8, None),
+                               height=dp(150),
+                               auto_dismiss=False)
+
+        self.dialog3.add_action_button("Actually....",
+                                      action=lambda *x: self.dialog3.dismiss())
+        self.dialog3.add_action_button("Im Sure!",
+                                      action=lambda *x: self.remove_anime_from_list(self.dialog3, anime_to_remove))
+        self.dialog3.open()
 
         pass
 
@@ -92,14 +108,16 @@ class Criterea_Selection(Screen):
             self.ids.pop_verbatim.text = 'also I dont care about whats popular.'
 
     def add_anime_to_db(x, self, anime_list):
-        db = TinyDB(Global.DB_FILE)
-
-        Anime = Query()
-        seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
         for anime in anime_list:
-            db_anime = db.search(Anime.anime == anime.name)
-            if(len(db_anime) == 0):
-                db.insert({'anime_name': anime.name, 'season': seasonYear, 'episodes_out': anime.episodes_out })
+            print(x.ids)
+        # db = TinyDB(Global.DB_FILE)
+        #
+        # Anime = Query()
+        # seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
+        # for anime in anime_list:
+        #     db_anime = db.search(Anime.anime == anime.name)
+        #     if(len(db_anime) == 0):
+        #         db.insert({'anime_name': anime.name, 'season': seasonYear, 'episodes_out': anime.episodes_out })
 
         self.dismiss()
 
@@ -121,6 +139,10 @@ class Criterea_Selection(Screen):
         self.dialog2.open()
 
     def anime_confirmation(self, anime_list):
+        for anime in anime_list:
+            Global.ANIME_LIST.append(anime.name)
+
+
         ml = MDList()
 
         for anime in anime_list:
