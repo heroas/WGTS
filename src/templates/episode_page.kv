@@ -37,9 +37,13 @@
 
 <Episode_Page>:
     name: 'episode_page'
-    BoxLayout:
-        id: full_layout
-        BoxLayout:
-            MDRaisedButton:
-                text: 'Load Anime'
-                on_release: root.load()
+    ScrollView:
+        do_scroll_x: False
+        MDList:
+            id: ml_ep
+            TwoLineListItem:
+                text: "Two-line item"
+                secondary_text: "Secondary text here"
+    MDRaisedButton:
+        id: btn_t
+        text: "asdasda"

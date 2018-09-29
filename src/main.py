@@ -9,6 +9,7 @@ from kivy.metrics import dp
 from kivy.properties import ObjectProperty
 from kivy.uix.image import Image
 from kivy.config import Config
+from kivy.uix.scrollview import ScrollView
 from kivy.uix.screenmanager import ScreenManager, Screen
 Config.set('graphics', 'width', '1080')
 Config.set('graphics', 'height', '720')
@@ -20,7 +21,7 @@ from kivy.utils import get_color_from_hex
 from kivymd.color_definitions import colors
 from kivymd.label import MDLabel
 from kivymd.list import ILeftBody, ILeftBodyTouch, IRightBodyTouch, BaseListItem
-from kivymd.list import OneLineListItem, TwoLineListItem
+from kivymd.list import OneLineListItem, TwoLineListItem, MDList
 from kivymd.material_resources import DEVICE_TYPE
 from kivymd.navigationdrawer import MDNavigationDrawer, NavigationDrawerHeaderBase
 from kivymd.selectioncontrols import MDCheckbox
@@ -100,12 +101,22 @@ class WGTS(App):
     def root():
         return self.root
 
-    def open_episode_page(self, episode, anime_name):
+    def open_episode_page(self, episode, anime_name, main_widget):
         print(episode)
         print(anime_name)
+        episode_page_list = main_widget.ids.ep_page.ids.ml_ep
+        episode_page_button = main_widget.ids.ep_page.ids.btn_t
+        episode_page_button.text = 'heyboui'
+        episode_page_button.canvas.ask_update()
+        test = OneLineListItem(text="heyboiu")
+
+        episode_page_list.add_widget(OneLineListItem(text='hello'))
+        print(main_widget.canvas.ask_update())
+        Global.EP_PAGE_EPISODE = episode
+        Global.EP_PAGE_ANIME = anime_name
+        self.navigate('ep_page')
 
     def load_home(self,main_widget):
-        print(Global.ANIME_LIST)
         home_anime_list = main_widget.ids.home.ids.ani_list
         db = TinyDB(Global.DB_FILE)
         anime_db = db.all()
@@ -129,7 +140,7 @@ class WGTS(App):
 
                 for episode in range(start_fetching_episodes_from, anime["episodes_out"]):
                     anime_sub_item = MDAccordionSubItem(parent_item = anime_item, text = 'Episode ' + str(episode + 1))
-                    anime_sub_item.on_release = functools.partial(self.open_episode_page, episode + 1, anime["anime_name"])
+                    anime_sub_item.on_release = functools.partial(self.open_episode_page, episode + 1, anime["anime_name"], main_widget)
                     anime_item.add_widget(anime_sub_item)
                 Global.ANIME_LIST.append(anime["anime_name"])
 
