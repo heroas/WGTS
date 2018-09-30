@@ -37,14 +37,22 @@
 
 <Episode_Page>:
     name: 'episode_page'
-    ScrollView:
-        do_scroll_x: False
-        MDList:
-            id: ml_ep
-            TwoLineListItem:
-                text: "Two-line item"
-                secondary_text: "Secondary text here"
-    MDRaisedButton:
-        id: btn_t
-        text: "asdasda"
-        on_release: root.sayhey()
+    BoxLayout:
+        orientation: 'vertical'
+
+        MDLabel:
+            id: search_param
+            font_style: 'Body1'
+            theme_text_color: 'Primary'
+            text: "Body1 label"
+        ScrollView:
+            do_scroll_x: False
+            MDList:
+                id: ml_ep
+                TwoLineListItem:
+                    text: "Two-line item"
+                    secondary_text: "Secondary text here"
+        MDRaisedButton:
+            id: back_btn 
+            text: "Back"
+            on_release: root.go_back()

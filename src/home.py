@@ -33,9 +33,8 @@ def open_magnet(magnet):
 
 class Home(Screen):
     def open_episode_page(self, episode, anime):
-        print(episode)
-        Global.EPISODE_PAGE_CLASS.sayhey()
-        print(self.manager)
+        Global.EPISODE_PAGE_CLASS.search(anime, episode)
+        self.manager.transition.direction = 'left'
         self.manager.current = 'ep_page'
 
     def load_anime_list(self):
