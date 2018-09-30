@@ -16,20 +16,7 @@ import subprocess
 from services import anilist_api
 import functools
 
-def open_magnet(magnet):
-        """Open magnet according to os."""
-        if sys.platform.startswith('linux'):
-            subprocess.Popen(['xdg-open', magnet])
-        elif sys.platform.startswith('win32'):
-            os.startfile(magnet)
-        elif sys.platform.startswith('cygwin'):
-            os.startfile(magnet)
-        elif sys.platform.startswith('darwin'):
-            subprocess.Popen(['open', magnet],
-                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        else:
-            subprocess.Popen(['xdg-open', magnet],
-                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
 
 class Home(Screen):
     def open_episode_page(self, episode, anime):
