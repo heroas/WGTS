@@ -117,48 +117,51 @@ class WGTS(App):
         # self.root.ids.ep_page.ids.btn_t.on_release()
         self.navigate('ep_page')
 
-    def load_home(self,main_widget):
-        home_anime_list = main_widget.ids.home.ids.ani_list
-        db = TinyDB(Global.DB_FILE)
-        anime_db = db.all()
-
-        if len(home_anime_list.children) > 0:
-            for anime in home_anime_list.children:
-                print(anime.parent)
-
-
-        for anime in anime_db:
-            print('processing ' + anime["anime_name"])
-            start_fetching_episodes_from =  0
-            if anime["anime_name"] not in Global.ANIME_LIST:
-                print('Gonna start then')
-                anime_item = MDAccordionItem();
-                anime_item.icon = 'movie'
-                anime_item.title = anime["anime_name"]
-                home_anime_list.add_widget(anime_item)
-                if anime["episodes_out"] > 50:
-                    start_fetching_episodes_from = anime["episodes_out"] - 50
-
-                for episode in range(start_fetching_episodes_from, anime["episodes_out"]):
-                    anime_sub_item = MDAccordionSubItem(parent_item = anime_item, text = 'Episode ' + str(episode + 1))
-                    anime_sub_item.on_release = functools.partial(self.open_episode_page, episode + 1, anime["anime_name"], main_widget)
-                    anime_item.add_widget(anime_sub_item)
-                Global.ANIME_LIST.append(anime["anime_name"])
+    # def load_home(self,main_widget):
+    #     home_anime_list = main_widget.ids.home.ids.ani_list
+    #     db = TinyDB(Global.DB_FILE)
+    #     anime_db = db.all()
+    #
+    #     if len(home_anime_list.children) > 0:
+    #         for anime in home_anime_list.children:
+    #             print(anime.parent)
+    #
+    #
+    #     for anime in anime_db:
+    #         print('processing ' + anime["anime_name"])
+    #         start_fetching_episodes_from =  0
+    #         if anime["anime_name"] not in Global.ANIME_LIST:
+    #             print('Gonna start then')
+    #             anime_item = MDAccordionItem();
+    #             anime_item.icon = 'movie'
+    #             anime_item.title = anime["anime_name"]
+    #             home_anime_list.add_widget(anime_item)
+    #             if anime["episodes_out"] > 50:
+    #                 start_fetching_episodes_from = anime["episodes_out"] - 50
+    #
+    #             for episode in range(start_fetching_episodes_from, anime["episodes_out"]):
+    #                 anime_sub_item = MDAccordionSubItem(parent_item = anime_item, text = 'Episode ' + str(episode + 1))
+    #                 anime_sub_item.on_release = functools.partial(self.open_episode_page, episode + 1, anime["anime_name"], main_widget)
+    #                 anime_item.add_widget(anime_sub_item)
+    #             Global.ANIME_LIST.append(anime["anime_name"])
 
     def navigate(self, route):
-        if route is 'home':
-            self.load_home(self.root);
+        # if route is 'home':
+        #     self.load_home(self.root);
         self.root.ids.scr_mngr.current = route
 
     def build(self):
         kv_file = resource_path(os.path.join('templates', 'navigation.kv'))
         main_widget = Builder.load_file(kv_file)
         episode_page_class = episode_page.Episode_Page(name='ep_page')
+        home_class = home.Home(name='home')
         main_widget.ids.scr_mngr.add_widget(criterea_selection.Criterea_Selection(name='crits'))
-        main_widget.ids.scr_mngr.add_widget(home.Home(name='home'))
+        main_widget.ids.scr_mngr.add_widget(home_class)
         main_widget.ids.scr_mngr.add_widget(episode_page_class)
         Global.EPISODE_PAGE_CLASS = episode_page_class
-        self.load_home(main_widget)
+        Global.HOME_CLASS = home_class
+
+        home_class.load_anime_list(main_widget.ids.home.ids.home_anime_list)
         return main_widget
 
 
@@ -167,4 +170,4 @@ class WGTS(App):
 if __name__ == '__main__':
     set_season()
     load_create_tinydb()
-    WGTS().run()
+    Global.MAIN = WGTS().run()

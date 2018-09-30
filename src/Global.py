@@ -16,3 +16,6 @@ Test = 'hi'
 EP_PAGE_EPISODE = None
 EP_PAGE_ANIME = None
 aclass= None
+
+EPISODE_PAGE_CLASS = None 
+HOME_CLASS = None
