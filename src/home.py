@@ -38,11 +38,12 @@ class Home(Screen):
         print(self.manager)
         self.manager.current = 'ep_page'
 
-    def load_anime_list(self, home_anime_list):
+    def load_anime_list(self):
 
         db = TinyDB(Global.DB_FILE)
         anime_db = db.all()
 
+        home_anime_list = Global.MAIN_WIDGET.ids.home.ids.home_anime_list
         for anime in anime_db:
             print('processing ' + anime["anime_name"])
             start_fetching_episodes_from =  0
