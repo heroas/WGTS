@@ -111,7 +111,9 @@ class WGTS(App):
         main_widget = Builder.load_file(kv_file)
         episode_page_class = episode_page.Episode_Page(name='ep_page')
         home_class = home.Home(name='home')
-        main_widget.ids.scr_mngr.add_widget(criterea_selection.Criterea_Selection(name='crits'))
+        criterea_selection_class = criterea_selection.Criterea_Selection(name='crits')
+        criterea_selection_class.toggle_all_genres(True)
+        main_widget.ids.scr_mngr.add_widget(criterea_selection_class)
         main_widget.ids.scr_mngr.add_widget(home_class)
         main_widget.ids.scr_mngr.add_widget(episode_page_class)
         Global.EPISODE_PAGE_CLASS = episode_page_class

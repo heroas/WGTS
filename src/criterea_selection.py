@@ -50,19 +50,25 @@ class Criterea_Selection(Screen):
     first_switch_verbatim = 'as well as anything with a rating of '
 
     def add_genre(self, genre_type):
+        print('adding ' + genre_type)
         Global.GENRES.append(genre_type)
-        self.ids.genre_verbatim.text = ''
-        for genre in Global.GENRES:
-            self.ids.genre_verbatim.text += genre + '  '
+        # self.ids.genre_verbatim.text = ''
+        # for genre in Global.GENRES:
+        #     self.ids.genre_verbatim.text += genre + '  '
 
     def remove_genre(self, genre_type):
+        print('removing ' + genre_type)
         Global.GENRES.remove(genre_type)
-        if len(Global.GENRES) == 0:
-            self.ids.genre_verbatim.text = 'Anything '
-        else:
-            self.ids.genre_verbatim.text = ''
-            for genre in Global.GENRES:
-                self.ids.genre_verbatim.text += genre + '  '
+        # if len(Global.GENRES) == 0:
+        #     self.ids.genre_verbatim.text = 'Anything '
+        # else:
+        #     self.ids.genre_verbatim.text = ''
+        #     for genre in Global.GENRES:
+        #         self.ids.genre_verbatim.text += genre + '  '
+
+    def toggle_all_genres(self, state):
+        for genre in self.ids.genre_grid.children:
+            genre.children[0].active = state
 
     def set_quality(self, quality):
         Global.QUALITY = quality
@@ -199,17 +205,20 @@ class Criterea_Selection(Screen):
 
     @engine.async
     def set_anime_from_criterea(self, *_):
-        self.ids.spinner.active = True
+        # self.ids.spinner.active = True
+        for genre in self.ids.genre_grid.children:
+            print(genre.children[0])
+            genre.children[0].active = True
+        #
+        # Global.RATING = int(round(self.ids.rating_slider.value))
+        #
+        # current_releasing_anime = yield Task(anilist_api.get_releasing_anime)
+        # anime_models = []
+        # for anime in current_releasing_anime:
+        #     anime_m = Anime(anime)
+        #     anime_models.append(anime_m)
+        #
+        # filtered_anime_models = self.filter_anime(anime_models)
+        # self.anime_confirmation(filtered_anime_models)
 
-        Global.RATING = int(round(self.ids.rating_slider.value))
-
-        current_releasing_anime = yield Task(anilist_api.get_releasing_anime)
-        anime_models = []
-        for anime in current_releasing_anime:
-            anime_m = Anime(anime)
-            anime_models.append(anime_m)
-
-        filtered_anime_models = self.filter_anime(anime_models)
-        self.anime_confirmation(filtered_anime_models)
-
-        self.ids.spinner.active = False
+        # self.ids.spinner.active = False

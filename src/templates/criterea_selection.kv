@@ -38,25 +38,23 @@
     name: 'criterea'
     BoxLayout:
         id: full_layout
+        orientation: 'vertical'
         padding: 5
 
-        MDSpinner:
-            id: spinner
-            size_hint: None, None
-            size: dp(26), dp(26)
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-            active: False
-
+        # MDSpinner:
+        #     id: spinner
+        #     size_hint: None, None
+        #     size: dp(26), dp(26)
+        #     pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        #     active: False
         BoxLayout:
-            size_hint: (.73,1)
-            orientation: 'vertical'
             spacing: 5
 
             BoxLayout:
                 orientation: 'vertical'
+                size_hint: (.7,1)
                 padding: 10
                 spacing: 5
-                size_hint_y: 1.3
 
                 MDLabel:
                     size_hint_y: .2
@@ -65,10 +63,12 @@
                     theme_text_color: 'Primary'
 
                 MDCard:
-                    size_hint: (.9,1)
+                    size_hint: (1,1)
+                    padding: 10
                     GridLayout:
+                        id: genre_grid
                         cols: 6
-                        rows: 3
+                        rows: 4
                         row_default_height: dp(50)
                         row_force_default: True
                         padding: 4
@@ -186,7 +186,7 @@
                                 width: '40dp'
                             MDCheckbox:
                                 id: scifi_chk
-                                on_state: root.add_genre('Sci-Fi') if scifi_chk.active else root.remove_genre('Sc-iFi')
+                                on_state: root.add_genre('Sci-Fi') if scifi_chk.active else root.remove_genre('Sci-Fi')
 
                         BoxLayout:
                             size_hint: None, None
@@ -338,6 +338,18 @@
                                 id: thrill_chk
                                 on_state: root.add_genre('Thriller') if thrill_chk.active else root.remove_genre('Thriller')
 
+                        MDRaisedButton:
+                            text: "Select All"
+                            opposite_colors: True
+                            on_release: root.toggle_all_genres(True)
+                            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+                        MDRaisedButton:
+                            text: "Select None"
+                            opposite_colors: True
+                            on_release: root.toggle_all_genres(False)
+                            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
                                     #MDCheckbox:
                         #pos_hint: {'x': 0.9, 'center_y': 0.9}
                         #id: action_chk
@@ -345,36 +357,15 @@
 
 
 
-            BoxLayout:
-                size_hint_y: .15
-                BoxLayout:
-                    size_hint_x: .2
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.9}
-                    MDLabel:
-                        id: first_or
-                        text: "OR"
-                        theme_text_color: 'Custom'
-                        halign: 'center'
-
-                    MDSwitch:
-                        id: first_switch
-                        size_hint:    None, None
-                        size:        dp(36), dp(48)
-                        pos_hint:    {'center_x': 0.75, 'center_y': 0.5}
-                        _active:  root.first_switch_toggle('AND') if first_switch.active else root.first_switch_toggle('OR')
-                    MDLabel:
-                        id: first_and
-                        text: "AND"
-                        theme_text_color: 'Custom'
-                        halign: 'center'
 
             BoxLayout:
                 orientation: 'vertical'
+                size_hint: (.3,1)
                 padding: 10
                 spacing: 5
                 MDLabel:
                     size_hint_y: .2
-                    text: "RATING"
+                    text: "RATING OF AT LEAST"
                     font_style: 'Headline'
                     theme_text_color: 'Primary'
 
@@ -387,7 +378,7 @@
                     MDLabel:
                         id: rating_slider_percentage
                         text: str(int(round(rating_slider.value))) + '%'
-                        font_style: 'Headline'
+                        font_style: 'Display4'
                         theme_text_color: 'Primary'
                         halign: 'center'
                     MDSlider:
@@ -396,140 +387,100 @@
                         max:100
                         value: 70
 
-            BoxLayout:
-                orientation: 'vertical'
-                padding: 10
-                spacing: 2
-                MDLabel:
-                    pos_hint: {'x': 0, 'center_y': 0.9}
-                    text: "POPULARITY"
-                    font_style: 'Headline'
-                    theme_text_color: 'Primary'
-                BoxLayout:
-                    spacing: 20
-                    MDRaisedButton:
-                        pos_hint: {'x': 0.3, 'center_y': 0.9}
-                        text: "Most Popular"
-                        on_release: root.set_popularity('Most')
-                        halign: 'center'
-                    MDRaisedButton:
-                        pos_hint: {'x': 0.6, 'center_y': 0.9}
-                        text: "Top 3"
-                        halign: 'center'
-                        on_release: root.set_popularity('3')
-                    MDRaisedButton:
-                        pos_hint: {'x': 0.9, 'center_y': 0.9}
-                        text: "Top 5"
-                        halign: 'center'
-                        on_release: root.set_popularity('5')
-                    MDRaisedButton:
-                        pos_hint: {'x': 0.9, 'center_y': 0.9}
-                        text: "I dont care"
-                        halign: 'center'
-                        on_release: root.set_popularity('')
-
-        MDSeparator:
-            orientation: 'vertical'
-            height: dp(1)
-
-
         BoxLayout:
-            size_hint: (.27,1)
             orientation: 'vertical'
             padding: 10
-            spacing: 10
-
-            MDCard:
-                padding: 5
-                orientation: 'vertical'
-                MDLabel:
-                    size_hint_y: .15
-                    text: 'What are you looking for?'
-                    font_style: 'Subhead'
-                    halign: 'center'
-                MDSeparator:
-                    height: dp(1)
-                MDLabel:
-                    size_hint_y: .15
-                    id: genre_verbatim
-                    halign: 'center'
-                    text: root.genre_verbatim
-                MDLabel:
-                    size_hint_y: .15
-                    id: first_verbatim
-                    halign: 'center'
-                    text: root.first_switch_verbatim
-                MDLabel:
-                    size_hint_y: .15
-                    id: rating_verbatim
-                    halign: 'center'
-                    text: rating_slider_percentage.text +' or higher'
-                MDLabel:
-                    size_hint_y: .15
-                    id: pop_verbatim
-                    halign: 'center'
-                    text: 'also I dont care about the popularity'
+            spacing: 2
+            MDLabel:
+                pos_hint: {'x': 0, 'center_y': 0.9}
+                text: "POPULARITY"
+                font_style: 'Headline'
+                theme_text_color: 'Primary'
+            BoxLayout:
+                spacing: 20
                 MDRaisedButton:
-                    text: "Find Anime"
-                    opposite_colors: True
-                    on_release: root.set_anime_from_criterea()
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    pos_hint: {'x': 0.3, 'center_y': 0.9}
+                    text: "Most Popular"
+                    on_release: root.set_popularity('Most')
+                    halign: 'center'
+                MDRaisedButton:
+                    pos_hint: {'x': 0.6, 'center_y': 0.9}
+                    text: "Top 3"
+                    halign: 'center'
+                    on_release: root.set_popularity('3')
+                MDRaisedButton:
+                    pos_hint: {'x': 0.9, 'center_y': 0.9}
+                    text: "Top 5"
+                    halign: 'center'
+                    on_release: root.set_popularity('5')
+                MDRaisedButton:
+                    pos_hint: {'x': 0.9, 'center_y': 0.9}
+                    text: "I dont care"
+                    halign: 'center'
+                    on_release: root.set_popularity('')
 
-            # MDCard:
-            #     size_hint_y: .24
-            #
-            #     BoxLayout:
-            #         size_hint: (1,1)
-            #         padding: 10
-            #         orientation: 'vertical'
-            #
-            #         # BoxLayout:
-            #         #     size_hint: (1, .5)
-            #         #     pos_hint:    {'center_x': 0.5, 'center_y': 0.5}
-            #         #
-            #         #     MDLabel:
-            #         #         id: sd
-            #         #         text: '480p'
-            #         #         halign: 'center'
-            #         #     MDLabel:
-            #         #         id: hd
-            #         #         text: '720p'
-            #         #         halign: 'center'
-            #         #     MDLabel:
-            #         #         id: hhd
-            #         #         text: '1080p'
-            #         #         halign: 'center'
-            #         #
-            #         #
-            #         # BoxLayout:
-            #         #     size_hint: (1, .5)
-            #         #     pos_hint:    {'center_x': 0.5, 'center_y': 0.5}
-            #         #
-            #         #     MDCheckbox:
-            #         #         id: grp_chkbox_1
-            #         #         group: 'quality'
-            #         #         on_state: root.set_quality('480')
-            #         #     MDCheckbox:
-            #         #         id: grp_chkbox_2
-            #         #         active: 'true'
-            #         #         group: 'quality'
-            #         #         on_state: root.set_quality('720')
-            #         #     MDCheckbox:
-            #         #         id: grp_chkbox_3
-            #         #         group: 'quality'
-            #         #         on_state: root.set_quality('1080')
-            #         #
-            #         #
-            #         MDRaisedButton:
-            #             text: "Find Anime"
-            #             opposite_colors: True
-            #             on_release: root.set_anime_from_criterea()
-            #             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
-                    #MDRaisedButton:
-                        #text: "Show me criterea Object"
-                        #size_hint: None, None
-                        #size: 4 * dp(48), dp(48)
-                        #pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                        #opposite_colors: True
-                        #on_release: app.print_crit()
+            MDRaisedButton:
+                text: "Find Anime"
+                opposite_colors: True
+                on_release: root.set_anime_from_criterea()
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+        # MDCard:
+        #     size_hint_y: .24
+        #
+        #     BoxLayout:
+        #         size_hint: (1,1)
+        #         padding: 10
+        #         orientation: 'vertical'
+        #
+        #         # BoxLayout:
+        #         #     size_hint: (1, .5)
+        #         #     pos_hint:    {'center_x': 0.5, 'center_y': 0.5}
+        #         #
+        #         #     MDLabel:
+        #         #         id: sd
+        #         #         text: '480p'
+        #         #         halign: 'center'
+        #         #     MDLabel:
+        #         #         id: hd
+        #         #         text: '720p'
+        #         #         halign: 'center'
+        #         #     MDLabel:
+        #         #         id: hhd
+        #         #         text: '1080p'
+        #         #         halign: 'center'
+        #         #
+        #         #
+        #         # BoxLayout:
+        #         #     size_hint: (1, .5)
+        #         #     pos_hint:    {'center_x': 0.5, 'center_y': 0.5}
+        #         #
+        #         #     MDCheckbox:
+        #         #         id: grp_chkbox_1
+        #         #         group: 'quality'
+        #         #         on_state: root.set_quality('480')
+        #         #     MDCheckbox:
+        #         #         id: grp_chkbox_2
+        #         #         active: 'true'
+        #         #         group: 'quality'
+        #         #         on_state: root.set_quality('720')
+        #         #     MDCheckbox:
+        #         #         id: grp_chkbox_3
+        #         #         group: 'quality'
+        #         #         on_state: root.set_quality('1080')
+        #         #
+        #         #
+        #         MDRaisedButton:
+        #             text: "Find Anime"
+        #             opposite_colors: True
+        #             on_release: root.set_anime_from_criterea()
+        #             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+                #MDRaisedButton:
+                    #text: "Show me criterea Object"
+                    #size_hint: None, None
+                    #size: 4 * dp(48), dp(48)
+                    #pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    #opposite_colors: True
+                    #on_release: app.print_crit()
