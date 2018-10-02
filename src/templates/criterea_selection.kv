@@ -341,12 +341,13 @@
                         MDRaisedButton:
                             text: "Select All"
                             theme_text_color: 'Primary'
-                            opposite_colors: True
+                            opposite_colors: False
                             on_release: root.toggle_all_genres(True)
                             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
                         MDRaisedButton:
                             text: "Select None"
+                            theme_text_color: 'Primary'
                             opposite_colors: False
                             on_release: root.toggle_all_genres(False)
                             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
@@ -439,6 +440,7 @@
 
             MDRaisedButton:
                 text: "Find Anime"
+                theme_text_color: 'Secondary'
                 opposite_colors: True
                 on_release: root.set_anime_from_criterea()
                 pos_hint: {'center_x': 0.5, 'center_y': 0.5}

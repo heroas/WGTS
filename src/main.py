@@ -63,7 +63,7 @@ def set_season():
         Global.SEASON_NAME = "Fall"
 
     season_color_switcher = {
-        "Winter": get_color_from_hex(colors['LightBlue']['300']),
+        "Winter": get_color_from_hex(colors['LightBlue']['200']),
         "Spring": get_color_from_hex(colors['Green']['300']),
         "Summer": get_color_from_hex(colors['Yellow']['200']),
         "Fall": get_color_from_hex(colors['Orange']['500'])
@@ -105,8 +105,8 @@ class WGTS(App):
     theme_cls = ThemeManager()
 
     theme_cls.primary_palette = Global.SEASON_THEME_PRIMARY
-    theme_cls.primary_palette = 'LightBlue'
-    theme_cls.primary_hue= '200'
+    # theme_cls.primary_palette = 'LightBlue'
+    # theme_cls.primary_hue= '200'
     # theme_cls.theme_style= 'Dark'
     previous_date = ObjectProperty()
     title = "What's Good This Season?"
@@ -129,7 +129,6 @@ class WGTS(App):
         episode_page_class = episode_page.Episode_Page(name='ep_page')
         home_class = home.Home(name='home')
         criterea_selection_class = criterea_selection.Criterea_Selection(name='crits')
-        criterea_selection_class.toggle_all_genres(True)
         main_widget.ids.scr_mngr.add_widget(criterea_selection_class)
         main_widget.ids.scr_mngr.add_widget(home_class)
         main_widget.ids.scr_mngr.add_widget(episode_page_class)
