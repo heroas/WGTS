@@ -70,8 +70,15 @@ class Criterea_Selection(Screen):
         for genre in self.ids.genre_grid.children:
             genre.children[0].active = state
 
-    def set_quality(self, quality):
-        Global.QUALITY = quality
+    def toggle_rating(self, state):
+        print(state)
+        self.ids.rating_slider.disabled = not state
+        if not state:
+            self.ids.rating_slider_percentage.text = "Doesnt Matter"
+            self.ids.rating_slider_percentage.font_style = "Headline"
+        else:
+            self.ids.rating_slider_percentage.text = str(int(round(self.ids.rating_slider.value))) + '%'
+            self.ids.rating_slider_percentage.font_style = "Display4"
 
     def parse_season(self, season):
         seasonArr = season.split('-')

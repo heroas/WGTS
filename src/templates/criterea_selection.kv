@@ -381,11 +381,27 @@
                         font_style: 'Display4'
                         theme_text_color: 'Primary'
                         halign: 'center'
+
                     MDSlider:
                         id: rating_slider
                         min:0
                         max:100
                         value: 70
+
+                    MDSwitch:
+                        id: rating_switch
+                        size_hint: None, None
+                        size: dp(36), dp(48)
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                        active: True
+                        _active: root.toggle_rating(True) if rating_switch.active else root.toggle_rating(False)
+
+                    # MDRaisedButton:
+                    #     id: disable_rating_btn
+                    #     text: "Disable rating"
+                    #     opposite_colors: True
+                    #     on_release: root.toggle_rating(False) if disable_rating_btn.text=="Disables rating" else root.toggle_rating(True)
+                    #     pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
         BoxLayout:
             orientation: 'vertical'
