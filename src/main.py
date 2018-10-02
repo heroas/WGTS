@@ -75,7 +75,14 @@ def set_season():
         "Fall": get_color_from_hex(colors['Orange']['600'])
         }
 
+    season_theme_switcher = {
+        "Winter": 'LightBlue',
+        "Spring": 'Green' ,
+        "Summer": 'Yellow',
+        "Fall": 'Orange'
+        }
     Global.SEASON_COLOR = season_color_switcher.get(Global.SEASON_NAME)
+    Global.SEASON_THEME_PRIMARY = season_theme_switcher.get(Global.SEASON_NAME)
     Global.SEASON_COLOR_DARK = season_color_dark_switcher.get(Global.SEASON_NAME)
     Global.SEASON_YEAR = year
 
@@ -94,7 +101,13 @@ def open_magnet(stri):
     print(stri)
 
 class WGTS(App):
+    set_season()
     theme_cls = ThemeManager()
+
+    theme_cls.primary_palette = Global.SEASON_THEME_PRIMARY
+    theme_cls.primary_palette = 'LightBlue'
+    theme_cls.primary_hue= '200'
+    # theme_cls.theme_style= 'Dark'
     previous_date = ObjectProperty()
     title = "What's Good This Season?"
 
@@ -131,6 +144,5 @@ class WGTS(App):
 
 
 if __name__ == '__main__':
-    set_season()
     load_create_tinydb()
-    Global.MAIN = WGTS().run()
+    WGTS().run()
