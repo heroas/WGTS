@@ -47,25 +47,12 @@ class RemoveButton(IRightBodyTouch, MDIconButton):
         pass
 
 class Criterea_Selection(Screen):
-    genre_verbatim = 'Anything '
-    first_switch_verbatim = 'as well as anything with a rating of '
 
     def add_genre(self, genre_type):
-        print('adding ' + genre_type)
         Global.GENRES.append(genre_type)
-        # self.ids.genre_verbatim.text = ''
-        # for genre in Global.GENRES:
-        #     self.ids.genre_verbatim.text += genre + '  '
 
     def remove_genre(self, genre_type):
-        print('removing ' + genre_type)
         Global.GENRES.remove(genre_type)
-        # if len(Global.GENRES) == 0:
-        #     self.ids.genre_verbatim.text = 'Anything '
-        # else:
-        #     self.ids.genre_verbatim.text = ''
-        #     for genre in Global.GENRES:
-        #         self.ids.genre_verbatim.text += genre + '  '
 
     def toggle_all_genres(self, state):
         for genre in self.ids.genre_grid.children:
@@ -74,7 +61,7 @@ class Criterea_Selection(Screen):
     def toggle_rating(self, state):
         self.ids.rating_slider.disabled = not state
         if not state:
-            self.ids.rating_slider_percentage.text = "Doesnt Matter"
+            self.ids.rating_slider_percentage.text = "Doesn't Matter"
             self.ids.rating_slider_percentage.font_style = "Headline"
         else:
             self.ids.rating_slider_percentage.text = str(int(round(self.ids.rating_slider.value))) + '%'
@@ -96,46 +83,6 @@ class Criterea_Selection(Screen):
     def remove_misc(self, misc):
         print('remove' + misc)
         Global.EXCLUSIONS.remove(misc)
-
-    def parse_season(self, season):
-        seasonArr = season.split('-')
-        if(len(seasonArr) == 2 and seasonArr[1].isdigit() and seasonArr[0].upper() in Global.SEASON_LIST):
-            Global.SEASON = seasonArr[0].upper()
-            Global.SEASON_YEAR = seasonArr[1]
-            return 0
-        return 1
-
-    def first_switch_toggle(self,switch):
-        if switch == 'AND':
-            self.ids.first_and.font_style = 'Display1'
-            self.ids.first_and.text_color = Global.SEASON_COLOR_DARK
-            self.ids.first_or.font_style = 'Body1'
-            self.ids.first_or.text_color =[0, 0, 0, 1]
-            self.ids.first_verbatim.text = 'as long as the rating is '
-            Global.RATING_IN_GENRE = 1
-
-        else:
-            self.ids.first_or.font_style = 'Display1'
-            self.ids.first_or.text_color = Global.SEASON_COLOR_DARK
-            self.ids.first_and.font_style = 'Body1'
-            self.ids.first_and.text_color =[0, 0, 0, 1]
-            self.ids.first_verbatim.text  = 'as well as anything with a rating of '
-            Global.RATING_IN_GENRE = 0
-
-    def set_popularity(self, popularity):
-
-        if popularity == 'Most':
-            Global.POPULARITY = 1
-            self.ids.pop_verbatim.text = 'also give me the most popular anime this season.'
-        elif popularity == '3':
-            Global.POPULARITY = 3
-            self.ids.pop_verbatim.text = 'also give me the 3 most popular anime this season.'
-        elif popularity == '5':
-            Global.POPULARITY = 5
-            self.ids.pop_verbatim.text = 'also give me the 5 most popular anime this season.'
-        else:
-            Global.POPULARITY = 0
-            self.ids.pop_verbatim.text = 'also I dont care about whats popular.'
 
     def add_anime_to_db(x, self, anime_list):
         db = TinyDB(Global.DB_FILE)
@@ -203,32 +150,25 @@ class Criterea_Selection(Screen):
 
         filtered_anime_models = []
 
+        #Getting amount of popular anime specified by critera
         for amount in range(0, Global.POPULARITY):
             filtered_anime_models.append(anime_models[amount])
-
         del anime_models[:Global.POPULARITY]
+
 
         for anime in anime_models:
             intersect = list(set(Global.GENRES) & set(anime.genres))
             if len(intersect) > 0:
-                if Global.RATING_IN_GENRE:
-                    if anime.rating >= Global.RATING:
-                        filtered_anime_models.append(anime)
-                        print(anime.name)
-                else:
+                if anime.rating >= Global.RATING:
                     filtered_anime_models.append(anime)
                     print(anime.name)
-
-            if not Global.RATING_IN_GENRE and anime.rating >= Global.RATING:
-                filtered_anime_models.append(anime)
-                print(anime.name)
+            # if not Global.RATING_IN_GENRE and anime.rating >= Global.RATING:
+            #     filtered_anime_models.append(anime)
+            #     print(anime.name)
 
         return filtered_anime_models
 
-
-
-    @engine.async
-    def set_anime_from_criterea(self, *_):
+    def number_validation_sanitation(self):
         popularity_value = self.ids.pop_num.text
 
         if popularity_value.isdigit():
@@ -236,19 +176,37 @@ class Criterea_Selection(Screen):
         elif popularity_value is "":
             Global.POPULARITY = 0
         else:
-            Snackbar(text="Popularity value must be numeric or disabled").show()
+            Snackbar(text="Popularity value must be numeric or disabled",duration=2).show()
+            return False
+
+        if self.ids.rating_slider.disabled:
+            Global.RATING = 0
+        else:
+            Global.RATING = int(round(self.ids.rating_slider.value))
+
+        if len(Global.GENRES) < 1:
+            Snackbar(text="You must select at least one Genre",duration=2).show()
+            return False
+
+
+        return True
+
+
+    @engine.async
+    def set_anime_from_criterea(self, *_):
+        if not self.number_validation_sanitation():
+            return
 
         self.ids.spinner.active = True
-        # Global.RATING = int(round(self.ids.rating_slider.value))
-        # Global.POPULARITY = int(round(self.ids.pop_num.value))
-        # current_releasing_anime = yield Task(anilist_api.get_releasing_anime)
-        #
-        # anime_models = []
-        # for anime in current_releasing_anime:
-        #     anime_m = Anime(anime)
-        #     anime_models.append(anime_m)
-        #
-        # filtered_anime_models = self.filter_anime(anime_models)
-        # self.anime_confirmation(filtered_anime_models)
+        print(Global.RATING)
+        current_releasing_anime = yield Task(anilist_api.get_releasing_anime)
+
+        anime_models = []
+        for anime in current_releasing_anime:
+            anime_m = Anime(anime)
+            anime_models.append(anime_m)
+
+        filtered_anime_models = self.filter_anime(anime_models)
+        self.anime_confirmation(filtered_anime_models)
 
         self.ids.spinner.active = False
