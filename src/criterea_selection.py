@@ -71,7 +71,6 @@ class Criterea_Selection(Screen):
             genre.children[0].active = state
 
     def toggle_rating(self, state):
-        print(state)
         self.ids.rating_slider.disabled = not state
         if not state:
             self.ids.rating_slider_percentage.text = "Doesnt Matter"
@@ -79,6 +78,19 @@ class Criterea_Selection(Screen):
         else:
             self.ids.rating_slider_percentage.text = str(int(round(self.ids.rating_slider.value))) + '%'
             self.ids.rating_slider_percentage.font_style = "Display4"
+
+    def toggle_popularity(self, state):
+        self.ids.pop_num.disabled = not state
+        if not state:
+            self.ids.pop_num.hint_text = "Don't care"
+        else:
+            self.ids.pop_num.hint_text = "Enter Numeric"
+
+    def add_misc(self, misc):
+        print('Adding' + misc)
+
+    def remove_misc(self, misc):
+        print('remove' + misc)
 
     def parse_season(self, season):
         seasonArr = season.split('-')
