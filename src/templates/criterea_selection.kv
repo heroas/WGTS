@@ -41,12 +41,6 @@
         orientation: 'vertical'
         padding: 5
 
-        # MDSpinner:
-        #     id: spinner
-        #     size_hint: None, None
-        #     size: dp(26), dp(26)
-        #     pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        #     active: False
         BoxLayout:
             spacing: 5
 
@@ -403,7 +397,7 @@
 
                 MDLabel:
                     size_hint_y: .2
-                    text: "MISC"
+                    text: "EXCLUSIONS"
                     font_style: 'Headline'
                     theme_text_color: 'Primary'
                 MDCard:
@@ -414,7 +408,7 @@
                             MDLabel:
                                 font_style: 'Subhead'
                                 theme_text_color: 'Primary'
-                                text: "Exclude long running anime"
+                                text: "Exclude long running anime (100ep+)"
                             MDCheckbox:
                                 id: exclude_long
                                 on_state: root.add_misc('exclude_long') if exclude_long.active else root.remove_misc('exclude_long')
@@ -492,6 +486,13 @@
         BoxLayout:
             size_hint: (1,.3)
             orientation: 'vertical'
+
+            MDSpinner:
+                id: spinner
+                size_hint: None, None
+                size: dp(26), dp(26)
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                active: False
             MDRaisedButton:
                 text: "Find Anime"
                 theme_text_color: 'Primary'

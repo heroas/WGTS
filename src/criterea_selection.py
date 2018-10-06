@@ -1,12 +1,13 @@
 from kivy.uix.screenmanager import Screen
+from kivy.uix.image import Image
 from kivy.properties import StringProperty
+from kivy.metrics import dp
 from kivymd.button import MDIconButton
 from kivymd.dialog import MDDialog
 from kivymd.label import MDLabel
 from kivymd.list import MDList, OneLineRightIconListItem
 from kivymd.list import IRightBodyTouch
-from kivy.metrics import dp
-from kivy.uix.image import Image
+from kivymd.snackbar import Snackbar
 from services import anilist_api
 
 import functools
@@ -83,14 +84,18 @@ class Criterea_Selection(Screen):
         self.ids.pop_num.disabled = not state
         if not state:
             self.ids.pop_num.hint_text = "Don't care"
+            self.ids.pop_num.text = ""
+            self.ids.pop_num.error = False
         else:
             self.ids.pop_num.hint_text = "Enter Numeric"
 
     def add_misc(self, misc):
         print('Adding' + misc)
+        Global.EXCLUSIONS.append(misc)
 
     def remove_misc(self, misc):
         print('remove' + misc)
+        Global.EXCLUSIONS.remove(misc)
 
     def parse_season(self, season):
         seasonArr = season.split('-')
@@ -224,14 +229,20 @@ class Criterea_Selection(Screen):
 
     @engine.async
     def set_anime_from_criterea(self, *_):
-        # self.ids.spinner.active = True
-        for genre in self.ids.genre_grid.children:
-            print(genre.children[0])
-            genre.children[0].active = True
-        #
+        popularity_value = self.ids.pop_num.text
+
+        if popularity_value.isdigit():
+            Global.POPULARITY = int(popularity_value)
+        elif popularity_value is "":
+            Global.POPULARITY = 0
+        else:
+            Snackbar(text="Popularity value must be numeric or disabled").show()
+
+        self.ids.spinner.active = True
         # Global.RATING = int(round(self.ids.rating_slider.value))
-        #
+        # Global.POPULARITY = int(round(self.ids.pop_num.value))
         # current_releasing_anime = yield Task(anilist_api.get_releasing_anime)
+        #
         # anime_models = []
         # for anime in current_releasing_anime:
         #     anime_m = Anime(anime)
@@ -240,4 +251,4 @@ class Criterea_Selection(Screen):
         # filtered_anime_models = self.filter_anime(anime_models)
         # self.anime_confirmation(filtered_anime_models)
 
-        # self.ids.spinner.active = False
+        self.ids.spinner.active = False
