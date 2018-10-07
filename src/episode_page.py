@@ -47,6 +47,8 @@ class Episode_Page(Screen):
             olli.on_release = functools.partial(self.open_bottom_sheet, torrent)
             self.ids.ml_ep.add_widget(olli)
 
+    def root():
+        return self.root
 
     def open_bottom_sheet(self, torrent):
         print(torrent)
@@ -58,16 +60,15 @@ class Episode_Page(Screen):
         bs.open()
 
     def search(self, anime, episode):
-
         self.ids.search_param.text = anime["romaji_name"] + ' episode ' + str(episode)
-        # current_releasing_anime = yield Task(anilist_api.get_releasing_anime)
         anime_list_romaji = Nyaa.search(keyword=anime["romaji_name"] +" " + str(episode) , category=1, subcategory=2)
         anime_list_eng = Nyaa.search(keyword=anime["eng_name"] +" " + str(episode) , category=1, subcategory=2)
         self.add_to_list(anime_list_romaji)
         self.add_to_list(anime_list_eng)
-        return anime_list_romaji
+        Global.MAIN_WIDGET.ids.toolbar.left_action_items = [['arrow-left', lambda x: self.go_back()]]
 
     def go_back(self):
         self.manager.transition.direction = 'right'
         self.manager.current = 'home'
+        Global.MAIN_WIDGET.ids.toolbar.left_action_items = [['menu', lambda x: self.root.toggle_nav_drawer()]]
     pass
