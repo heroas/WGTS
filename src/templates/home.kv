@@ -40,29 +40,47 @@
     BoxLayout:
         spacing: 10
         BoxLayout:
-            MDSpinner:
-                id: home_spinner
-                size_hint: None, None
-                size: dp(26), dp(26)
-                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                active: False
-            MDLabel:
-                id: fetch_lbl
-                text: ''
-                font_style: "Headline"
-            MDRaisedButton:
-                text: 'Load Anime'
-                on_release: root.load()
-            MDRaisedButton:
-                text: 'Load nyaapy'
-                on_release: root.testin_nyaapy()
-            MDRaisedButton:
-                text: 'remove'
-                on_release: root.remove_accord_test()
-            MDRaisedButton:
-                text: 'add'
-                on_release: root.add_accord_test()
+            orientation: 'vertical'
+            size_hint: (.6,1)
+            BoxLayout:
+                size_hint: (1,.1)
+                MDLabel:
+                    size_hint: (.8,1)
+                    text: 'Welcome to '+ gl.SEASON_NAME
+                    font_style: "Display2"
+                MDSpinner:
+                    id: home_spinner
+                    size_hint: None,None
+                    pos_hint: {'center_x': 0.1,'center_y': 0.1}
+                    active: False
+            BoxLayout:
+                size_hint: (.7,.2)
+                MDRaisedButton:
+                    text: 'Criterea Selection'
+                    on_release: app.navigate('criterea_selection')
+                    pos_hint: {'center_x': 0.1,'center_y': 0.5}
+                MDLabel:
+                    text: '  to get started'
+                    font_style: "Title"
+            BoxLayout:
+                size_hint: (1,.5)
+                MDCard:
+            BoxLayout:
+                size_hint: (1,.3)
+                MDRaisedButton:
+                    text: 'Load Anime'
+                    on_release: root.load()
+                MDRaisedButton:
+                    text: 'Load nyaapy'
+                    on_release: root.testin_nyaapy()
+                MDRaisedButton:
+                    text: 'remove'
+                    on_release: root.remove_accord_test()
+                MDRaisedButton:
+                    text: 'add'
+                    on_release: root.add_accord_test()
         BoxLayout:
+            size_hint: (.4,1)
             id: accord_box
             MDAccordion:
                 id: home_anime_list

@@ -24,19 +24,26 @@ engine = KivyEngine()
 
 class Home(Screen):
 
+    def navigate(self, route):
+        if route is 'home':
+            Global.HOME_CLASS.load_anime_list()
+            self.root.ids.scr_mngr.transition.direction = 'left'
+        else:
+            self.root.ids.scr_mngr.transition.direction = 'right'
 
+        self.root.ids.scr_mngr.current = route
+        
     @engine.async
     def open_episode_page(self, episode, anime, *_):
         print('aight lets go')
         Global.MAIN_WIDGET.ids.home.ids.home_spinner.active = True
         Snackbar(
             text="Fetching torrents for: "+ anime["romaji_name"]+ " Ep " + str(episode), duration=2).show()
-        self.ids.fetch_lbl.text= "Fetching ANIME"
         self.ids.home_spinner.active = True
         yield Task(functools.partial(Global.EPISODE_PAGE_CLASS.search,anime,episode))
         self.manager.transition.direction = 'left'
         self.manager.current = 'ep_page'
-        self.ids.home_spinner.active = False
+        Global.MAIN_WIDGET.ids.home.ids.home_spinner.active = False
 
     def load_anime_list(self):
 
