@@ -18,6 +18,11 @@ from services import anilist_api
 import functools
 
 
+
+from async_gui.engine import Task
+from async_gui.toolkits.kivy import KivyEngine
+
+engine = KivyEngine()
 def open_magnet(magnet):
     """Open magnet according to os."""
     if sys.platform.startswith('linux'):
@@ -53,11 +58,14 @@ class Episode_Page(Screen):
         bs.open()
 
     def search(self, anime, episode):
+
         self.ids.search_param.text = anime["romaji_name"] + ' episode ' + str(episode)
+        # current_releasing_anime = yield Task(anilist_api.get_releasing_anime)
         anime_list_romaji = Nyaa.search(keyword=anime["romaji_name"] +" " + str(episode) , category=1, subcategory=2)
         anime_list_eng = Nyaa.search(keyword=anime["eng_name"] +" " + str(episode) , category=1, subcategory=2)
         self.add_to_list(anime_list_romaji)
         self.add_to_list(anime_list_eng)
+        return anime_list_romaji
 
     def go_back(self):
         self.manager.transition.direction = 'right'

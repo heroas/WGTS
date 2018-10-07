@@ -40,6 +40,16 @@
     BoxLayout:
         spacing: 10
         BoxLayout:
+            MDSpinner:
+                id: home_spinner
+                size_hint: None, None
+                size: dp(26), dp(26)
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                active: False
+            MDLabel:
+                id: fetch_lbl
+                text: ''
+                font_style: "Headline"
             MDRaisedButton:
                 text: 'Load Anime'
                 on_release: root.load()

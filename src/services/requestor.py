@@ -1,8 +1,6 @@
 import requests
 from requests_futures.sessions import FuturesSession
-from async_gui.toolkits.kivy import KivyEngine
 
-engine = KivyEngine()
 session = FuturesSession()
 
 def get_json_from_get(url):

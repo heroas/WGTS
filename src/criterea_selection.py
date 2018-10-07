@@ -102,6 +102,12 @@ class Criterea_Selection(Screen):
                 db.insert({'romaji_name': anime.name, 'eng_name': anime.english_name,
                            'episodes_out': anime.episodes_out})
 
+
+
+        Global.HOME_CLASS.load_anime_list()
+        x.manager.transition.direction = 'left'
+        x.manager.current = 'home'
+
         self.dismiss()
 
     def show_desc(self, anime_model):

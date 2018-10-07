@@ -15,14 +15,28 @@ import sys
 import subprocess
 from services import anilist_api
 import functools
+from kivymd.snackbar import Snackbar
 
+from async_gui.engine import Task
+from async_gui.toolkits.kivy import KivyEngine
 
+engine = KivyEngine()
 
 class Home(Screen):
-    def open_episode_page(self, episode, anime):
-        Global.EPISODE_PAGE_CLASS.search(anime, episode)
+
+
+    @engine.async
+    def open_episode_page(self, episode, anime, *_):
+        print('aight lets go')
+        Global.MAIN_WIDGET.ids.home.ids.home_spinner.active = True
+        Snackbar(
+            text="Fetching torrents for: "+ anime["romaji_name"]+ " Ep " + str(episode), duration=2).show()
+        self.ids.fetch_lbl.text= "Fetching ANIME"
+        self.ids.home_spinner.active = True
+        yield Task(functools.partial(Global.EPISODE_PAGE_CLASS.search,anime,episode))
         self.manager.transition.direction = 'left'
         self.manager.current = 'ep_page'
+        self.ids.home_spinner.active = False
 
     def load_anime_list(self):
 
@@ -38,7 +52,6 @@ class Home(Screen):
                 anime_item = MDAccordionItem();
                 anime_item.icon = 'movie'
                 anime_item.title = anime["romaji_name"]
-                print(self.ids)
                 home_anime_list.add_widget(anime_item)
                 if anime["episodes_out"] > 50:
                     start_fetching_episodes_from = anime["episodes_out"] - 50
