@@ -24,42 +24,6 @@ def add_anime_to_list(full_anime_list, anime_list_obj):
 
     return full_anime_list
 
-
-def filter_anime(obj, page):
-    for anime in obj["data"]["Page"]["media"]:
-        print(anime["nextAiringEpisode"])
-        if anime["nextAiringEpisode"] is None:
-            continue
-
-        Global.ANIME_PROCESSING_NUMBER += 1
-        if anime["averageScore"] is None:
-            rating = 0
-        else:
-            rating = int(str(anime["averageScore"]))
-
-        genres = anime["genres"]
-
-        if Global.POPULARITY is not None:
-            if Global.POPULARITY >= Global.ANIME_PROCESSING_NUMBER:
-                add_anime_to_list(anime)
-                continue
-
-        if len(Global.GENRES) > 0:
-            for genre in Global.GENRES:
-                if genre in genres:
-                    if Global.RATING_IN_GENRE == 0:
-                        add_anime_to_list(anime)
-                        continue
-                    else:
-                        if rating >= Global.RATING:
-                            add_anime_to_list(anime)
-                            continue
-
-        if Global.RATING_IN_GENRE == 0 and rating >= Global.RATING:
-            add_anime_to_list(anime)
-            continue
-
-
 def get_releasing_anime():
     ANIME_LIST = []
     query = '''
@@ -87,6 +51,7 @@ def get_releasing_anime():
                     nextAiringEpisode {
                         episode
                     }
+                    source
                 }
             }
         }
@@ -110,5 +75,4 @@ def get_releasing_anime():
         result = requestor.get_json_from_post(ANI_LIST_URL, data)
         ANIME_LIST = add_anime_to_list(ANIME_LIST, result)
 
-    print('bout to return')
     return ANIME_LIST

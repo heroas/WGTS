@@ -21,6 +21,7 @@ import Global
 
 engine = KivyEngine()
 
+
 class RemoveButton(IRightBodyTouch, MDIconButton):
     name = StringProperty()
 
@@ -33,18 +34,19 @@ class RemoveButton(IRightBodyTouch, MDIconButton):
 
     def on_release(self):
         anime_to_remove = self.parent.parent.text
-        self.dialog3 = MDDialog(title='Are you sure you want to remove '+ anime_to_remove +' anime from your watchlist?',
-                               size_hint=(.8, None),
-                               height=dp(150),
-                               auto_dismiss=False)
+        self.dialog3 = MDDialog(title='Are you sure you want to remove ' + anime_to_remove + ' anime from your watchlist?',
+                                size_hint=(.8, None),
+                                height=dp(150),
+                                auto_dismiss=False)
 
         self.dialog3.add_action_button("Actually....",
-                                      action=lambda *x: self.dialog3.dismiss())
+                                       action=lambda *x: self.dialog3.dismiss())
         self.dialog3.add_action_button("Im Sure!",
-                                      action=lambda *x: self.remove_anime_from_list(self.dialog3, anime_to_remove))
+                                       action=lambda *x: self.remove_anime_from_list(self.dialog3, anime_to_remove))
         self.dialog3.open()
 
         pass
+
 
 class Criterea_Selection(Screen):
 
@@ -64,7 +66,8 @@ class Criterea_Selection(Screen):
             self.ids.rating_slider_percentage.text = "Doesn't Matter"
             self.ids.rating_slider_percentage.font_style = "Headline"
         else:
-            self.ids.rating_slider_percentage.text = str(int(round(self.ids.rating_slider.value))) + '%'
+            self.ids.rating_slider_percentage.text = str(
+                int(round(self.ids.rating_slider.value))) + '%'
             self.ids.rating_slider_percentage.font_style = "Display4"
 
     def toggle_popularity(self, state):
@@ -91,12 +94,13 @@ class Criterea_Selection(Screen):
         seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
 
         for anime in anime_list:
-            if anime.name not in Global.ANIME_CONFIRM_LIST: continue
+            if anime.name not in Global.ANIME_CONFIRM_LIST:
+                continue
             db_anime = db.search(Anime.anime == anime.name)
             if(len(db_anime) == 0):
-                print('adding ' + anime.name+ ' to database')
-                db.insert({'anime_name': anime.name, 'season': seasonYear, 'episodes_out': anime.episodes_out })
-
+                print('adding ' + anime.name + ' to database')
+                db.insert({'anime_name': anime.name, 'season': seasonYear,
+                           'episodes_out': anime.episodes_out})
 
         self.dismiss()
 
@@ -108,32 +112,31 @@ class Criterea_Selection(Screen):
                           valign='top')
         content.bind(texture_size=content.setter('size'))
         self.dialog2 = MDDialog(title=anime_model.name,
-                               content=content,
-                               size_hint=(.8, None),
-                               height=dp(400),
-                               auto_dismiss=False)
+                                content=content,
+                                size_hint=(.8, None),
+                                height=dp(400),
+                                auto_dismiss=False)
 
         self.dialog2.add_action_button("Dismiss",
-                                      action=lambda *x: self.dialog2.dismiss())
+                                       action=lambda *x: self.dialog2.dismiss())
         self.dialog2.open()
 
     def anime_confirmation(self, anime_list):
         for anime in anime_list:
             Global.ANIME_CONFIRM_LIST.append(anime.name)
 
-
         ml = MDList()
 
         for anime in anime_list:
             item = OneLineRightIconListItem(
-                text = anime.name
+                text=anime.name
             )
             item.on_release = functools.partial(self.show_desc, anime)
-            remove_button = RemoveButton(name= anime.name, icon='server-remove')
+            remove_button = RemoveButton(name=anime.name, icon='server-remove')
             item.add_widget(remove_button)
             ml.add_widget(item)
 
-        self.dialog = MDDialog(title="This is what we found for you.",
+        self.dialog = MDDialog(title=str(len(anime_list)) + " Results! This is what we found for you.",
                                content=ml,
                                size_hint=(.8, None),
                                height=dp(650),
@@ -143,28 +146,34 @@ class Criterea_Selection(Screen):
                                       action=lambda *x: self.dialog.dismiss())
 
         self.dialog.add_action_button("Confirm and + to watchlist",
-                                      action=lambda *x : self.add_anime_to_db(self.dialog, anime_list))
+                                      action=lambda *x: self.add_anime_to_db(self.dialog, anime_list))
         self.dialog.open()
 
     def filter_anime(self, anime_models):
 
         filtered_anime_models = []
 
-        #Getting amount of popular anime specified by critera
+        # Getting amount of popular anime specified by critera
         for amount in range(0, Global.POPULARITY):
             filtered_anime_models.append(anime_models[amount])
         del anime_models[:Global.POPULARITY]
 
-
+        # Get anime thata re selcted in genre and over the req rating value
         for anime in anime_models:
             intersect = list(set(Global.GENRES) & set(anime.genres))
             if len(intersect) > 0:
                 if anime.rating >= Global.RATING:
                     filtered_anime_models.append(anime)
-                    print(anime.name)
-            # if not Global.RATING_IN_GENRE and anime.rating >= Global.RATING:
-            #     filtered_anime_models.append(anime)
-            #     print(anime.name)
+
+            for exclusion in Global.EXCLUSIONS:
+                if exclusion is "exclude_long":
+                    if anime.episodes_out > 100:
+                        if anime in filtered_anime_models:
+                            filtered_anime_models.remove(anime)
+                if exclusion is "exclude_adapt":
+                    if str(anime.source) != "ORIGINAL" and str(anime.source) != "None":
+                        if anime in filtered_anime_models:
+                            filtered_anime_models.remove(anime)
 
         return filtered_anime_models
 
@@ -176,7 +185,8 @@ class Criterea_Selection(Screen):
         elif popularity_value is "":
             Global.POPULARITY = 0
         else:
-            Snackbar(text="Popularity value must be numeric or disabled",duration=2).show()
+            Snackbar(
+                text="Popularity value must be numeric or disabled", duration=2).show()
             return False
 
         if self.ids.rating_slider.disabled:
@@ -185,12 +195,11 @@ class Criterea_Selection(Screen):
             Global.RATING = int(round(self.ids.rating_slider.value))
 
         if len(Global.GENRES) < 1:
-            Snackbar(text="You must select at least one Genre",duration=2).show()
+            Snackbar(text="You must select at least one Genre",
+                     duration=2).show()
             return False
 
-
         return True
-
 
     @engine.async
     def set_anime_from_criterea(self, *_):

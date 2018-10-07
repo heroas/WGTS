@@ -460,28 +460,6 @@
                             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                             active: True
                             _active: root.toggle_popularity(True) if pop_switch.active else root.toggle_popularity(False)
-                        # MDRaisedButton:
-                        #     pos_hint: {'x': 0.3, 'center_y': 0.9}
-                        #     text: "Include the top"
-                        #     on_release: root.set_popularity('Most')
-                        #     halign: 'center'
-                        # MDRaisedButton:
-                        #     pos_hint: {'x': 0.6, 'center_y': 0.9}
-                        #     text: "Top 3"
-                        #     halign: 'center'
-                        #     on_release: root.set_popularity('3')
-                        # MDRaisedButton:
-                        #     pos_hint: {'x': 0.9, 'center_y': 0.9}
-                        #     text: "Top 5"
-                        #     halign: 'center'
-                        #     on_release: root.set_popularity('5')
-                        # MDRaisedButton:
-                        #     pos_hint: {'x': 0.9, 'center_y': 0.9}
-                        #     text: "I dont care"
-                        #     halign: 'center'
-                        #     on_release: root.set_popularity('')
-
-
 
         BoxLayout:
             size_hint: (1,.3)
