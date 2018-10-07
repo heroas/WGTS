@@ -99,7 +99,7 @@ class Criterea_Selection(Screen):
             db_anime = db.search(Anime.anime == anime.name)
             if(len(db_anime) == 0):
                 print('adding ' + anime.name + ' to database')
-                db.insert({'anime_name': anime.name, 'season': seasonYear,
+                db.insert({'romaji_name': anime.name, 'eng_name': anime.english_name,
                            'episodes_out': anime.episodes_out})
 
         self.dismiss()
@@ -165,6 +165,7 @@ class Criterea_Selection(Screen):
                 if anime.rating >= Global.RATING:
                     filtered_anime_models.append(anime)
 
+            #Go through exclusions list
             for exclusion in Global.EXCLUSIONS:
                 if exclusion is "exclude_long":
                     if anime.episodes_out > 100:
@@ -207,7 +208,6 @@ class Criterea_Selection(Screen):
             return
 
         self.ids.spinner.active = True
-        print(Global.RATING)
         current_releasing_anime = yield Task(anilist_api.get_releasing_anime)
 
         anime_models = []

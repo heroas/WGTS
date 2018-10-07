@@ -31,13 +31,13 @@ class Home(Screen):
 
         home_anime_list = Global.MAIN_WIDGET.ids.home.ids.home_anime_list
         for anime in anime_db:
-            print('processing ' + anime["anime_name"])
+            print('processing ' + anime["romaji_name"])
             start_fetching_episodes_from =  0
-            if anime["anime_name"] not in Global.ANIME_LIST:
+            if anime["romaji_name"] not in Global.ANIME_LIST:
                 print('Gonna start then')
                 anime_item = MDAccordionItem();
                 anime_item.icon = 'movie'
-                anime_item.title = anime["anime_name"]
+                anime_item.title = anime["romaji_name"]
                 print(self.ids)
                 home_anime_list.add_widget(anime_item)
                 if anime["episodes_out"] > 50:
@@ -45,9 +45,9 @@ class Home(Screen):
 
                 for episode in range(start_fetching_episodes_from, anime["episodes_out"]):
                     anime_sub_item = MDAccordionSubItem(parent_item = anime_item, text = 'Episode ' + str(episode + 1))
-                    anime_sub_item.on_release = functools.partial(self.open_episode_page, episode + 1, anime["anime_name"])
+                    anime_sub_item.on_release = functools.partial(self.open_episode_page, episode + 1, anime)
                     anime_item.add_widget(anime_sub_item)
-                Global.ANIME_LIST.append(anime["anime_name"])
+                Global.ANIME_LIST.append(anime["romaji_name"])
 
         print(home_anime_list)
 

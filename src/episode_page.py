@@ -35,6 +35,14 @@ def open_magnet(magnet):
 
 class Episode_Page(Screen):
 
+    def add_to_list(self, anime_list):
+        for torrent in anime_list:
+            print(torrent["name"])
+            olli = OneLineListItem(text=torrent["name"])
+            olli.on_release = functools.partial(self.open_bottom_sheet, torrent)
+            self.ids.ml_ep.add_widget(olli)
+
+
     def open_bottom_sheet(self, torrent):
         print(torrent)
         bs = MDListBottomSheet()
@@ -44,14 +52,12 @@ class Episode_Page(Screen):
         bs.add_item("Here's another!", lambda x: x, icon='nfc')
         bs.open()
 
-    def search(self, anime_name, episode):
-        self.ids.search_param.text = anime_name + ' episode ' + str(episode)
-        animeList = Nyaa.search(keyword=anime_name +" " + str(episode) , category=1, subcategory=2)
-        for torrent in animeList:
-            print(torrent["name"])
-            olli = OneLineListItem(text=torrent["name"])
-            olli.on_release = functools.partial(self.open_bottom_sheet, torrent)
-            self.ids.ml_ep.add_widget(olli)
+    def search(self, anime, episode):
+        self.ids.search_param.text = anime["romaji_name"] + ' episode ' + str(episode)
+        anime_list_romaji = Nyaa.search(keyword=anime["romaji_name"] +" " + str(episode) , category=1, subcategory=2)
+        anime_list_eng = Nyaa.search(keyword=anime["eng_name"] +" " + str(episode) , category=1, subcategory=2)
+        self.add_to_list(anime_list_romaji)
+        self.add_to_list(anime_list_eng)
 
     def go_back(self):
         self.manager.transition.direction = 'right'
