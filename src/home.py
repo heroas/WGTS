@@ -32,15 +32,27 @@ class Home(Screen):
             self.root.ids.scr_mngr.transition.direction = 'right'
 
         self.root.ids.scr_mngr.current = route
-        
+
     @engine.async
-    def open_episode_page(self, episode, anime, *_):
+    def open_episode_page_with_model(self, episode, anime, *_):
         print('aight lets go')
         Global.MAIN_WIDGET.ids.home.ids.home_spinner.active = True
         Snackbar(
             text="Fetching torrents for: "+ anime["romaji_name"]+ " Ep " + str(episode), duration=2).show()
         self.ids.home_spinner.active = True
         yield Task(functools.partial(Global.EPISODE_PAGE_CLASS.search,anime,episode))
+        self.manager.transition.direction = 'left'
+        self.manager.current = 'ep_page'
+        Global.MAIN_WIDGET.ids.home.ids.home_spinner.active = False
+
+    @engine.async
+    def open_episode_page_with_string(self, string, *_):
+        print('aight lets go')
+        Global.MAIN_WIDGET.ids.home.ids.home_spinner.active = True
+        Snackbar(
+            text="Fetching torrents for: "+ string, duration=2).show()
+        self.ids.home_spinner.active = True
+        yield Task(functools.partial(Global.EPISODE_PAGE_CLASS.search,string))
         self.manager.transition.direction = 'left'
         self.manager.current = 'ep_page'
         Global.MAIN_WIDGET.ids.home.ids.home_spinner.active = False
@@ -65,7 +77,7 @@ class Home(Screen):
 
                 for episode in range(start_fetching_episodes_from, anime["episodes_out"]):
                     anime_sub_item = MDAccordionSubItem(parent_item = anime_item, text = 'Episode ' + str(episode + 1))
-                    anime_sub_item.on_release = functools.partial(self.open_episode_page, episode + 1, anime)
+                    anime_sub_item.on_release = functools.partial(self.open_episode_page_with_model, episode + 1, anime)
                     anime_item.add_widget(anime_sub_item)
                 Global.ANIME_LIST.append(anime["romaji_name"])
 
