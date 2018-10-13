@@ -45,10 +45,12 @@
             font_style: 'Body1'
             theme_text_color: 'Primary'
             text: "Body1 label"
-        ScrollView:
-            do_scroll_x: False
-            MDList:
-                id: ml_ep
+        BoxLayout:
+            id: list_container
+            ScrollView:
+                do_scroll_x: False
+                MDList:
+                    id: ml_ep
         MDRaisedButton:
             id: back_btn
             text: "Back"

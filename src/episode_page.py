@@ -5,7 +5,7 @@ from kivy.utils import get_color_from_hex
 from kivymd.color_definitions import colors
 import Global
 from kivymd.accordion import MDAccordion, MDAccordionItem, MDAccordionSubItem
-from kivymd.list import OneLineListItem, TwoLineListItem
+from kivymd.list import OneLineListItem, TwoLineListItem, MDList
 from kivymd.bottomsheet import MDListBottomSheet, MDGridBottomSheet
 from tinydb import TinyDB, Query
 from NyaaPy import Nyaa
@@ -47,6 +47,17 @@ class Episode_Page(Screen):
             olli.on_release = functools.partial(self.open_bottom_sheet, torrent)
             self.ids.ml_ep.add_widget(olli)
 
+    def get_fresh_list(self):
+        print(self.ids)
+        # self.ids.ml_ep.parent.remove_widget(ml_ep)
+        for child in self.ids.list_container.children:
+            self.ids.list_container.remove_widget(child)
+
+        new_list = MDList(id='hello')
+        self.ids.list_container.add_widget(new_list)
+        return new_list
+
+
     def root():
         return self.root
 
@@ -60,15 +71,17 @@ class Episode_Page(Screen):
         bs.open()
 
     def search_with_episode(self, anime, episode):
-        self.ids.search_param.text = anime["romaji_name"] + ' episode ' + str(episode)
-        anime_list_romaji = Nyaa.search(keyword=anime["romaji_name"] +" " + str(episode) , category=1, subcategory=2)
-        anime_list_eng = Nyaa.search(keyword=anime["eng_name"] +" " + str(episode) , category=1, subcategory=2)
-        self.add_to_list(anime_list_romaji)
-        self.add_to_list(anime_list_eng)
+        fresh_list = self.get_fresh_list()
+        print(fresh_list.parent)
+        #fresh_list.add_widget(OneLineListItem(test='hey freshie'))
+        # self.ids.search_param.text = anime["romaji_name"] + ' episode ' + str(episode)
+        # anime_list_romaji = Nyaa.search(keyword=anime["romaji_name"] +" " + str(episode) , category=1, subcategory=2)
+        # anime_list_eng = Nyaa.search(keyword=anime["eng_name"] +" " + str(episode) , category=1, subcategory=2)
+        # self.add_to_list(anime_list_romaji)
+        # self.add_to_list(anime_list_eng)
         # Global.MAIN_WIDGET.ids.toolbar.left_action_items = [['arrow-left', lambda x: self.go_back()]]
 
     def search(self, string):
-        print(string)
         self.ids.search_param.text = string
         anime_list_eng = Nyaa.search(keyword=string , category=1, subcategory=2)
         self.add_to_list(anime_list_eng)
