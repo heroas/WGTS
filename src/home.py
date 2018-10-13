@@ -40,7 +40,7 @@ class Home(Screen):
         Snackbar(
             text="Fetching torrents for: "+ anime["romaji_name"]+ " Ep " + str(episode), duration=2).show()
         self.ids.home_spinner.active = True
-        yield Task(functools.partial(Global.EPISODE_PAGE_CLASS.search,anime,episode))
+        yield Task(functools.partial(Global.EPISODE_PAGE_CLASS.search_with_episode,anime,episode))
         self.manager.transition.direction = 'left'
         self.manager.current = 'ep_page'
         Global.MAIN_WIDGET.ids.home.ids.home_spinner.active = False

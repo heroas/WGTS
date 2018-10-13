@@ -59,7 +59,7 @@ class Episode_Page(Screen):
         bs.add_item("Here's another!", lambda x: x, icon='nfc')
         bs.open()
 
-    def search(self, anime, episode):
+    def search_with_episode(self, anime, episode):
         self.ids.search_param.text = anime["romaji_name"] + ' episode ' + str(episode)
         anime_list_romaji = Nyaa.search(keyword=anime["romaji_name"] +" " + str(episode) , category=1, subcategory=2)
         anime_list_eng = Nyaa.search(keyword=anime["eng_name"] +" " + str(episode) , category=1, subcategory=2)
@@ -68,6 +68,7 @@ class Episode_Page(Screen):
         # Global.MAIN_WIDGET.ids.toolbar.left_action_items = [['arrow-left', lambda x: self.go_back()]]
 
     def search(self, string):
+        print(string)
         self.ids.search_param.text = string
         anime_list_eng = Nyaa.search(keyword=string , category=1, subcategory=2)
         self.add_to_list(anime_list_eng)
