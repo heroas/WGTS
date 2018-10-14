@@ -7,6 +7,7 @@ import Global
 from kivymd.accordion import MDAccordion, MDAccordionItem, MDAccordionSubItem
 from kivymd.list import OneLineListItem, TwoLineListItem, MDList
 from kivymd.bottomsheet import MDListBottomSheet, MDGridBottomSheet
+from kivy.uix.scrollview import ScrollView
 from tinydb import TinyDB, Query
 from NyaaPy import Nyaa
 import home
@@ -40,21 +41,22 @@ def open_magnet(magnet):
 
 class Episode_Page(Screen):
 
-    def add_to_list(self, anime_list):
+    def add_to_list(self, anime_list, list_widget):
         for torrent in anime_list:
             print(torrent["name"])
             olli = OneLineListItem(text=torrent["name"])
             olli.on_release = functools.partial(self.open_bottom_sheet, torrent)
-            self.ids.ml_ep.add_widget(olli)
+            list_widget.add_widget(olli)
 
     def get_fresh_list(self):
-        print(self.ids)
-        # self.ids.ml_ep.parent.remove_widget(ml_ep)
         for child in self.ids.list_container.children:
             self.ids.list_container.remove_widget(child)
 
-        new_list = MDList(id='hello')
-        self.ids.list_container.add_widget(new_list)
+        sv = ScrollView()
+        new_list = MDList()
+        sv.add_widget(new_list)
+
+        self.ids.list_container.add_widget(sv)
         return new_list
 
 
@@ -72,19 +74,19 @@ class Episode_Page(Screen):
 
     def search_with_episode(self, anime, episode):
         fresh_list = self.get_fresh_list()
-        print(fresh_list.parent)
-        #fresh_list.add_widget(OneLineListItem(test='hey freshie'))
-        # self.ids.search_param.text = anime["romaji_name"] + ' episode ' + str(episode)
-        # anime_list_romaji = Nyaa.search(keyword=anime["romaji_name"] +" " + str(episode) , category=1, subcategory=2)
-        # anime_list_eng = Nyaa.search(keyword=anime["eng_name"] +" " + str(episode) , category=1, subcategory=2)
-        # self.add_to_list(anime_list_romaji)
-        # self.add_to_list(anime_list_eng)
+        print(fresh_list)
+        self.ids.search_param.text = anime["romaji_name"] + ' episode ' + str(episode)
+        anime_list_romaji = Nyaa.search(keyword=anime["romaji_name"] +" " + str(episode) , category=1, subcategory=2)
+        anime_list_eng = Nyaa.search(keyword=anime["eng_name"] +" " + str(episode) , category=1, subcategory=2)
+        self.add_to_list(anime_list_romaji,fresh_list)
+        self.add_to_list(anime_list_eng,fresh_list)
         # Global.MAIN_WIDGET.ids.toolbar.left_action_items = [['arrow-left', lambda x: self.go_back()]]
 
     def search(self, string):
+        fresh_list = self.get_fresh_list()
         self.ids.search_param.text = string
         anime_list_eng = Nyaa.search(keyword=string , category=1, subcategory=2)
-        self.add_to_list(anime_list_eng)
+        self.add_to_list(anime_list_eng,fresh_list)
 
     def go_back(self):
         self.manager.transition.direction = 'right'
