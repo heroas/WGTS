@@ -39,19 +39,19 @@
     name: 'episode_page'
     BoxLayout:
         orientation: 'vertical'
+        padding: 5
 
         MDLabel:
             id: search_param
-            font_style: 'Body1'
+            size_hint_y: .1
+            pos_hint: {'center_x': 0.5,'center_y': 0.5}
+            font_style: 'Headline'
             theme_text_color: 'Primary'
             text: "Body1 label"
         BoxLayout:
             id: list_container
-            ScrollView:
-                do_scroll_x: False
-                MDList:
-                    id: ml_ep
         MDRaisedButton:
             id: back_btn
             text: "Back"
+            pos_hint: {'center_x': 0.5,'center_y': 0.5}
             on_release: root.go_back()

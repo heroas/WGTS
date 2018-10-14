@@ -43,10 +43,10 @@ class Episode_Page(Screen):
 
     def add_to_list(self, anime_list, list_widget):
         for torrent in anime_list:
-            print(torrent["name"])
-            olli = OneLineListItem(text=torrent["name"])
-            olli.on_release = functools.partial(self.open_bottom_sheet, torrent)
-            list_widget.add_widget(olli)
+            torrent_details = 'seeders: '+ torrent["seeders"]+' | leechers: ' + torrent["leechers"] + ' | size: '+ torrent["size"]
+            anime_list_item = TwoLineListItem(text=torrent["name"],secondary_text=torrent_details)
+            anime_list_item.on_release = functools.partial(self.open_bottom_sheet, torrent)
+            list_widget.add_widget(anime_list_item)
 
     def get_fresh_list(self):
         for child in self.ids.list_container.children:
@@ -67,9 +67,9 @@ class Episode_Page(Screen):
         print(torrent)
         bs = MDListBottomSheet()
         bs.add_item(torrent["name"], lambda x: print('heyo'))
-        bs.add_item("Here's an item with an icon", lambda x: open_magnet(torrent["magnet"]),
-                    icon='clipboard-account')
-        bs.add_item("Here's another!", lambda x: x, icon='nfc')
+        bs.add_item("Download by magnet", lambda x: open_magnet(torrent["magnet"]),
+                    icon='download')
+        bs.add_item("Download torrent file", lambda x: x, icon='file')
         bs.open()
 
     def search_with_episode(self, anime, episode):
