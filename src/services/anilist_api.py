@@ -4,6 +4,7 @@ from models.anime import Anime
 
 ANI_LIST_URL = 'https://graphql.anilist.co'
 
+
 def get_title(obj):
     title_obj = obj["title"]
     english_title = str(title_obj["english"])
@@ -15,6 +16,7 @@ def get_title(obj):
     else:
         return english_title
 
+
 def add_anime_to_list(full_anime_list, anime_list_obj):
     # if get_title(anime) not in ANIME_LIST:
     #     ANIME_LIST.append(anime)
@@ -23,6 +25,7 @@ def add_anime_to_list(full_anime_list, anime_list_obj):
             full_anime_list.append(anime)
 
     return full_anime_list
+
 
 def get_releasing_anime():
     ANIME_LIST = []
@@ -37,6 +40,7 @@ def get_releasing_anime():
                     perPage
                 }
                 media (type: ANIME, format: TV, status: RELEASING, sort: POPULARITY_DESC){
+                    id
                     title {
                         english
                         romaji
@@ -61,7 +65,7 @@ def get_releasing_anime():
         'perPage': 50,
     }
 
-    data = requestor.get_json_for_graphql(query,variables)
+    data = requestor.get_json_for_graphql(query, variables)
     result = requestor.get_json_from_post(ANI_LIST_URL, data)
     page = 1
     lastPage = result["data"]["Page"]["pageInfo"]["lastPage"]
@@ -69,10 +73,35 @@ def get_releasing_anime():
 
     while page < lastPage:
         page += 1
-        variables = { 'page': page, 'perPage': 50,}
+        variables = {'page': page, 'perPage': 50, }
 
-        data = requestor.get_json_for_graphql(query,variables)
+        data = requestor.get_json_for_graphql(query, variables)
         result = requestor.get_json_from_post(ANI_LIST_URL, data)
         ANIME_LIST = add_anime_to_list(ANIME_LIST, result)
 
     return ANIME_LIST
+
+
+def get_next_airing_episode(id):
+    query = '''
+            query ($id: Int){
+                Media (type: ANIME, format: TV, status: RELEASING, sort: POPULARITY_DESC){
+                    title {
+                        english
+                        romaji
+                    }
+
+                    nextAiringEpisode {
+                        episode
+                    }
+
+                }
+
+            }
+            '''
+    variables = {
+        'id': id
+    }
+    data = requestor.get_json_for_graphql(query, variables)
+    result = requestor.get_json_from_post(ANI_LIST_URL, data)
+    print(result)

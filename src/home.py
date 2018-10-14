@@ -24,6 +24,8 @@ engine = KivyEngine()
 
 class Home(Screen):
 
+    def get_curr(self):
+        services.get_next_airing_episode()
     def navigate(self, route):
         if route is 'home':
             Global.HOME_CLASS.load_anime_list()
