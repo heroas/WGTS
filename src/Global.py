@@ -22,3 +22,6 @@ aclass= None
 EPISODE_PAGE_CLASS = None
 HOME_CLASS = None
 MAIN_WIDGET = None
+
+ROMAJI_LIST = []
+ENG_LIST = []

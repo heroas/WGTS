@@ -15,8 +15,8 @@ import home
 import requests
 import os
 import sys
+import time
 import subprocess
-import urllib
 from services import anilist_api
 import functools
 
@@ -26,6 +26,7 @@ from async_gui.engine import Task
 from async_gui.toolkits.kivy import KivyEngine
 
 engine = KivyEngine()
+romaji_list = []
 def open_magnet(magnet):
     """Open magnet according to os."""
     if sys.platform.startswith('linux'):
@@ -53,13 +54,18 @@ def freshen_up_search(name, episode):
     if episode < 10:
         episode_string = '0' + episode_string
 
-    return name + ' - ' + episode_string
+    return name.replace('-',' ') + ' - ' + episode_string
 
 class Episode_Page(Screen):
 
+    def reset_list(self):
+        fresh_list = self.get_fresh_list()
+        self.add_to_list(Global.ROMAJI_LIST,fresh_list)
+        self.add_to_list(Global.ENG_LIST,fresh_list)
+
     def add_to_list(self, anime_list, list_widget):
         for torrent in anime_list:
-            torrent_details = 'seeders: '+ torrent["seeders"]+' | leechers: ' + torrent["leechers"] + ' | size: '+ torrent["size"]
+            torrent_details = 'seeders: '+ torrent["seeders"]+' | leechers: ' + torrent["leechers"] + ' | size: '+ torrent["size"] + ' | downloads: '+ torrent["completed_downloads"]
             anime_list_item = TwoLineListItem(text=torrent["name"],secondary_text=torrent_details)
             anime_list_item.on_release = functools.partial(self.open_bottom_sheet, torrent)
             list_widget.add_widget(anime_list_item)
@@ -99,11 +105,14 @@ class Episode_Page(Screen):
         print(eng_search)
         if anime["romaji_name"] != str(None):
             anime_list_romaji = Nyaa.search(keyword=romaji_search, category=1, subcategory=2)
+            Global.ROMAJI_LIST = anime_list_romaji
             self.add_to_list(anime_list_romaji,fresh_list)
 
         if anime["eng_name"] != str(None):
             anime_list_eng = Nyaa.search(keyword=eng_search, category=1, subcategory=2)
+            Global.ENG_LIST = anime_list_romaji
             self.add_to_list(anime_list_eng,fresh_list)
+
         # Global.MAIN_WIDGET.ids.toolbar.left_action_items = [['arrow-left', lambda x: self.go_back()]]
 
     def search(self, string):

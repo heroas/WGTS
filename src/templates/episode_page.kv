@@ -43,15 +43,27 @@
 
         MDLabel:
             id: search_param
-            size_hint_y: .1
+            size_hint: (1,.1)
             pos_hint: {'center_x': 0.5,'center_y': 0.5}
-            font_style: 'Headline'
+            font_style: 'Title'
+            halign: 'center'
             theme_text_color: 'Primary'
             text: "Body1 label"
         BoxLayout:
             id: list_container
-        MDRaisedButton:
-            id: back_btn
-            text: "Back"
-            pos_hint: {'center_x': 0.5,'center_y': 0.5}
-            on_release: root.go_back()
+        BoxLayout:
+            size_hint_y: .2
+            spacing: 20
+
+            MDRaisedButton:
+                id: back_btn
+                text: "Back"
+                size_hint: (.5, .5)
+                pos_hint: {'center_x': 0.5,'center_y': 0.5}
+                on_release: root.go_back()
+            MDRaisedButton:
+                id: back_btn
+                size_hint: (.5, .5)
+                text: "Reset"
+                pos_hint: {'center_x': 0.5,'center_y': 0.5}
+                on_release: root.reset_list()
