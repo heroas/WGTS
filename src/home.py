@@ -25,7 +25,7 @@ engine = KivyEngine()
 class Home(Screen):
 
     def get_curr(self):
-        services.get_next_airing_episode()
+        anilist_api.get_next_airing_episode(100182)
     def navigate(self, route):
         if route is 'home':
             Global.HOME_CLASS.load_anime_list()
@@ -63,21 +63,31 @@ class Home(Screen):
 
         db = TinyDB(Global.DB_FILE)
         anime_db = db.all()
+        Anime = Query()
 
         home_anime_list = Global.MAIN_WIDGET.ids.home.ids.home_anime_list
         for anime in anime_db:
             print('processing ' + anime["romaji_name"])
             start_fetching_episodes_from =  0
+            episodes_out = anime["episodes_out"]
+
             if anime["romaji_name"] not in Global.ANIME_LIST:
                 print('Gonna start then')
                 anime_item = MDAccordionItem();
                 anime_item.icon = 'movie'
                 anime_item.title = anime["romaji_name"]
                 home_anime_list.add_widget(anime_item)
-                if anime["episodes_out"] > 50:
-                    start_fetching_episodes_from = anime["episodes_out"] - 50
+                current_episode = anilist_api.get_next_airing_episode(anime["id"]) - 1
+                print(anime["romaji_name"] + ' is on episode '+ str(current_episode) + ' | database shows '+ str(episodes_out))
+                if(current_episode != episodes_out):
+                    print('changing db to match with eps')
+                    db.update({'episodes_out': current_episode}, Anime.id == anime["id"])
+                    episodes_out = current_episode
 
-                for episode in range(start_fetching_episodes_from, anime["episodes_out"]):
+                if episodes_out > 50:
+                    start_fetching_episodes_from = episodes_out - 50
+
+                for episode in range(start_fetching_episodes_from, episodes_out):
                     anime_sub_item = MDAccordionSubItem(parent_item = anime_item, text = 'Episode ' + str(episode + 1))
                     anime_sub_item.on_release = functools.partial(self.open_episode_page_with_model, episode + 1, anime)
                     anime_item.add_widget(anime_sub_item)

@@ -85,7 +85,7 @@ def get_releasing_anime():
 def get_next_airing_episode(id):
     query = '''
             query ($id: Int){
-                Media (type: ANIME, format: TV, status: RELEASING, sort: POPULARITY_DESC){
+                Media (type: ANIME, format: TV, status: RELEASING, sort: POPULARITY_DESC, id: $id){
                     title {
                         english
                         romaji
@@ -104,4 +104,4 @@ def get_next_airing_episode(id):
     }
     data = requestor.get_json_for_graphql(query, variables)
     result = requestor.get_json_from_post(ANI_LIST_URL, data)
-    print(result)
+    return result["data"]["Media"]["nextAiringEpisode"]["episode"]

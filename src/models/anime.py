@@ -20,4 +20,4 @@ class Anime():
         self.genres = anime_obj["genres"]
         self.image = anime_obj["coverImage"]["medium"]
         self.source = anime_obj["source"]
-        self.id = anime_list_obj["id"]
+        self.id = anime_obj["id"]
