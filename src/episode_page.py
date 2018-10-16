@@ -62,6 +62,7 @@ class Episode_Page(Screen):
         fresh_list = self.get_fresh_list()
         self.add_to_list(Global.ROMAJI_LIST,fresh_list)
         self.add_to_list(Global.ENG_LIST,fresh_list)
+        self.add_to_list(Global.CUSTOM_LIST,fresh_list)
 
     def add_to_list(self, anime_list, list_widget):
         for torrent in anime_list:
@@ -95,6 +96,7 @@ class Episode_Page(Screen):
         bs.open()
 
     def search_with_episode(self, anime, episode):
+        Global.CUSTOM_LIST
         fresh_list = self.get_fresh_list()
         self.ids.search_param.text = anime["romaji_name"] + ' episode ' + str(episode)
 
@@ -110,16 +112,19 @@ class Episode_Page(Screen):
 
         if anime["eng_name"] != str(None):
             anime_list_eng = Nyaa.search(keyword=eng_search, category=1, subcategory=2)
-            Global.ENG_LIST = anime_list_romaji
+            Global.ENG_LIST = anime_list_eng
             self.add_to_list(anime_list_eng,fresh_list)
 
         # Global.MAIN_WIDGET.ids.toolbar.left_action_items = [['arrow-left', lambda x: self.go_back()]]
 
     def search(self, string):
+        Global.ROMAJI_LIST = []
+        Global.ENG_LIST = []
         fresh_list = self.get_fresh_list()
         self.ids.search_param.text = string
-        anime_list_eng = Nyaa.search(keyword=string , category=1, subcategory=2)
-        self.add_to_list(anime_list_eng,fresh_list)
+        anime_list = Nyaa.search(keyword=string , category=1, subcategory=2)
+        Global.CUSTOM_LIST = anime_list
+        self.add_to_list(anime_list,fresh_list)
 
     def go_back(self):
         self.manager.transition.direction = 'right'

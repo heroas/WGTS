@@ -29,11 +29,11 @@ class Home(Screen):
     def navigate(self, route):
         if route is 'home':
             Global.HOME_CLASS.load_anime_list()
-            self.root.ids.scr_mngr.transition.direction = 'left'
+            self.ids.scr_mngr.transition.direction = 'left'
         else:
-            self.root.ids.scr_mngr.transition.direction = 'right'
+            self.ids.scr_mngr.transition.direction = 'right'
 
-        self.root.ids.scr_mngr.current = route
+        self.ids.scr_mngr.current = route
 
     @engine.async
     def open_episode_page_with_model(self, episode, anime, *_):
@@ -66,6 +66,15 @@ class Home(Screen):
         Anime = Query()
 
         home_anime_list = Global.MAIN_WIDGET.ids.home.ids.home_anime_list
+        if len(anime_db) < 1 and len(home_anime_list.children) < 1:
+            get_started = MDAccordionItem()
+            get_started.icon = 'help'
+            get_started.title = "This is where you're watchlist will show."
+            home_anime_list.add_widget(get_started)
+            navigate_to_crit = MDAccordionSubItem(parent_item= get_started, text='Get started by going to the criterea selection screen!')
+            # navigate_to_crit.on_release = functools.partial(self.navigate, 'criterea_selection')
+            get_started.add_widget(navigate_to_crit)
+
         for anime in anime_db:
             print('processing ' + anime["romaji_name"])
             start_fetching_episodes_from =  0
@@ -73,16 +82,17 @@ class Home(Screen):
 
             if anime["romaji_name"] not in Global.ANIME_LIST:
                 print('Gonna start then')
-                anime_item = MDAccordionItem();
+                anime_item = MDAccordionItem()
                 anime_item.icon = 'movie'
                 anime_item.title = anime["romaji_name"]
                 home_anime_list.add_widget(anime_item)
-                current_episode = anilist_api.get_next_airing_episode(anime["id"]) - 1
-                print(anime["romaji_name"] + ' is on episode '+ str(current_episode) + ' | database shows '+ str(episodes_out))
-                if(current_episode != episodes_out):
-                    print('changing db to match with eps')
-                    db.update({'episodes_out': current_episode}, Anime.id == anime["id"])
-                    episodes_out = current_episode
+                if anime["airing"]:
+                    current_episode = anilist_api.get_next_airing_episode(anime["id"]) - 1
+                    print(anime["romaji_name"] + ' is on episode '+ str(current_episode) + ' | database shows '+ str(episodes_out))
+                    if(current_episode != episodes_out):
+                        print('changing db to match with eps')
+                        db.update({'episodes_out': current_episode}, Anime.id == anime["id"])
+                        episodes_out = current_episode
 
                 if episodes_out > 50:
                     start_fetching_episodes_from = episodes_out - 50
@@ -93,7 +103,7 @@ class Home(Screen):
                     anime_item.add_widget(anime_sub_item)
                 Global.ANIME_LIST.append(anime["romaji_name"])
 
-        print(home_anime_list)
+        print(len(anime_db))
 
     def remove_accord_test(self):
         print(self.ids.accord_box)

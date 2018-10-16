@@ -18,6 +18,7 @@ def get_json_from_post(url, data):
     future = session.post(url,json=data, background_callback=bg_cb)
     # do some other stuff, send some more requests while this one works
     response = future.result()
+    print(response.data)
     # data will have been attached to the response object in the background
     return response.data
 

@@ -46,37 +46,42 @@
             BoxLayout:
                 size_hint: (1,.1)
                 MDLabel:
-                    size_hint: (.8,1)
+                    size_hint: (1,1)
                     text: 'Welcome to '+ gl.SEASON_NAME
                     font_style: "Display2"
-                MDSpinner:
-                    id: home_spinner
-                    size_hint: None,None
-                    pos_hint: {'center_x': 0.1,'center_y': 0.1}
-                    active: False
+                    halign: 'center'
+                # MDSpinner:
+                #     id: home_spinner
+                #     size_hint: None,None
+                #     pos_hint: {'center_x': 0.1,'center_y': 0.1}
+                #     active: False
+            # BoxLayout:
+            #     size_hint: (1,.2)
+            #     MDRaisedButton:
+            #         text: 'Criterea Selection'
+            #         halign: 'center'
+            #         on_release: app.navigate('criterea_selection')
+            #         pos_hint: {'center_x':1,'center_y': 0.5}
+            #     MDLabel:
+            #         halign: 'center'
+            #         text: 'to get started'
+            #         font_style: "Title"
             BoxLayout:
-                size_hint: (.7,.2)
-                MDRaisedButton:
-                    text: 'Criterea Selection'
-                    on_release: app.navigate('criterea_selection')
-                    pos_hint: {'center_x': 0.1,'center_y': 0.5}
-                MDLabel:
-                    text: '  to get started'
-                    font_style: "Title"
-            BoxLayout:
-                size_hint: (.5,.3)
+                size_hint: (1,.3)
                 MDCard:
                     padding: 5
                     orientation: 'vertical'
                     MDLabel:
-                        text: '    Custom torrent search'
+                        text: 'Custom torrent search'
                         size_hint_y: .5
+                        halign: 'center'
                         font_style: 'Headline'
                         pos_hint: {'center_x': 0.5,'center_y': 0.5}
-                    MDTextField:
-                        size_hint_y: .3
-                        id: custom_search
-                        hint_text: 'example: Jojo Part5'
+                    BoxLayout:
+                        padding: 30
+                        MDTextField:
+                            id: custom_search
+                            hint_text: "search for anything specific you're looking for!"
                     MDRaisedButton:
                         size_hint_y: .2
                         text: 'Search'
@@ -85,9 +90,17 @@
 
             BoxLayout:
                 size_hint: (1,.3)
-                MDRaisedButton:
-                    text: 'testcurrep'
-                    on_release: root.get_curr()
+                orientation: 'vertical'
+                MDSpinner:
+                    size_hint: None, None
+                    id: home_spinner
+                    size: '150dp', '150dp'
+                    active: False
+                    pos_hint: {'center_x': 0.5,'center_y': 0.25}
+                    # active: True
+                # MDRaisedButton:
+                #     text: 'testcurrep'
+                #     on_release: root.get_curr()
                 # MDRaisedButton:
                 #     text: 'Load nyaapy'
                 #     on_release: root.testin_nyaapy()
