@@ -174,7 +174,12 @@ class Criterea_Selection(Screen):
             #Go through exclusions list
             for exclusion in Global.EXCLUSIONS:
                 if exclusion is "exclude_long":
-                    if anime.episodes_out > 100:
+                    print(str(anime.episodes_out) + " " + anime.name)
+                    if anime.episodes_out is None:
+                        if anime in filtered_anime_models:
+                            filtered_anime_models.remove(anime)
+                    elif anime.episodes_out > 100:
+                        print("anime "+ anime.name + " is larger than 100 eps")
                         if anime in filtered_anime_models:
                             filtered_anime_models.remove(anime)
                 if exclusion is "exclude_adapt":
