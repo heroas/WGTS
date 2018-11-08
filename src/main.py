@@ -136,7 +136,8 @@ class WGTS(App):
         Global.HOME_CLASS = home_class
 
         Global.MAIN_WIDGET = main_widget
-        home_class.load_anime_list()
+
+        # home_class.load_anime_list()
         return main_widget
 
 

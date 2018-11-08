@@ -8,6 +8,7 @@ from kivymd.label import MDLabel
 from kivymd.list import MDList, OneLineRightIconListItem
 from kivymd.list import IRightBodyTouch
 from kivymd.snackbar import Snackbar
+from kivy.uix.boxlayout import BoxLayout
 from services import anilist_api
 
 import functools
@@ -132,6 +133,8 @@ class Criterea_Selection(Screen):
             Global.ANIME_CONFIRM_LIST.append(anime.name)
 
         ml = MDList()
+        box = BoxLayout()
+        lbl = MDLabel()
 
         for anime in anime_list:
             item = OneLineRightIconListItem(
@@ -142,8 +145,12 @@ class Criterea_Selection(Screen):
             item.add_widget(remove_button)
             ml.add_widget(item)
 
+        box.add_widget(lbl)
+        box.add_widget(ml)
+
+
         self.dialog = MDDialog(title=str(len(anime_list)) + " Results! This is what we found for you.",
-                               content=ml,
+                               content=box,
                                size_hint=(.8, None),
                                height=dp(650),
                                auto_dismiss=False)

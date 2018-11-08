@@ -23,6 +23,8 @@ from async_gui.toolkits.kivy import KivyEngine
 engine = KivyEngine()
 
 class Home(Screen):
+    def build(self):
+        print("hello")
 
     def get_curr(self):
         anilist_api.get_next_airing_episode(100182)
@@ -59,8 +61,10 @@ class Home(Screen):
         self.manager.current = 'ep_page'
         Global.MAIN_WIDGET.ids.home.ids.home_spinner.active = False
 
+    @engine.async
     def load_anime_list(self):
 
+        self.ids.home_spinner.active = True
         db = TinyDB(Global.DB_FILE)
         anime_db = db.all()
         Anime = Query()
@@ -87,7 +91,8 @@ class Home(Screen):
                 anime_item.title = anime["romaji_name"]
                 home_anime_list.add_widget(anime_item)
                 if anime["airing"]:
-                    current_episode = anilist_api.get_next_airing_episode(anime["id"]) - 1
+                    current_episode = yield Task(functools.partial(anilist_api.get_next_airing_episode,anime["id"]))
+                    current_episode = current_episode - 1
                     print(anime["romaji_name"] + ' is on episode '+ str(current_episode) + ' | database shows '+ str(episodes_out))
                     if(current_episode != episodes_out):
                         print('changing db to match with eps')
@@ -104,6 +109,7 @@ class Home(Screen):
                 Global.ANIME_LIST.append(anime["romaji_name"])
 
         print(len(anime_db))
+        self.ids.home_spinner.active = False
 
     def remove_accord_test(self):
         print(self.ids.accord_box)
@@ -122,4 +128,5 @@ class Home(Screen):
     def testin_nyaapy(self):
         animeList = Nyaa.search(keyword="Shoukoku no Altair", category=1, subcategory=2)
         Global.Test = animeList[0]["magnet"]
+
     pass
