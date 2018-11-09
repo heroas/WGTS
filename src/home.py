@@ -15,7 +15,6 @@ import sys
 import subprocess
 from services import anilist_api
 import functools
-import easygui
 from kivymd.snackbar import Snackbar
 
 from async_gui.engine import Task
@@ -26,6 +25,10 @@ engine = KivyEngine()
 class Home(Screen):
     def build(self):
         print("hello")
+        
+    def load_list(self):
+        print("hello")
+
 
     def get_curr(self):
         anilist_api.get_next_airing_episode(100182)
