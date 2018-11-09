@@ -116,7 +116,7 @@ class WGTS(App):
 
     def navigate(self, route):
         if route is 'home':
-            Global.HOME_CLASS.load_anime_list()
+            #Global.HOME_CLASS.load_anime_list()
             self.root.ids.scr_mngr.transition.direction = 'left'
         else:
             self.root.ids.scr_mngr.transition.direction = 'right'

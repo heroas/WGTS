@@ -15,6 +15,7 @@ import sys
 import subprocess
 from services import anilist_api
 import functools
+import easygui
 from kivymd.snackbar import Snackbar
 
 from async_gui.engine import Task

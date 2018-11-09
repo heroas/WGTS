@@ -8,7 +8,6 @@ from kivymd.label import MDLabel
 from kivymd.list import MDList, OneLineRightIconListItem
 from kivymd.list import IRightBodyTouch
 from kivymd.snackbar import Snackbar
-from kivy.uix.boxlayout import BoxLayout
 from services import anilist_api
 
 import functools
@@ -89,7 +88,7 @@ class Criterea_Selection(Screen):
         Global.EXCLUSIONS.remove(misc)
 
     def add_anime_to_db(x, self, anime_list):
-        db = TinyDB(Global.DB_FILE)
+        db = TinyDB(x.ids.list_name.text + '_' +Global.DB_FILE)
 
         Anime = Query()
         seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
@@ -133,8 +132,6 @@ class Criterea_Selection(Screen):
             Global.ANIME_CONFIRM_LIST.append(anime.name)
 
         ml = MDList()
-        box = BoxLayout()
-        lbl = MDLabel()
 
         for anime in anime_list:
             item = OneLineRightIconListItem(
@@ -145,12 +142,9 @@ class Criterea_Selection(Screen):
             item.add_widget(remove_button)
             ml.add_widget(item)
 
-        box.add_widget(lbl)
-        box.add_widget(ml)
-
 
         self.dialog = MDDialog(title=str(len(anime_list)) + " Results! This is what we found for you.",
-                               content=box,
+                               content=ml,
                                size_hint=(.8, None),
                                height=dp(650),
                                auto_dismiss=False)
@@ -217,6 +211,12 @@ class Criterea_Selection(Screen):
             Snackbar(text="You must select at least one Genre",
                      duration=2).show()
             return False
+
+        if not self.ids.list_name.text:
+            Snackbar(text="You must name this search",
+                     duration=2).show()
+            return False
+
 
         return True
 
