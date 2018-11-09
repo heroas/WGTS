@@ -89,7 +89,7 @@ def set_season():
 def load_create_tinydb():
     seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
     Global.DB_FILE = seasonYear + '.json'
-    db = TinyDB(Global.DB_FILE)
+    #db = TinyDB(Global.DB_FILE)
 
 
 def resource_path(relative):

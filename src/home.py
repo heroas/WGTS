@@ -23,15 +23,6 @@ from async_gui.toolkits.kivy import KivyEngine
 engine = KivyEngine()
 
 class Home(Screen):
-    def build(self):
-        print("hello")
-        
-    def load_list(self):
-        print("hello")
-
-
-    def get_curr(self):
-        anilist_api.get_next_airing_episode(100182)
     def navigate(self, route):
         if route is 'home':
             Global.HOME_CLASS.load_anime_list()
@@ -66,10 +57,9 @@ class Home(Screen):
         Global.MAIN_WIDGET.ids.home.ids.home_spinner.active = False
 
     @engine.async
-    def load_anime_list(self):
+    def load_anime_list(self, db_file):
 
-        self.ids.home_spinner.active = True
-        db = TinyDB(Global.DB_FILE)
+        db = TinyDB(db_file)
         anime_db = db.all()
         Anime = Query()
 
@@ -113,6 +103,14 @@ class Home(Screen):
                 Global.ANIME_LIST.append(anime["romaji_name"])
 
         print(len(anime_db))
+
+    def load_list(self):
+        print("hello")
+        self.ids.home_spinner.active = True
+        file = "test_" + Global.DB_FILE
+        #yield Task(functools.partial(self.load_anime_list, file))
+        self.load_anime_list( file)
+
         self.ids.home_spinner.active = False
 
     def remove_accord_test(self):
