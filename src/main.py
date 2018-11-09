@@ -36,6 +36,7 @@ import criterea_selection
 import home
 import episode_page
 import requests
+import file_chooser
 import os
 import sys
 import subprocess
@@ -128,6 +129,7 @@ class WGTS(App):
         main_widget = Builder.load_file(kv_file)
         episode_page_class = episode_page.Episode_Page(name='ep_page')
         home_class = home.Home(name='home')
+        file_chooser_class = file_chooser.File_Chooser(name='file_chooser')
         criterea_selection_class = criterea_selection.Criterea_Selection(name='crits')
         main_widget.ids.scr_mngr.add_widget(criterea_selection_class)
         main_widget.ids.scr_mngr.add_widget(home_class)

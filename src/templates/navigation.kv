@@ -36,6 +36,7 @@
 #:include templates/criterea_selection.kv
 #:include templates/home.kv
 #:include templates/episode_page.kv
+#:include templates/file_chooser.kv
 #:import gl Global
 
 
@@ -97,4 +98,8 @@ NavigationLayout:
             Episode_Page:
                 name: 'episode_page'
                 id: ep_page
+                manager: scr_mngr
+            File_Chooser:
+                name: 'file_chooser'
+                id: file_chooser
                 manager: scr_mngr

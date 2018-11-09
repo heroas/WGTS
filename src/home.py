@@ -1,6 +1,9 @@
 import kivy
 kivy.require('1.10.0')
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.filechooser import FileChooserListView
+from kivymd.dialog import MDDialog
+from kivy.metrics import dp
 from kivy.utils import get_color_from_hex
 from kivymd.color_definitions import colors
 import Global
@@ -104,14 +107,18 @@ class Home(Screen):
 
         print(len(anime_db))
 
+
     def load_list(self):
         print("hello")
-        self.ids.home_spinner.active = True
-        file = "test_" + Global.DB_FILE
-        #yield Task(functools.partial(self.load_anime_list, file))
-        self.load_anime_list( file)
+        self.manager.transition.direction = 'down'
+        self.manager.current = 'file_chooser'
 
-        self.ids.home_spinner.active = False
+
+        # self.ids.home_spinner.active = True
+        # file = "test_" + Global.DB_FILE
+        # self.load_anime_list( file)
+        #
+        # self.ids.home_spinner.active = False
 
     def remove_accord_test(self):
         print(self.ids.accord_box)
