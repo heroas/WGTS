@@ -87,6 +87,8 @@ class Home(Screen):
                 anime_item.icon = 'movie'
                 anime_item.title = anime["romaji_name"]
                 home_anime_list.add_widget(anime_item)
+                #can skip if anime isnt airing (for future season expansions)
+                
                 if anime["airing"]:
                     current_episode = yield Task(functools.partial(anilist_api.get_next_airing_episode,anime["id"]))
                     current_episode = current_episode - 1

@@ -88,7 +88,8 @@ class Criterea_Selection(Screen):
         Global.EXCLUSIONS.remove(misc)
 
     def add_anime_to_db(x, self, anime_list):
-        db = TinyDB(x.ids.list_name.text + '_' +Global.DB_FILE)
+        name = x.ids.list_name.text + '_' +Global.DB_FILE
+        db = TinyDB(name)
 
         Anime = Query()
         seasonYear = Global.SEASON_NAME + Global.SEASON_YEAR
@@ -99,11 +100,11 @@ class Criterea_Selection(Screen):
             db_anime = db.search(Anime.anime == anime.name)
             if(len(db_anime) == 0):
                 print('adding ' + anime.name + ' to database')
-                db.insert({'romaji_name': anime.name, 'eng_name': anime.english_name,'id': anime.id, 'airing': anime.airing})
+                db.insert({'romaji_name': anime.name, 'eng_name': anime.english_name,'id': anime.id, 'airing': anime.airing, 'episodes_out': anime.episodes_out})
 
 
 
-        Global.HOME_CLASS.load_anime_list()
+        Global.HOME_CLASS.load_anime_list(name)
         x.manager.transition.direction = 'left'
         x.manager.current = 'home'
 
