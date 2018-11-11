@@ -9,7 +9,10 @@ from kivymd.list import MDList, OneLineRightIconListItem
 from kivymd.list import IRightBodyTouch
 from kivymd.snackbar import Snackbar
 from services import anilist_api
+from kivymd.accordion import MDAccordion, MDAccordionItem, MDAccordionSubItem
 
+from kivy.utils import get_color_from_hex
+from kivymd.color_definitions import colors
 import functools
 from tinydb import TinyDB, Query
 from async_gui.engine import Task
@@ -88,7 +91,7 @@ class Criterea_Selection(Screen):
         Global.EXCLUSIONS.remove(misc)
 
     def add_anime_to_db(x, self, anime_list):
-        name = x.ids.list_name.text + '_' +Global.DB_FILE
+        name = 'anime_lists/' + x.ids.list_name.text + '_' +Global.DB_FILE
         db = TinyDB(name)
 
         Anime = Query()
@@ -107,7 +110,19 @@ class Criterea_Selection(Screen):
         x.manager.transition.direction = 'left'
         x.manager.current = 'home'
 
-        Global.HOME_CLASS.load_anime_list(name)
+        accord_box = Global.MAIN_WIDGET.ids.home.ids.accord_box
+        for child in accord_box.children:
+            accord_box.remove_widget(child)
+
+        accord = MDAccordion()
+        accord.orientation = 'vertical'
+        accord.id = 'ani_list'
+        accord.md_bg_color = Global.SEASON_COLOR
+        accord.specific_text_color = get_color_from_hex('#000000')
+
+        accord_box.add_widget(accord)
+
+        Global.HOME_CLASS.load_anime_list(name,accord)
 
 
     def show_desc(self, anime_model):
