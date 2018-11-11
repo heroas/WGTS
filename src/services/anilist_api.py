@@ -69,7 +69,7 @@ def get_releasing_anime():
 
     data = requestor.get_json_for_graphql(query, variables)
     result = requestor.get_json_from_post(ANI_LIST_URL, data)
-    print(result)
+    #print(result)
     page = 1
     lastPage = result["data"]["Page"]["pageInfo"]["lastPage"]
     ANIME_LIST = add_anime_to_list(ANIME_LIST, result)

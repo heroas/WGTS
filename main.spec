@@ -1,13 +1,15 @@
+from kivy.deps import sdl2, glew
+
 # -*- mode: python -*-
 
 block_cipher = None
 
 
-a = Analysis(['src/main.py'],
-             pathex=['/home/hero/Projects/PROJECT_AMASSANIME/WGTS'],
+a = Analysis(['src\\main.py'],
+             pathex=['C:\\Users\\czaramo\\Desktop\\WGTS'],
              binaries=[],
              datas=[],
-             hiddenimports=[],
+             hiddenimports=['win32timezone'],
              hookspath=[],
              runtime_hooks=[],
              excludes=[],
@@ -24,10 +26,13 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           console=True )
-coll = COLLECT(exe,Tree('./src'),
+
+coll = COLLECT(exe, 
+	       Tree('.\\src'),
                a.binaries,
                a.zipfiles,
                a.datas,
+                *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],
                strip=False,
                upx=True,
                name='main')

@@ -1,0 +1,7 @@
+to build on windows:
+
+python -m PyInstaller windows_build.spec
+
+will be in dist folder
+also to fix encoding for console on windows run:
+	chcp 65001
