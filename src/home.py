@@ -60,14 +60,16 @@ class Home(Screen):
         Global.MAIN_WIDGET.ids.home.ids.home_spinner.active = False
 
     @engine.async
-    def load_anime_list(self, db_file):
+    def load_anime_list(self, db_file, home_anime_list):
 
         db = TinyDB(db_file)
         anime_db = db.all()
         Anime = Query()
 
-        home_anime_list = Global.MAIN_WIDGET.ids.home.ids.home_anime_list
+        print(home_anime_list)
+
         if len(anime_db) < 1 and len(home_anime_list.children) < 1:
+            print('im here')
             get_started = MDAccordionItem()
             get_started.icon = 'help'
             get_started.title = "This is where you're watchlist will show."
@@ -88,7 +90,7 @@ class Home(Screen):
                 anime_item.title = anime["romaji_name"]
                 home_anime_list.add_widget(anime_item)
                 #can skip if anime isnt airing (for future season expansions)
-                
+
                 if anime["airing"]:
                     current_episode = yield Task(functools.partial(anilist_api.get_next_airing_episode,anime["id"]))
                     current_episode = current_episode - 1
@@ -123,8 +125,12 @@ class Home(Screen):
         # self.ids.home_spinner.active = False
 
     def remove_accord_test(self):
-        print(self.ids.accord_box)
-        self.ids.accord_box.remove_widget(self.ids.ani_list)
+        print(self.ids.accord_box.children)
+        for child in self.ids.accord_box.children:
+            print(child)
+            self.ids.accord_box.remove_widget(child)
+        # Global.MAIN_WIDGET.ids.home.ids.accord_box.remove_widget(self.ids.home_anime_list)
+
 
     def add_accord_test(self):
         accord = MDAccordion()
@@ -134,6 +140,34 @@ class Home(Screen):
         accord.specific_text_color = get_color_from_hex('#000000')
 
         self.ids.accord_box.add_widget(accord)
+
+        home_anime_list = accord
+        get_started = MDAccordionItem()
+        get_started.icon = 'help'
+        get_started.title = "This is where you're watchlist will show."
+        home_anime_list.add_widget(get_started)
+        navigate_to_crit = MDAccordionSubItem(parent_item= get_started, text='Get started by going to the criterea selection screen!')
+        # navigate_to_crit.on_release = functools.partial(self.navigate, 'criterea_selection')
+        get_started.add_widget(navigate_to_crit)
+        # get_started.icon = 'help'
+        # get_started.title = "This is where you'"
+        # get_started.md_bg_color = Global.SEASON_COLOR
+        # get_started.specific_text_color = get_color_from_hex('#000000')
+
+        # navigate_to_crit = MDAccordionSubItem(parent_item= get_started, text='Get started by going to the criterea selection screen!')
+        # get_started.add_widget(navigate_to_crit)
+        # accord.add_widget(get_started )
+
+    def add_item_accord_test(self):
+        home_anime_list = Global.MAIN_WIDGET.ids.home.ids.home_anime_list
+        print('im here')
+        get_started = MDAccordionItem()
+        get_started.icon = 'help'
+        get_started.title = "This is where you're watchlist will show."
+        home_anime_list.add_widget(get_started)
+        navigate_to_crit = MDAccordionSubItem(parent_item= get_started, text='Get started by going to the criterea selection screen!')
+        # navigate_to_crit.on_release = functools.partial(self.navigate, 'criterea_selection')
+        get_started.add_widget(navigate_to_crit)
 
 
     def testin_nyaapy(self):

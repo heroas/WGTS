@@ -119,6 +119,9 @@
                 # MDRaisedButton:
                 #     text: 'add'
                 #     on_release: root.add_accord_test()
+                # MDRaisedButton:
+                #     text: 'add item'
+                #     on_release: root.add_item_accord_test()
         BoxLayout:
             size_hint: (.4,1)
             id: accord_box
@@ -126,3 +129,8 @@
                 id: home_anime_list
                 orientation: 'vertical'
                 do_scroll_x: 'true'
+                MDAccordionItem:
+                    icon: 'help'
+                    title: "This is where you're watchlist will show."
+                    MDAccordionSubItem:
+                        text: 'Get started by going to the criterea selection screen, or loading an existing list'

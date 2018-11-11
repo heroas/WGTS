@@ -33,4 +33,18 @@ class File_Chooser(Screen):
 
         self.manager.transition.direction = 'up'
         self.manager.current = 'home'
-        Global.HOME_CLASS.load_anime_list(filename[0])
+
+        #get fresh accordian list
+        accord_box = Global.MAIN_WIDGET.ids.home.ids.accord_box
+        for child in accord_box.children:
+            accord_box.remove_widget(child)
+
+        accord = MDAccordion()
+        accord.orientation = 'vertical'
+        accord.id = 'ani_list'
+        accord.md_bg_color = Global.SEASON_COLOR
+        accord.specific_text_color = get_color_from_hex('#000000')
+
+        accord_box.add_widget(accord)
+
+        Global.HOME_CLASS.load_anime_list(filename[0], accord)
