@@ -13,6 +13,7 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.screenmanager import ScreenManager, Screen
 Config.set('graphics', 'width', '1080')
 Config.set('graphics', 'height', '720')
+Config.set('kivy','window_icon','images/icon.ico')
 from kivymd.bottomsheet import MDListBottomSheet, MDGridBottomSheet
 from kivymd.button import MDIconButton
 from kivymd.date_picker import MDDatePicker
@@ -125,6 +126,7 @@ class WGTS(App):
         self.root.ids.scr_mngr.current = route
 
     def build(self):
+        self.icon = 'images/icon.png'
         kv_file = resource_path(os.path.join('templates', 'navigation.kv'))
         main_widget = Builder.load_file(kv_file)
         episode_page_class = episode_page.Episode_Page(name='ep_page')
