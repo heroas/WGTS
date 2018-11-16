@@ -40,15 +40,21 @@
     BoxLayout:
         orientation: 'vertical'
         padding: 5
+        spacing: 5
 
-        MDLabel:
-            id: search_param
-            size_hint: (1,.1)
-            pos_hint: {'center_x': 0.5,'center_y': 0.5}
-            font_style: 'Title'
-            halign: 'center'
-            theme_text_color: 'Primary'
-            text: "Body1 label"
+        BoxLayout:
+            id: title_box
+            AsyncImage:
+                id: anime_img
+                source: 'thumbnails/default-thumbnail.jpg'
+            MDLabel:
+                id: search_param
+                size_hint: (1,.1)
+                pos_hint: {'center_x': 0.5,'center_y': 0.5}
+                font_style: 'Title'
+                halign: 'center'
+                theme_text_color: 'Primary'
+                text: "Body1 label"
         BoxLayout:
             id: list_container
         BoxLayout:

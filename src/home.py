@@ -16,6 +16,7 @@ import requests
 import os
 import sys
 import subprocess
+import shutil
 from services import anilist_api
 import functools
 from kivymd.snackbar import Snackbar
@@ -35,14 +36,28 @@ class Home(Screen):
 
         self.ids.scr_mngr.current = route
 
+    def download_image(self, url, anime_name):
+        filename = "thumbnails/"+ anime_name + ".jpg"
+        if os.path.isfile(filename):
+            return
+
+        print('starting dl')
+        r = requests.get(url, stream=True)
+        if r.status_code == 200:
+            with open(filename, 'wb') as f:
+                r.raw.decode_content = True
+                shutil.copyfileobj(r.raw, f)
+
     @engine.async
     def open_episode_page_with_model(self, episode, anime, *_):
         print('aight lets go')
         Global.MAIN_WIDGET.ids.home.ids.home_spinner.active = True
         Snackbar(
             text="Fetching torrents for: "+ anime["romaji_name"]+ " Ep " + str(episode), duration=2).show()
+        filename = "thumbnails/"+ anime["romaji_name"] + ".jpg"
+        print(filename + ' is the image')
         self.ids.home_spinner.active = True
-        yield Task(functools.partial(Global.EPISODE_PAGE_CLASS.search_with_episode,anime,episode))
+        yield Task(functools.partial(Global.EPISODE_PAGE_CLASS.search_with_episode,anime,episode,filename))
         self.manager.transition.direction = 'left'
         self.manager.current = 'ep_page'
         Global.MAIN_WIDGET.ids.home.ids.home_spinner.active = False
@@ -80,6 +95,8 @@ class Home(Screen):
 
         for anime in anime_db:
             print('processing ' + anime["romaji_name"])
+            self.download_image(anime["image"], anime["romaji_name"])
+
             start_fetching_episodes_from =  0
             episodes_out = anime["episodes_out"]
 

@@ -3,6 +3,7 @@ kivy.require('1.10.0')
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.utils import get_color_from_hex
 from kivymd.color_definitions import colors
+from kivy.uix.image import Image, AsyncImage
 import Global
 from kivymd.accordion import MDAccordion, MDAccordionItem, MDAccordionSubItem
 from kivymd.list import OneLineListItem, TwoLineListItem, MDList
@@ -19,6 +20,7 @@ import time
 import subprocess
 from services import anilist_api
 import functools
+import shutil
 
 
 
@@ -95,8 +97,10 @@ class Episode_Page(Screen):
         bs.add_item("Download torrent file", lambda x: download_file(torrent["download_url"],torrent["name"]), icon='file')
         bs.open()
 
-    def search_with_episode(self, anime, episode):
-        Global.CUSTOM_LIST
+    def search_with_episode(self, anime, episode, filename):
+        self.ids.anime_img.source = 'thumbnails/' + anime["romaji_name"] + '.jpg'
+
+        Global.CUSTOM_LIST = []
         fresh_list = self.get_fresh_list()
         self.ids.search_param.text = anime["romaji_name"] + ' episode ' + str(episode)
 

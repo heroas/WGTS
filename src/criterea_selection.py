@@ -114,7 +114,7 @@ class Criterea_Selection(Screen):
             db_anime = db.search(Anime.anime == anime.name)
             if(len(db_anime) == 0):
                 print('adding ' + anime.name + ' to database')
-                db.insert({'romaji_name': anime.name, 'eng_name': anime.english_name,'id': anime.id, 'airing': anime.airing, 'episodes_out': anime.episodes_out})
+                db.insert({'image': anime.image, 'romaji_name': anime.name, 'eng_name': anime.english_name,'id': anime.id, 'airing': anime.airing, 'episodes_out': anime.episodes_out})
 
 
         self.dismiss()

@@ -52,7 +52,7 @@ def get_releasing_anime():
                     description(asHtml:false)
 
                     coverImage {
-                        medium
+                        large
                     }
                     nextAiringEpisode {
                         episode
