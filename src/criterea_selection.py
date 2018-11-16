@@ -1,5 +1,6 @@
 from kivy.uix.screenmanager import Screen
-from kivy.uix.image import Image
+from kivy.uix.image import Image, AsyncImage
+from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import StringProperty
 from kivy.metrics import dp
 from kivymd.button import MDIconButton
@@ -8,6 +9,7 @@ from kivymd.label import MDLabel
 from kivymd.list import MDList, OneLineRightIconListItem
 from kivymd.list import IRightBodyTouch
 from kivymd.snackbar import Snackbar
+# from kivymd.grid import GridLayout, SmartTile
 from services import anilist_api
 from kivymd.accordion import MDAccordion, MDAccordionItem, MDAccordionSubItem
 
@@ -18,8 +20,10 @@ from tinydb import TinyDB, Query
 from async_gui.engine import Task
 from async_gui.toolkits.kivy import KivyEngine
 from models.anime import Anime
-
+import requests
 import Global
+import shutil
+import webbrowser
 
 
 engine = KivyEngine()
@@ -52,6 +56,13 @@ class RemoveButton(IRightBodyTouch, MDIconButton):
 
 
 class Criterea_Selection(Screen):
+
+    # def download_image(self, url):
+    #     r = requests.get('https://s3.anilist.co/media/anime/cover/small/nx101359-X6psMqBfatdw.jpg', stream=True)
+    #     if r.status_code == 200:
+    #         with open("img.png", 'wb') as f:
+    #             r.raw.decode_content = True
+    #             shutil.copyfileobj(r.raw, f)
 
     def add_genre(self, genre_type):
         Global.GENRES.append(genre_type)
@@ -126,21 +137,38 @@ class Criterea_Selection(Screen):
 
 
     def show_desc(self, anime_model):
-        content = MDLabel(font_style='Body1',
-                          theme_text_color='Secondary',
-                          text=anime_model.description,
-                          size_hint_y=None,
-                          valign='top')
-        content.bind(texture_size=content.setter('size'))
-        self.dialog2 = MDDialog(title=anime_model.name,
-                                content=content,
-                                size_hint=(.8, None),
-                                height=dp(400),
-                                auto_dismiss=False)
-
-        self.dialog2.add_action_button("Dismiss",
-                                       action=lambda *x: self.dialog2.dismiss())
-        self.dialog2.open()
+        # content = GridLayout(cols= 2)
+        webbrowser.open('https://anilist.co/anime/'+str(anime_model.id)+'/', new=2)
+        # content2 = MDLabel(font_style='Body1',
+        #                   theme_text_color='Secondary',
+        #                   text=anime_model.description)
+        #
+        # content3 = MDLabel(font_style='Body1',
+        #                   theme_text_color='Secondary',
+        #                   text=anime_model.description)
+        #
+        # self.download_image('https://s3.anilist.co/media/anime/cover/small/nx101359-X6psMqBfatdw.jpg')
+        #
+        # image = Image(source='thumbnails/img.png')
+        # content = BoxLayout()
+        # content.orientation = 'vertical'
+        #
+        # content2.pos_hint = {'center_x': 0.5, 'center_y': 0.5}
+        #
+        #
+        # content.add_widget(content2)
+        # content.add_widget(image)
+        # # content.add_widget(SmartTile(mapmap=True,source='https://s3.anilist.co/media/anime/cover/small/nx101359-X6psMqBfatdw.jpg'))
+        # #content.bind(texture_size=content.setter('size'))
+        # self.dialog2 = MDDialog(title=anime_model.name,
+        #                         content=content,
+        #                         size_hint=(.8, None),
+        #                         height=dp(500),
+        #                         auto_dismiss=False)
+        #
+        # self.dialog2.add_action_button("Dismiss",
+        #                                action=lambda *x: self.dialog2.dismiss())
+        # self.dialog2.open()
 
     def anime_confirmation(self, anime_list):
         for anime in anime_list:
@@ -158,7 +186,7 @@ class Criterea_Selection(Screen):
             ml.add_widget(item)
 
 
-        self.dialog = MDDialog(title=str(len(anime_list)) + " Results! This is what we found for you.",
+        self.dialog = MDDialog(title=str(len(anime_list)) + " Results! This is what we found for you. Click to open browser for more info!",
                                content=ml,
                                size_hint=(.8, None),
                                height=dp(650),
