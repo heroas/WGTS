@@ -1,4 +1,5 @@
 from kivy.deps import sdl2, glew
+
 # -*- mode: python -*-
 
 block_cipher = None
@@ -8,7 +9,7 @@ a = Analysis(['src\\main.py'],
              pathex=['C:\\Users\\czaramo\\Desktop\\WGTS'],
              binaries=[],
              datas=[],
-             hiddenimports=[],
+             hiddenimports=['win32timezone'],
              hookspath=[],
              runtime_hooks=[],
              excludes=[],
