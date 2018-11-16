@@ -96,7 +96,15 @@
 <File_Chooser>:
     id: file_chooser
     name: 'file_chooser'
-    FileChooserListView:
-        id: filechooser
-        path: os.getcwd() + '/anime_lists'
-        on_selection: root.selected(filechooser.selection)
+    BoxLayout:
+        orientation: 'vertical'
+        FileChooserListView
+            id: filechooser
+            path: os.getcwd() + '/anime_lists'
+            on_selection: root.selected(filechooser.selection)
+        MDRaisedButton:
+            text: "Back"
+            theme_text_color: 'Primary'
+            opposite_colors: False
+            on_release: root.go_back()
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}

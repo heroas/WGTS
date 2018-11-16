@@ -28,6 +28,10 @@ class File_Chooser(Screen):
     def root():
         return self.root
 
+    def go_back(self):
+        self.manager.transition.direction = 'up'
+        self.manager.current = 'home'
+
     def selected(self, filename):
         print (filename)
 
