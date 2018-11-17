@@ -27,7 +27,10 @@ import webbrowser
 
 
 engine = KivyEngine()
-
+def resource_path(relative):
+    if hasattr(sys, "_MEIPASS"):
+        return os.path.join(sys._MEIPASS, relative)
+    return os.path.join(relative)
 
 class RemoveButton(IRightBodyTouch, MDIconButton):
     name = StringProperty()
