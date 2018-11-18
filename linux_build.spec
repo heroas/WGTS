@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['src/main.py'],
-             pathex=['/vagrant/WGTS'],
+             pathex=['/home/hero/Projects/PROJECT_AMASSANIME/WGTS'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -18,12 +18,14 @@ pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
           a.scripts,
+          [],
           exclude_binaries=True,
-          name='main',
+          name='Whats Good This Season',
           debug=False,
+          bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          console=True )
+          console=True , icon='images/icon.png')
 coll = COLLECT(exe,Tree('./src'),
                a.binaries,
                a.zipfiles,

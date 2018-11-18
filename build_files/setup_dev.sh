@@ -14,3 +14,4 @@ cd KivyMD
 cd ..
 
 cp WGTS/build_files/kivy.py wgts/lib/python3.6/site-packages/async_gui/toolkits/
+cp WGTS/build_files/hook-kivymd.py wgts/lib/python3.6/site-packages/PyInstaller/hooks/

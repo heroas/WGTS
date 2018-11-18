@@ -33,3 +33,9 @@ My best friend when the new season drops.
 **Now WHAT IF:**
 
 > you could just tell a program what you're looking for and it will fetch you shows based on that criteria and allow you to download them all in one app?
+
+## Development and Build
+
+```
+$ git clone https://github.com/heroas/WGTS.git
+```
