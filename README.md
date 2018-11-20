@@ -34,8 +34,34 @@ My best friend when the new season drops.
 
 > you could just tell a program what you're looking for and it will fetch you shows based on that criteria and allow you to download them all in one app?
 
-## Development and Build
+## Development
 
 ```
 $ git clone https://github.com/heroas/WGTS.git
+
+$ sh WGTS/build_files/setup_dev.sh
+
+$ source wgts/bin/activate
+
+$ cd WGTS/src
+
+$ python main.py
+```
+
+## Build
+
+:small_red_triangle: Inside of WGTS/src/linux_build.spec or window_build.spec
+
+make sure you change <kbd>pathex</kbd> to the path where WGTS is located. :small_red_triangle:
+
+```
+$ git clone https://github.com/heroas/WGTS.git
+
+$ sh WGTS/build_files/setup_dev.sh
+
+$ source wgts/bin/activate
+
+$ cd WGTS
+
+$ pyinstaller linux_build.spec / window_build.spec (depending on your system obviously)
 ```
