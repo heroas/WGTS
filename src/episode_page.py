@@ -121,6 +121,8 @@ class Episode_Page(Screen):
 
 
     def search(self, string):
+        self.ids.anime_img.source = 'thumbnails/default-thumbnail.jpg'
+
         Global.ROMAJI_LIST = []
         Global.ENG_LIST = []
         fresh_list = self.get_fresh_list()

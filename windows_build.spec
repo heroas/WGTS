@@ -25,7 +25,8 @@ exe = EXE(pyz,
           debug=False,
           strip=False,
           upx=True,
-          console=True , icon="images\\icon.ico")
+          console=False, 
+          icon="images\\icon.ico")
 
 coll = COLLECT(exe, 
 	       Tree('.\\src'),
@@ -35,4 +36,4 @@ coll = COLLECT(exe,
                 *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],
                strip=False,
                upx=True,
-               name='main')
+               name='Whats Good This Season')
