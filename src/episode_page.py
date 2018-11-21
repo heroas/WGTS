@@ -107,8 +107,6 @@ class Episode_Page(Screen):
         romaji_search = freshen_up_search(anime["romaji_name"], episode)
         eng_search = freshen_up_search(anime["eng_name"], episode)
 
-        print(romaji_search)
-        print(eng_search)
         if anime["romaji_name"] != str(None):
             anime_list_romaji = Nyaa.search(keyword=romaji_search, category=1, subcategory=2)
             Global.ROMAJI_LIST = anime_list_romaji
