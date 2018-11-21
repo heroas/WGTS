@@ -43,7 +43,7 @@ My best friend when the new season drops.
 * **Python**
 
 ## Package
-There is a release for windows here.
+There is a release for windows [here](https://github.com/heroas/WGTS/releases/tag/v1.0).
 
 If on Linux you're gonna have to compile yourself due to GPU reasons :cool:
 
