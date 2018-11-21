@@ -134,19 +134,11 @@ class Home(Screen):
         self.manager.transition.direction = 'down'
         self.manager.current = 'file_chooser'
 
-
-        # self.ids.home_spinner.active = True
-        # file = "test_" + Global.DB_FILE
-        # self.load_anime_list( file)
-        #
-        # self.ids.home_spinner.active = False
-
     def remove_accord_test(self):
         print(self.ids.accord_box.children)
         for child in self.ids.accord_box.children:
             print(child)
             self.ids.accord_box.remove_widget(child)
-        # Global.MAIN_WIDGET.ids.home.ids.accord_box.remove_widget(self.ids.home_anime_list)
 
 
     def add_accord_test(self):
@@ -164,16 +156,7 @@ class Home(Screen):
         get_started.title = "This is where you're watchlist will show."
         home_anime_list.add_widget(get_started)
         navigate_to_crit = MDAccordionSubItem(parent_item= get_started, text='Get started by going to the criterea selection screen!')
-        # navigate_to_crit.on_release = functools.partial(self.navigate, 'criterea_selection')
         get_started.add_widget(navigate_to_crit)
-        # get_started.icon = 'help'
-        # get_started.title = "This is where you'"
-        # get_started.md_bg_color = Global.SEASON_COLOR
-        # get_started.specific_text_color = get_color_from_hex('#000000')
-
-        # navigate_to_crit = MDAccordionSubItem(parent_item= get_started, text='Get started by going to the criterea selection screen!')
-        # get_started.add_widget(navigate_to_crit)
-        # accord.add_widget(get_started )
 
     def add_item_accord_test(self):
         home_anime_list = Global.MAIN_WIDGET.ids.home.ids.home_anime_list

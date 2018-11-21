@@ -119,7 +119,6 @@ class Episode_Page(Screen):
             Global.ENG_LIST = anime_list_eng
             self.add_to_list(anime_list_eng,fresh_list)
 
-        # Global.MAIN_WIDGET.ids.toolbar.left_action_items = [['arrow-left', lambda x: self.go_back()]]
 
     def search(self, string):
         Global.ROMAJI_LIST = []
@@ -133,5 +132,4 @@ class Episode_Page(Screen):
     def go_back(self):
         self.manager.transition.direction = 'right'
         self.manager.current = 'home'
-    #     Global.MAIN_WIDGET.ids.toolbar.left_action_items = [['menu', lambda x: self.root.toggle_nav_drawer()]]
     pass

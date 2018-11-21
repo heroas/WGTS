@@ -15,8 +15,7 @@ My best friend when the new season drops.
 
 #### Allow me to set the stage:
 
-**TL;NGR:** It fetches anime you would like and allows you to download them from one app. :unamused:
-Take me to [Skip](#markdown-header-ingredients)
+**TL;NGR:** It fetches anime you would like and allows you to download them from one app. :unamused:[Skip](#Ingredients)
 
 > time for the next season of anime to drop.
 
@@ -26,13 +25,13 @@ Take me to [Skip](#markdown-header-ingredients)
 > you don't know whats worth watching....
 > you hit up your bois looking for a quick answer and they give you a list of garbage  (because they have :poop: taste)
 
-> now its up to you to go one AniList,  MyAnimeList or whatever and go through each show vetting whether they are worth your immaculate viewing time.
+> now its up to you to go on AniList / MyAnimeList or whatever, and go through each show vetting whether they are worth your immaculate viewing time.
 
-> not only that but maybe you aren't up for the deep Urobuchi-like show that you have to think about. Maybe you just wanna watch cute girls doing cute things. :neckbeard:
+> not only that but maybe you aren't up for the deep Urobuchi-like show that you have to think about. Maybe, you just wanna watch cute girls doing cute things. :neckbeard:
 
-> and once you have your list you have to remember. Every. Week. To get on Nyaa, AnimeBytes, irc etc to get the episode to the show you want.
+> **AND** once you have your list you have to remember. Every. Week. To get on Nyaa, AnimeBytes, irc etc to get the episode to the show you want.
 
-> or maybe you're smart and you set up a feed. regardless it sounds like a lot of work for the average lazy man. And its why **YOU** end up skipping the season or saying "nothing good this season" :grimacing:
+> or maybe you're smart and you set up a feed. Regardless it sounds like a lot of work for the average lazy man. And its why **YOU** end up skipping the season or saying "nothing good this season" :grimacing:
 
 **Now WHAT IF:**
 
@@ -46,7 +45,7 @@ Take me to [Skip](#markdown-header-ingredients)
 ## Package
 There is a release for windows here.
 
-If on linux you're gonna have to compile yourself due to GPU reasons :cool:
+If on Linux you're gonna have to compile yourself due to GPU reasons :cool:
 
 
 ## Development
