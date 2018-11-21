@@ -8,15 +8,15 @@ My best friend when the new season drops.
 
 ![](https://img.shields.io/badge/Python-3.5-green.svg)
 
-![alt text][screenshot]
+[Screenshots](https://github.com/heroas/WGTS/tree/master/images) :camera:
 
-[screenshot]: images/crit.png "screenshot"
 
 ## What is this?
 
 #### Allow me to set the stage:
 
 **TL;NGR:** It fetches anime you would like and allows you to download them from one app. :unamused:
+Take me to [Skip](#markdown-header-ingredients)
 
 > time for the next season of anime to drop.
 
@@ -38,14 +38,23 @@ My best friend when the new season drops.
 
 > you could just tell a program what you're looking for and it will fetch you shows based on that criteria and allow you to download them all in one app?
 
+## Ingredients
+* [**Kivy**](https://github.com/kivy/kivy)
+* [**KivyMD**](https://gitlab.com/kivymd/KivyMD)
+* **Python**
+
+## Package
+There is a release for windows here.
+
+If on linux you're gonna have to compile yourself due to GPU reasons :cool:
+
+
 ## Development
 
 **Make sure you have python 3.5+ and git installed!**
 
-```
+``` bash
 $ git clone https://github.com/heroas/WGTS.git
-
-[^7c9a3675]:
 
 $ sh WGTS/build_files/setup_dev.sh
 
@@ -62,7 +71,7 @@ $ python main.py
 
 make sure you change <kbd>pathex</kbd> to the path where WGTS is located. :small_red_triangle:
 
-```
+``` bash
 $ git clone https://github.com/heroas/WGTS.git
 
 $ sh WGTS/build_files/setup_dev.sh
