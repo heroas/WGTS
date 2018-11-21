@@ -1,8 +1,12 @@
-# What's Good This Season?
+![alt text][title]
+
+[title]: images/WGTSTitle.png "title"
+
 
 My best friend when the new season drops.
 (a selfish project)
 
+![](https://img.shields.io/badge/Python-3.5-green.svg)
 
 ![alt text][screenshot]
 
@@ -36,8 +40,12 @@ My best friend when the new season drops.
 
 ## Development
 
+**Make sure you have python 3.5+ and git installed!**
+
 ```
 $ git clone https://github.com/heroas/WGTS.git
+
+[^7c9a3675]:
 
 $ sh WGTS/build_files/setup_dev.sh
 
