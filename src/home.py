@@ -99,6 +99,8 @@ class Home(Screen):
 
             start_fetching_episodes_from =  0
             episodes_out = anime["episodes_out"]
+            if(episodes_out is None):
+                episodes_out = 0
 
             if anime["romaji_name"] not in Global.ANIME_LIST:
                 print('Gonna start then')
@@ -110,12 +112,14 @@ class Home(Screen):
 
                 if anime["airing"]:
                     current_episode = yield Task(functools.partial(anilist_api.get_next_airing_episode,anime["id"]))
-                    current_episode = current_episode - 1
-                    print(anime["romaji_name"] + ' is on episode '+ str(current_episode) + ' | database shows '+ str(episodes_out))
-                    if(current_episode != episodes_out):
-                        print('changing db to match with eps')
-                        db.update({'episodes_out': current_episode}, Anime.id == anime["id"])
-                        episodes_out = current_episode
+                    print(current_episode)
+                    if(current_episode is not None):
+                        current_episode = current_episode - 1
+                        print(anime["romaji_name"] + ' is on episode '+ str(current_episode) + ' | database shows '+ str(episodes_out))
+                        if(current_episode != episodes_out):
+                            print('changing db to match with eps')
+                            db.update({'episodes_out': current_episode}, Anime.id == anime["id"])
+                            episodes_out = current_episode
 
                 if episodes_out > 50:
                     start_fetching_episodes_from = episodes_out - 50

@@ -24,8 +24,10 @@ import Global
 import shutil
 import webbrowser
 
+from random import randint
 
 engine = KivyEngine()
+
 def resource_path(relative):
     if hasattr(sys, "_MEIPASS"):
         return os.path.join(sys._MEIPASS, relative)
@@ -97,7 +99,8 @@ class Criterea_Selection(Screen):
         Global.EXCLUSIONS.remove(misc)
 
     def add_anime_to_db(x, self, anime_list):
-        name = 'anime_lists/' + x.ids.list_name.text + '_' +Global.DB_FILE
+        random = str(randint(50, 1000))
+        name = 'anime_lists/' + x.ids.list_name.text + '_' +random +'_' +Global.DB_FILE
         db = TinyDB(name)
 
         Anime = Query()
@@ -135,6 +138,7 @@ class Criterea_Selection(Screen):
         webbrowser.open('https://anilist.co/anime/'+str(anime_model.id)+'/', new=2)
 
     def anime_confirmation(self, anime_list):
+        Global.ANIME_CONFIRM_LIST = [];
         for anime in anime_list:
             Global.ANIME_CONFIRM_LIST.append(anime.name)
 

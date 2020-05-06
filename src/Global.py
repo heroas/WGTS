@@ -14,7 +14,6 @@ SEASON_COLOR = None
 SEASON_COLOR_DARK = None
 SEASON_THEME_PRIMARY = ''
 SEASON_NAME = 'Winter'
-Test = 'hi'
 EP_PAGE_EPISODE = None
 EP_PAGE_ANIME = None
 aclass= None

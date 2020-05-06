@@ -22,6 +22,7 @@ from services import anilist_api
 import functools
 import shutil
 
+from operator import itemgetter
 
 
 from async_gui.engine import Task
@@ -67,11 +68,14 @@ class Episode_Page(Screen):
         self.add_to_list(Global.CUSTOM_LIST,fresh_list)
 
     def add_to_list(self, anime_list, list_widget):
-        for torrent in anime_list:
-            torrent_details = 'seeders: '+ torrent["seeders"]+' | leechers: ' + torrent["leechers"] + ' | size: '+ torrent["size"] + ' | downloads: '+ torrent["completed_downloads"]
-            anime_list_item = TwoLineListItem(text=torrent["name"],secondary_text=torrent_details)
-            anime_list_item.on_release = functools.partial(self.open_bottom_sheet, torrent)
-            list_widget.add_widget(anime_list_item)
+        print(anime_list)
+        if len(anime_list)> 0:
+            new_list = sorted(anime_list, key=itemgetter('completed_downloads'),reverse=False) 
+            for torrent in new_list:
+                torrent_details = 'seeders: '+ torrent["seeders"]+' | leechers: ' + torrent["leechers"] + ' | size: '+ torrent["size"] + ' | downloads: '+ torrent["completed_downloads"]
+                anime_list_item = TwoLineListItem(text=torrent["name"],secondary_text=torrent_details)
+                anime_list_item.on_release = functools.partial(self.open_bottom_sheet, torrent)
+                list_widget.add_widget(anime_list_item)
 
     def get_fresh_list(self):
         for child in self.ids.list_container.children:

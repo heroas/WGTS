@@ -108,6 +108,9 @@ def get_next_airing_episode(id):
     }
     data = requestor.get_json_for_graphql(query, variables)
     result = requestor.get_json_from_post(ANI_LIST_URL, data)
+    print(result)
+    if result["data"]["Media"] is None:
+        return None
     if result["data"]["Media"]["nextAiringEpisode"] is not None:
         return result["data"]["Media"]["nextAiringEpisode"]["episode"]
     else:
